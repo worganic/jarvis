@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Jarvis",
+  "version": "4.103.0",
+  "identifier": "com.worganic.jarvis",
+  "build": {
+    "frontendDist": "../../ui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": [
+          "$AUDIO/**",
+          "$HOME/Music/**"
+        ]
+      }
+    }
+  },
+  "bundle": {
+    "active": false,
+    "icon": [
+      "icons/icon.ico",
+      "icons/icon.png"
+    ]
+  }
+}

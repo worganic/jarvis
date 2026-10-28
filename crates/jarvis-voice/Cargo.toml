@@ -1,0 +1,42 @@
+[package]
+name = "jarvis-voice"
+version.workspace = true
+edition.workspace = true
+description = "Jarvis v4 - moteur vocal : capture WASAPI, anti-écho, VAD, mot d'éveil, Whisper, locuteur, synthèse"
+
+[[bin]]
+name = "jarvis-voice"
+path = "src/main.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+tokio-tungstenite = { workspace = true, features = ["rustls-tls-webpki-roots"] }
+futures-util.workspace = true
+regex.workspace = true
+fancy-regex.workspace = true
+unicode-normalization.workspace = true
+sha2.workspace = true
+hex.workspace = true
+chrono.workspace = true
+getrandom.workspace = true
+reqwest.workspace = true
+windows.workspace = true
+jarvis-native.workspace = true
+# Anti-écho, anti-bruit, gain automatique : module WebRTC APM (AEC3), le même que la v3 (LiveKit).
+libwebrtc = "0.3.52"
+# Audio WASAPI (micro, sortie, capture « loopback » du son du PC).
+cpal = "0.18.2"
+# Whisper (décodeur maison), Silero VAD et empreinte vocale CAM++ : onnxruntime (GPU par DirectML).
+ort = { version = "=2.0.0-rc.14", default-features = false, features = ["std", "ndarray", "load-dynamic", "directml", "half", "api-24"] }
+half = "2"
+tokenizers = { version = "0.21", default-features = false, features = ["onig"] }
+# Mot d'éveil (zipformer KWS) et voix locale Piper de secours : sherpa-onnx.
+sherpa-rs = { version = "0.6.8", default-features = false, features = ["download-binaries", "tts", "sys"] }
+rustfft = "6"
+# Voix edge-tts (MP3) et cache disque (WAV).
+symphonia = { version = "0.5", default-features = false, features = ["mp3"] }
+hound = "3.5"
+flate2 = "1"
+sha1_smol = { version = "1", features = ["std"] }

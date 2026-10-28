@@ -1,0 +1,15 @@
+[package]
+name = "jarvis-launcher"
+version.workspace = true
+edition.workspace = true
+description = "Jarvis v4 - lanceur posé à la racine du projet (Jarvis v4.exe)"
+
+[[bin]]
+name = "jarvis-launcher"
+path = "src/main.rs"
+
+[build-dependencies]
+embed-resource = "3"
+
+[dependencies]
+windows.workspace = true

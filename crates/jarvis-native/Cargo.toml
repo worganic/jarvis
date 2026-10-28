@@ -1,0 +1,14 @@
+[package]
+name = "jarvis-native"
+version.workspace = true
+edition.workspace = true
+description = "Jarvis v4 - API Windows natives (remplace les outils C# de la v3 : capture d'écran, OCR, veille du bureau, UI Automation, mixeur et périphériques audio, fenêtre active)"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+windows.workspace = true
+windows-core = "0.61"
+base64.workspace = true
+unicode-normalization.workspace = true
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }

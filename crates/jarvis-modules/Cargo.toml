@@ -1,0 +1,19 @@
+[package]
+name = "jarvis-modules"
+version.workspace = true
+edition.workspace = true
+description = "Jarvis v4 - liste des modules (modules/<id>/core) liés au noyau"
+
+# Un module avec une partie noyau s'ajoute ici (dépendance facultative + feature du même nom que le module, ajoutée à
+# « default »), dans crates/jarvis-app/Cargo.toml (feature relayée) et dans src/lib.rs (un test vérifie que rien ne manque). L'installation (installer.ps1) compile avec
+# --no-default-features --features <modules choisis> ; le développement garde tout.
+[features]
+default = ["audio"]
+audio = ["dep:jarvis-mod-audio"]
+
+[dependencies]
+jarvis-core = { path = "../jarvis-core" }
+jarvis-mod-audio = { path = "../../modules/audio/core", optional = true }
+
+[dev-dependencies]
+serde_json.workspace = true

@@ -1,0 +1,12 @@
+[package]
+name = "jarvis-mod-audio"
+version = "1.0.0"
+edition.workspace = true
+description = "Module Audio de Jarvis : sortie, micro et voix (volumes, sourdines, périphériques, niveaux)"
+
+[dependencies]
+jarvis-core = { path = "../../../crates/jarvis-core" }
+jarvis-native.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+regex.workspace = true

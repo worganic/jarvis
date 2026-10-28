@@ -1,0 +1,10 @@
+{
+  "id": "musique",
+  "nom": "Musique",
+  "version": "1.0.0",
+  "description": "Card du lecteur de musique (Spotify, lecteur interne de Jarvis…) : pochette, progression, commandes, niveaux et volume de l'application qui joue. Contient le lecteur interne (webradios).",
+  "card": { "type": 2, "numero": 100, "titre": "MUSIQUE", "cle": "music" },
+  "widgets": ["music"],
+  "ui": { "scripts": ["ui/musique.js", "ui/lecteur.js"], "styles": ["ui/musique.css"] },
+  "parDefaut": true
+}

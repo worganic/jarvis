@@ -1,0 +1,29 @@
+/* --- Card Amis (Jarvis Réseau) --- */
+.widget.w-amis { cursor: default; }
+.w-amis .w-head { cursor: grab; }
+.w-am-help { font-size: calc(11px * var(--ui)); color: rgba(220, 245, 255, 0.8); margin-bottom: calc(8px * var(--ui)); }
+.w-am-input { width: 100%; box-sizing: border-box; margin: 0 0 calc(6px * var(--ui)); padding: calc(5px * var(--ui)) calc(7px * var(--ui));
+  background: rgba(var(--w-rgb), 0.06); border: 1px solid rgba(var(--w-rgb), 0.3); color: #e6faff; font: inherit; font-size: calc(12px * var(--ui)); }
+.w-am-input:focus { outline: none; border-color: rgba(var(--w-rgb), 0.7); }
+.w-am-row { border-top: 1px solid rgba(var(--w-rgb), 0.15); padding: calc(7px * var(--ui)) 0; }
+.w-am-row.w-am-click { cursor: pointer; }
+.w-am-row.w-am-click:hover { background: rgba(var(--w-rgb), 0.06); }
+.w-am-dim { opacity: 0.7; }
+.w-am-name { font-size: calc(12px * var(--ui)); color: #e6faff; }
+.w-am-sub { font-size: calc(10px * var(--ui)); color: rgba(200, 235, 245, 0.6); }
+.w-am-last { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w-am-notice { margin-top: calc(6px * var(--ui)); }
+.w-am-etat { font-size: calc(11px * var(--ui)); }
+.w-am-en_ligne { color: #43e6a0; }
+.w-am-absent { color: #ffb020; }
+.w-am-ne_pas_deranger { color: #ff4d5e; }
+.w-am-hors_ligne { color: rgba(200, 235, 245, 0.45); }
+.w-am-add { display: flex; gap: calc(6px * var(--ui)); align-items: flex-start; margin-top: calc(8px * var(--ui)); }
+.w-am-add .w-am-input { margin: 0; }
+.w-am-check { display: block; font-size: calc(11px * var(--ui)); color: rgba(220, 245, 255, 0.85); margin: calc(4px * var(--ui)) 0; }
+.w-am-select { background: rgba(var(--w-rgb), 0.08); color: #e6faff; border: 1px solid rgba(var(--w-rgb), 0.3); font-size: calc(10px * var(--ui)); }
+.w-am-msgs { max-height: calc(300px * var(--ui)); overflow-y: auto; margin: calc(6px * var(--ui)) 0; display: flex; flex-direction: column; gap: calc(5px * var(--ui)); }
+.w-am-msg { align-self: flex-start; max-width: 85%; padding: calc(5px * var(--ui)) calc(8px * var(--ui)); background: rgba(var(--w-rgb), 0.08); border: 1px solid rgba(var(--w-rgb), 0.18); }
+.w-am-msg.w-am-mine { align-self: flex-end; background: rgba(var(--w-rgb), 0.18); }
+.w-am-text { font-size: calc(12px * var(--ui)); color: #e6faff; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+.w-am-share { margin-top: calc(4px * var(--ui)); }

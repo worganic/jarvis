@@ -1,0 +1,26 @@
+/* Module Actions : numéro de la card après le titre de chaque ligne, ligne allumée quand sa card est ouverte.
+   Card réduite en bouton jaune : règles communes des cards de type 1 (ui/style.css). */
+/* Numéro de la card ouverte par une action (après son titre). */
+.w-row-no { display: inline-block; margin-left: calc(8px * var(--ui)); padding: 0 calc(6px * var(--ui)); border-radius: 999px; font: 700 calc(9.5px * var(--ui))/1.6 'Orbitron', 'Segoe UI', sans-serif; color: #021018; background: rgba(var(--t2-rgb), 0.9); vertical-align: middle; }
+.w-row-no:empty { display: none; }
+.w-row-alert { display: block; margin-top: calc(3px * var(--ui)); font: 700 calc(10px * var(--ui))/1.3 'Segoe UI', sans-serif; color: #ffd37a; animation: w-alert-pulse 1.6s ease-in-out infinite; }
+.w-row.alert { border-color: rgba(255, 205, 80, 0.7); }
+.w-mini-pill.has-alert::after { content: ' ●'; color: #ffb02e; animation: w-alert-pulse 1.6s ease-in-out infinite; }
+@keyframes w-alert-pulse { 50% { opacity: 0.45; } }
+/* Card Actions : la ligne d'une card ouverte est allumée (un second clic la referme). */
+.w-actions-card .w-row.on { border-color: rgba(var(--t2-rgb), 0.9); background: rgba(var(--t2-rgb), 0.16); box-shadow: 0 0 12px rgba(var(--t2-rgb), 0.3); }
+
+.w-row-count { margin-left: auto; padding-left: calc(10px * var(--ui)); align-self: center; font: 700 calc(15px * var(--ui))/1 'Orbitron', 'Segoe UI', sans-serif; color: rgba(var(--w-rgb), 0.95); text-shadow: 0 0 8px rgba(var(--w-rgb), 0.35); }
+.w-row-count:empty { display: none; }
+
+/* Mode « personnaliser » (⚙) : case « afficher » et ▲ ▼ devant chaque ligne ; une ligne masquée reste visible, estompée. */
+.w-act-edit { color: rgba(var(--w-rgb), 0.9); font-size: calc(13px * var(--ui)) !important; opacity: 0.8; filter: none; }
+.w-act-edit:hover, .w-act-edit.on { color: rgb(var(--w-rgb)); opacity: 1; text-shadow: 0 0 8px rgba(var(--w-rgb), 0.65); }
+.w-act-editbar, .w-act-tools { display: none; }
+.w-actions-card.w-act-editing .w-act-editbar { display: flex; align-items: center; justify-content: space-between; gap: calc(8px * var(--ui)); margin: calc(2px * var(--ui)) 0 calc(6px * var(--ui)); font: 600 calc(10px * var(--ui))/1.3 'Segoe UI', sans-serif; color: rgba(var(--w-rgb), 0.75); }
+.w-actions-card.w-act-editing .w-act-tools { display: inline-flex; align-items: center; gap: calc(2px * var(--ui)); margin-right: calc(6px * var(--ui)); }
+.w-act-show { margin: 0 calc(3px * var(--ui)) 0 0; cursor: pointer; accent-color: rgb(var(--t2-rgb)); }
+.w-act-move, .w-act-reset { background: rgba(var(--t2-rgb), 0.12); border: 1px solid rgba(var(--t2-rgb), 0.45); border-radius: calc(4px * var(--ui)); color: rgba(var(--w-rgb), 0.9); cursor: pointer; font-size: calc(9px * var(--ui)); line-height: 1.4; padding: 0 calc(5px * var(--ui)); }
+.w-act-move:hover, .w-act-reset:hover { background: rgba(var(--t2-rgb), 0.3); }
+.w-actions-card.w-act-editing .w-row { cursor: default; }
+.w-actions-card.w-act-editing .w-row.w-act-hidden { opacity: 0.4; }

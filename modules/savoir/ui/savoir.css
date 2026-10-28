@@ -1,0 +1,61 @@
+/* --- Module Data (dossiers de recherche) : liste et fiche d'un dossier --- */
+#mod-savoir.sv-card { cursor: default; }
+#mod-savoir .w-head { cursor: grab; }
+#mod-savoir .sv-title { text-transform: none; letter-spacing: 0.3px; font-size: calc(12px * var(--ui)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+#mod-savoir .sv-head-extra { display: inline-flex; align-items: center; gap: calc(6px * var(--ui)); margin-left: auto; }
+#mod-savoir .sv-back {
+  border: 1px solid rgba(var(--w-rgb), 0.35); background: rgba(var(--w-rgb), 0.07); color: #d8f6ff; cursor: pointer;
+  border-radius: calc(4px * var(--ui)); font-size: calc(11px * var(--ui)); padding: 0 calc(6px * var(--ui)); line-height: calc(18px * var(--ui));
+}
+#mod-savoir .sv-back:hover { background: rgba(var(--w-rgb), 0.22); }
+
+#mod-savoir .sv-chip { font-size: calc(8.5px * var(--ui)); letter-spacing: 1px; padding: 1px calc(5px * var(--ui)); border-radius: 3px; border: 1px solid currentColor; white-space: nowrap; }
+#mod-savoir .sv-chip.busy { color: #ffd76a; animation: sv-pulse 1.4s ease-in-out infinite; }
+#mod-savoir .sv-chip.warn { color: #ff9f6b; }
+@keyframes sv-pulse { 50% { opacity: 0.45; } }
+
+/* Liste */
+#mod-savoir .sv-list { max-height: calc(330px * var(--ui)); }
+#mod-savoir .sv-row { align-items: center; }
+#mod-savoir .sv-thumb, #mod-savoir .sv-cover, #mod-savoir .sv-shot {
+  flex: none; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  background: rgba(var(--w-rgb), 0.07); border: 1px solid rgba(var(--w-rgb), 0.25); border-radius: calc(4px * var(--ui));
+  color: rgba(var(--w-rgb), 0.8);
+}
+#mod-savoir .sv-thumb { width: calc(38px * var(--ui)); height: calc(38px * var(--ui)); margin-right: calc(8px * var(--ui)); font-size: calc(16px * var(--ui)); }
+#mod-savoir .sv-thumb img, #mod-savoir .sv-cover img, #mod-savoir .sv-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+#mod-savoir .sv-empty { font-size: calc(11px * var(--ui)); color: rgba(220, 245, 255, 0.7); padding: calc(8px * var(--ui)) 0; }
+#mod-savoir .sv-new, #mod-savoir .sv-actions { flex-wrap: nowrap; }
+#mod-savoir .sv-input, #mod-savoir .sv-select {
+  min-width: 0; background: rgba(0, 10, 20, 0.55); color: #e6faff; border: 1px solid rgba(var(--w-rgb), 0.35);
+  border-radius: calc(5px * var(--ui)); font: calc(10.5px * var(--ui)) 'Segoe UI', sans-serif; padding: calc(5px * var(--ui)) calc(7px * var(--ui));
+}
+#mod-savoir .sv-input { flex: 1; }
+#mod-savoir .sv-input:focus, #mod-savoir .sv-select:focus { outline: none; border-color: rgba(var(--w-rgb), 0.85); }
+
+/* Fiche d'un dossier */
+#mod-savoir .sv-top { display: flex; gap: calc(10px * var(--ui)); margin-bottom: calc(8px * var(--ui)); min-width: 0; }
+#mod-savoir .sv-cover { width: calc(120px * var(--ui)); height: calc(84px * var(--ui)); font-size: calc(30px * var(--ui)); }
+#mod-savoir .sv-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: calc(4px * var(--ui)); }
+#mod-savoir .sv-cat { font-size: calc(9px * var(--ui)); letter-spacing: 1.5px; text-transform: uppercase; color: rgba(var(--w-rgb), 0.85); }
+#mod-savoir .sv-resume { font-size: calc(10.5px * var(--ui)); line-height: 1.45; color: rgba(220, 245, 255, 0.88); max-height: calc(96px * var(--ui)); overflow-y: auto; user-select: text; }
+#mod-savoir .sv-stats { display: flex; flex-wrap: wrap; gap: calc(4px * var(--ui)) calc(10px * var(--ui)); margin-bottom: calc(8px * var(--ui)); font-size: calc(9px * var(--ui)); color: rgba(200, 235, 245, 0.6); }
+#mod-savoir .sv-stat b { color: #e6faff; font-size: calc(11px * var(--ui)); margin-right: 3px; }
+#mod-savoir .sv-scroll { max-height: calc(300px * var(--ui)); overflow-y: auto; padding-right: 4px; }
+#mod-savoir .sv-sec { margin-bottom: calc(10px * var(--ui)); }
+#mod-savoir .sv-sec-title { font-size: calc(9px * var(--ui)); letter-spacing: 2px; text-transform: uppercase; color: rgba(var(--w-rgb), 0.85); margin-bottom: calc(5px * var(--ui)); }
+#mod-savoir .sv-specs { display: grid; grid-template-columns: 1fr 1fr; gap: calc(3px * var(--ui)) calc(14px * var(--ui)); }
+#mod-savoir .sv-spec { display: flex; justify-content: space-between; gap: calc(8px * var(--ui)); font-size: calc(10px * var(--ui)); border-bottom: 1px solid rgba(var(--w-rgb), 0.15); padding-bottom: 2px; min-width: 0; }
+#mod-savoir .sv-spec span { color: rgba(200, 235, 245, 0.6); }
+#mod-savoir .sv-spec b { color: #e6faff; font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+#mod-savoir .sv-more { margin-top: calc(5px * var(--ui)); }
+#mod-savoir .sv-gallery { display: grid; grid-template-columns: repeat(6, 1fr); gap: calc(4px * var(--ui)); }
+#mod-savoir .sv-shot { aspect-ratio: 4 / 3; font-size: calc(14px * var(--ui)); }
+#mod-savoir .sv-tags { display: flex; flex-wrap: wrap; gap: calc(4px * var(--ui)); }
+#mod-savoir .sv-tag { font-size: calc(9.5px * var(--ui)); padding: 2px calc(6px * var(--ui)); border-radius: 3px; background: rgba(var(--w-rgb), 0.1); border: 1px solid rgba(var(--w-rgb), 0.25); color: #d8f6ff; }
+#mod-savoir .sv-sources { max-height: calc(160px * var(--ui)); }
+#mod-savoir .sv-hist { display: grid; grid-template-columns: auto 1fr auto auto; gap: calc(8px * var(--ui)); font-size: calc(9.5px * var(--ui)); color: rgba(200, 235, 245, 0.7); padding: 2px 0; }
+#mod-savoir .sv-hist span:nth-child(2) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#mod-savoir .sv-hist b.ok { color: #35ff9e; }
+#mod-savoir .sv-hist b.warn { color: #ff9f6b; }
+#mod-savoir .sv-links { flex-wrap: wrap; gap: 4px; }

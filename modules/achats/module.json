@@ -1,0 +1,9 @@
+{
+  "id": "achats",
+  "nom": "Achats",
+  "version": "1.0.0",
+  "description": "Fiche d'un produit : image, caractéristiques, prix de chaque boutique, meilleure offre et suivi des prix.",
+  "widgets": ["product_view"],
+  "ui": { "scripts": ["ui/achats.js"], "styles": ["ui/achats.css"] },
+  "parDefaut": true
+}

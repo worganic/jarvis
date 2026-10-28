@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>JARVIS · fond</title>
+  <!-- Bureau JARVIS, écrans secondaires (shell/src/desk.rs) : fond statique qui recouvre le fond
+       d'écran et les icônes de Windows. Ni animation ni connexion au noyau : il ne coûte rien. -->
+  <style>
+    :root { --rgb: 56, 225, 255; --bg: #00040a; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      user-select: none;
+      cursor: default;
+      background: var(--bg);
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 50% 55%, rgba(var(--rgb), 0.10) 0%, rgba(var(--rgb), 0.03) 38%, transparent 70%),
+        linear-gradient(rgba(var(--rgb), 0.045) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(var(--rgb), 0.045) 1px, transparent 1px) 0 0 / 48px 48px,
+        var(--bg);
+    }
+    #mark {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font: 600 13px Consolas, "Courier New", monospace;
+      letter-spacing: 0.9em;
+      color: rgba(var(--rgb), 0.28);
+    }
+    #ring {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(var(--rgb), 0.16);
+      box-shadow: 0 0 60px rgba(var(--rgb), 0.08), inset 0 0 40px rgba(var(--rgb), 0.06);
+      position: relative;
+    }
+    #ring::after {
+      content: '';
+      position: absolute;
+      inset: 22px;
+      border-radius: 50%;
+      border: 1px dashed rgba(var(--rgb), 0.12);
+    }
+    .corner {
+      position: fixed;
+      width: 42px;
+      height: 42px;
+      border: 0 solid rgba(var(--rgb), 0.25);
+    }
+    .tl { top: 18px; left: 18px; border-top-width: 1px; border-left-width: 1px; }
+    .tr { top: 18px; right: 18px; border-top-width: 1px; border-right-width: 1px; }
+    .bl { bottom: 18px; left: 18px; border-bottom-width: 1px; border-left-width: 1px; }
+    .br { bottom: 18px; right: 18px; border-bottom-width: 1px; border-right-width: 1px; }
+  </style>
+</head>
+<body>
+  <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+  <div id="mark"><div id="ring"></div>JARVIS</div>
+  <script src="hud.js"></script>
+  <script src="wallpaper.js"></script>
+  <script>
+    // Couleurs du thème choisi dans le HUD (même stockage local) ; suivies en direct.
+    function applyTheme() {
+      let id = 'cyan';
+      try { id = localStorage.getItem('jarvis.theme') || 'cyan'; } catch {}
+      const T = window.JARVIS && window.JARVIS.THEMES;
+      const t = T && (T[id] || T.cyan);
+      if (!t) return;
+      document.documentElement.style.setProperty('--rgb', t.primaryRgb);
+      document.documentElement.style.setProperty('--bg', t.bgHex);
+    }
+    applyTheme();
+    window.addEventListener('storage', (e) => { if (e.key === 'jarvis.theme') applyTheme(); });
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+  </script>
+</body>
+</html>

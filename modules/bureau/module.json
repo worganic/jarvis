@@ -1,0 +1,10 @@
+{
+  "id": "bureau",
+  "nom": "Bureau",
+  "version": "1.0.0",
+  "description": "Card 1 : fenêtres de chaque écran, applications en arrière-plan, emplacements 1-4 et capture d'écran (card de liste compacte du système).",
+  "card": { "type": 1, "numero": 1, "titre": "BUREAU", "cle": "bureau" },
+  "widgets": ["tool.bureau"],
+  "ui": { "scripts": ["ui/bureau.js"], "styles": ["ui/bureau.css"] },
+  "parDefaut": true
+}

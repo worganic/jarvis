@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aide de Jarvis</title>
+<style>
+  :root {
+    --bg: #04101a; --panel: #081a28; --panel2: #0b2234; --line: rgba(56, 225, 255, 0.22);
+    --fg: #d8f0f8; --dim: #8fb2c2; --accent: #38e1ff; --accent2: #7ef2e2; --warn: #ffc440; --bad: #ff4d5e; --ok: #35ff9e;
+    --mono: "Cascadia Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #f2f8fb; --panel: #ffffff; --panel2: #e7f1f6; --line: rgba(9, 110, 140, 0.25); --fg: #10303f; --dim: #4b6b7a; --accent: #046b87; --accent2: #0b8a7a; --warn: #8a6100; --bad: #b3182b; --ok: #137a45; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.6 "Segoe UI", system-ui, sans-serif; }
+  header { position: sticky; top: 0; z-index: 5; display: flex; gap: 16px; align-items: center; padding: 10px 24px; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  header h1 { margin: 0; font: 600 16px var(--mono); letter-spacing: 2px; color: var(--accent); white-space: nowrap; }
+  header .ver { font: 12px var(--mono); color: var(--dim); white-space: nowrap; }
+  #q { flex: 1; min-width: 120px; max-width: 460px; margin-left: auto; padding: 7px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--fg); font: inherit; }
+  #q:focus { outline: 2px solid var(--accent); }
+  .layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); max-width: 1320px; margin: 0 auto; }
+  nav { position: sticky; top: 56px; align-self: start; max-height: calc(100vh - 56px); overflow: auto; padding: 18px 12px 24px 20px; }
+  nav a { display: block; padding: 5px 10px; margin: 1px 0; border-left: 2px solid transparent; color: var(--dim); text-decoration: none; font-size: 13.5px; }
+  nav a:hover, nav a.on { color: var(--accent); border-left-color: var(--accent); background: var(--panel); }
+  nav .grp { margin: 14px 10px 4px; font: 11px var(--mono); letter-spacing: 1.5px; color: var(--dim); text-transform: uppercase; }
+  main { padding: 18px 28px 80px 12px; min-width: 0; }
+  .intro { color: var(--dim); font-size: 16px; margin: 6px 0 22px; }
+  section { margin: 0 0 34px; padding: 20px 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  section > h2 { margin: 0 0 6px; font: 600 19px "Segoe UI", sans-serif; color: var(--accent); }
+  section > h2 .tag { margin-left: 10px; padding: 2px 8px; border: 1px solid var(--accent2); border-radius: 10px; font: 10.5px var(--mono); letter-spacing: 1px; color: var(--accent2); vertical-align: middle; }
+  h3 { margin: 20px 0 8px; font-size: 14px; letter-spacing: 0.4px; color: var(--accent2); }
+  p { margin: 8px 0; }
+  ul, ol { margin: 6px 0 6px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  .astuce { margin: 12px 0; padding: 10px 14px; border-left: 3px solid var(--warn); background: var(--panel2); border-radius: 0 6px 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 14px; }
+  th { text-align: left; padding: 7px 10px; font: 11.5px var(--mono); letter-spacing: 1px; color: var(--dim); text-transform: uppercase; border-bottom: 1px solid var(--line); }
+  td { padding: 7px 10px; vertical-align: top; border-bottom: 1px solid color-mix(in srgb, var(--line) 50%, transparent); }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  td.wrap:first-child, table.wide td:first-child { white-space: normal; }
+  kbd, code { font: 12.5px var(--mono); padding: 1px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel2); color: var(--accent); }
+  .domaines { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; margin-top: 10px; }
+  .domaine { padding: 12px 14px; background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; }
+  .domaine h4 { margin: 0 0 4px; font-size: 14.5px; color: var(--accent); }
+  .domaine h4 span { display: inline-block; width: 24px; color: var(--accent2); }
+  .domaine p { margin: 0; font-size: 13.8px; color: var(--fg); }
+  .cmdcat { margin-top: 18px; }
+  .cmd { display: grid; grid-template-columns: minmax(180px, 34%) 1fr; gap: 14px; padding: 6px 0; border-bottom: 1px dashed color-mix(in srgb, var(--line) 60%, transparent); }
+  .cmd q { font-weight: 600; color: var(--fg); quotes: "« " " »"; }
+  .cmd span { color: var(--dim); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin: 10px 0 4px; }
+  .stat { padding: 10px 12px; background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; }
+  .stat b { display: block; font: 600 20px var(--mono); color: var(--accent); }
+  .stat span { font-size: 12.5px; color: var(--dim); }
+  .ragcard { margin: 14px 0; padding: 14px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel2); }
+  .ragcard h3 { margin-top: 0; }
+  .ok { color: var(--ok); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+  .risk-élevé { color: var(--bad); } .risk-moyen { color: var(--warn); } .risk-faible { color: var(--ok); }
+  .lvl { font: 12px var(--mono); padding: 1px 7px; border-radius: 9px; border: 1px solid var(--line); white-space: nowrap; }
+  .lvl.allow { color: var(--ok); } .lvl.voice { color: var(--warn); } .lvl.code { color: var(--bad); } .lvl.deny { color: var(--dim); }
+  .changed { color: var(--warn); }
+  .vers { margin: 12px 0; } .vers h4 { margin: 0 0 4px; font: 600 14px var(--mono); color: var(--accent); } .vers h4 span { color: var(--dim); font-weight: 400; }
+  .hide { display: none !important; }
+  #vide { display: none; padding: 30px; text-align: center; color: var(--dim); }
+  footer { padding: 18px 28px 40px; color: var(--dim); font-size: 13px; text-align: center; border-top: 1px solid var(--line); }
+  .note { color: var(--dim); font-size: 13px; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } nav { display: none; } main { padding: 14px; } .cmd { grid-template-columns: 1fr; gap: 2px; } td:first-child { white-space: normal; } }
+  @media print { header, nav, #q { display: none; } body { background: #fff; color: #000; } section { break-inside: avoid-page; border-color: #999; background: #fff; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>JARVIS · AIDE</h1>
+  <span class="ver" id="ver"></span>
+  <input id="q" type="search" placeholder="Rechercher dans l'aide (commande, raccourci, RAG…)" autocomplete="off" aria-label="Rechercher">
+</header>
+<div class="layout">
+  <nav id="nav" aria-label="Sommaire"></nav>
+  <main id="main">
+    <p class="intro" id="intro"></p>
+    <div id="vide">Aucun résultat pour cette recherche.</div>
+  </main>
+</div>
+<footer id="foot"></footer>
+
+<script src="aide-listes.js"></script>
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html !== undefined) e.innerHTML = html; return e; };
+  const num = (n) => (typeof n === 'number' ? n.toLocaleString('fr-FR') : esc(n));
+
+  async function load(url) {
+    try { const r = await fetch(url, { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); return await r.json(); } catch { return null; }
+  }
+
+  // --- Blocs de contenu rédigé (ui/aide-contenu.json) ---------------------------------------------
+  function bloc(b) {
+    const out = el('div');
+    if (b.type === 'p') out.append(el('p', '', esc(b.texte)));
+    else if (b.type === 'astuce') out.append(el('div', 'astuce', esc(b.texte)));
+    else if (b.type === 'liste') {
+      if (b.titre) out.append(el('h3', '', esc(b.titre)));
+      const l = el(b.ordonnee ? 'ol' : 'ul');
+      for (const i of b.items) l.append(el('li', 'item', esc(i)));
+      out.append(l);
+    } else if (b.type === 'table') {
+      if (b.titre) out.append(el('h3', '', esc(b.titre)));
+      out.append(table(b.colonnes, b.lignes, b.colonnes.length > 2));
+    } else if (b.type === 'domaines') {
+      const g = el('div', 'domaines');
+      for (const d of b.domaines) g.append(el('div', 'domaine item', `<h4><span>${esc(d.icone)}</span>${esc(d.titre)}</h4><p>${esc(d.texte)}</p>`));
+      out.append(g);
+    }
+    return out;
+  }
+
+  // html : les cellules sont déjà du HTML (échappé par l'appelant) ; sinon ce sont des textes.
+  function table(cols, rows, wide, html) {
+    const t = el('table', wide ? 'wide' : '');
+    t.innerHTML = `<thead><tr>${cols.map((c) => `<th>${esc(c)}</th>`).join('')}</tr></thead>`;
+    const tb = el('tbody');
+    for (const r of rows) {
+      const tr = el('tr', 'item');
+      tr.innerHTML = r.map((c) => `<td>${html ? c : esc(c)}</td>`).join('');
+      tb.append(tr);
+    }
+    t.append(tb);
+    return t;
+  }
+
+  function section(id, titre, tag) {
+    const s = el('section'); s.id = id;
+    s.append(el('h2', '', `${esc(titre)}${tag ? `<span class="tag">${esc(tag)}</span>` : ''}`));
+    return s;
+  }
+
+  // --- Sections vivantes (données du noyau : /aide/donnees.json) ----------------------------------
+  function commandes(d) {
+    const s = section('commandes', 'Commandes vocales', 'EN DIRECT');
+    if (!d) return offline(s);
+    const c = d.commandes;
+    s.append(el('p', 'note', `${num(c.total)} commandes dans ${c.categories.length} catégories, lues dans le catalogue de Jarvis. Les mots entre accolades sont à remplacer ; « aide pour … » retrouve une commande en décrivant ce que tu veux faire.`));
+    for (const cat of c.categories) {
+      const w = el('div', 'cmdcat');
+      w.append(el('h3', '', esc(cat)));
+      for (const x of c.liste.filter((y) => y.categorie === cat)) {
+        w.append(el('div', 'cmd item', `<q>${esc(x.dire).replace(/\{([^}]+)\}/g, '<em>$1</em>')}</q><span>${esc(x.effet)}</span>`));
+      }
+      s.append(w);
+    }
+    return s;
+  }
+
+  function capacites(d) {
+    const s = section('capacites', "Capacités et niveaux d'accord", 'EN DIRECT');
+    if (!d) return offline(s);
+    s.append(el('p', 'note', 'Chaque capacité a un niveau d\'accord réglable dans Administration › Sécurité. « Défaut » est le niveau d\'origine, « Actuel » celui qui s\'applique aujourd\'hui (surligné s\'il a été modifié).'));
+    const lib = { allow: 'direct', voice: 'oral', code: 'code', deny: 'interdit' };
+    const groups = [...new Set(d.actions.map((a) => a.groupe))];
+    for (const g of groups) {
+      s.append(el('h3', '', esc(g)));
+      const rows = d.actions.filter((a) => a.groupe === g).map((a) => [
+        esc(a.libelle) + (a.description ? `<br><span class="note">${esc(a.description)}</span>` : ''),
+        `<span class="risk-${esc(a.risque)}">${esc(a.risque)}</span>`,
+        `<span class="lvl ${esc(a.niveauParDefaut)}">${lib[a.niveauParDefaut] || esc(a.niveauParDefaut)}</span>`,
+        `<span class="lvl ${esc(a.niveau)} ${a.niveau !== a.niveauParDefaut ? 'changed' : ''}">${lib[a.niveau] || esc(a.niveau)}</span>`
+      ]);
+      const t = table(['Capacité', 'Risque', 'Défaut', 'Actuel'], rows, true, true);
+      t.querySelectorAll('td:first-child').forEach((td) => { td.style.whiteSpace = 'normal'; });
+      s.append(t);
+    }
+    return s;
+  }
+
+  function stat(v, label) { return `<div class="stat"><b>${v}</b><span>${esc(label)}</span></div>`; }
+  const etat = (ok, oui, non) => (ok ? `<span class="ok">${esc(oui)}</span>` : `<span class="warn">${esc(non)}</span>`);
+
+  function rag(d) {
+    const s = section('rag', 'RAG en direct', 'EN DIRECT');
+    if (!d) return offline(s);
+    const r = d.rag, m = r.memoire, ro = r.routeur, me = r.modeleEmbeddings;
+    s.append(el('p', 'note', 'Chiffres et réglages lus dans Jarvis à l\'ouverture de cette page. Jamais le contenu des souvenirs, des mails ou des réunions.'));
+
+    const mem = el('div', 'ragcard item');
+    mem.append(el('h3', '', '1 · Mémoire long terme'));
+    mem.append(el('div', 'stats', stat(num(m.souvenirs), 'souvenirs') + stat(num(m.epingles), 'épinglés (profil, projets)') + stat(num(m.temporaires || 0), 'temporaires (avec échéance)') + stat(num(m.vecteurs), `vecteurs calculés (dim. ${num(m.dimension)})`) + stat(m.indexe ? 'à jour' : 'à indexer', 'index sémantique')));
+    const cats = Object.entries(m.categories || {}).sort((a, b) => b[1] - a[1]);
+    mem.append(el('p', '', `<b>Catégories :</b> ${cats.length ? cats.map(([k, v]) => `${esc(k || 'sans catégorie')} (${v})`).join(', ') : 'aucune'}.`));
+    mem.append(table(['Réglage', 'Valeur'], [
+      ['Modèle d\'embeddings', `<code>${esc(m.modele || 'aucun')}</code> — ${etat(m.modeleInstalle, 'installé', 'non installé : recherche lexicale seule')}, ${etat(m.modeleCharge, 'chargé en mémoire', 'déchargé (se charge à la demande)')}`],
+      ['Déchargement', `après ${num(m.dechargeApresMinutes)} min d'inactivité`],
+      ['Pondération de la recherche', `${Math.round(m.poidsSemantique * 100)} % sens (similarité cosinus) + ${Math.round(m.poidsLexical * 100)} % mots`],
+      ['Seuils de pertinence', `similarité minimale ${m.seuilMinimal} ; au moins ${Math.round(m.seuilRelatif * 100)} % de la meilleure similarité trouvée`],
+      ['Injection dans les sessions IA', `catégories ${(m.injectionCategories || []).join(', ')} et souvenirs temporaires (${num(m.injectionMaxCaracteres)} caractères au plus) ; le reste à la demande (memoire_lire)`],
+      ['Mémoire automatique', m.automatique ? `${etat(m.automatique.active, 'activée', 'désactivée')} — analyse après ${num(m.automatique.minutes)} min de silence, ${num(m.automatique.enAttente)} phrase(s) en attente, ${num(m.automatique.analyses)} analyse(s) au journal` : 'indisponible'],
+      ['Fichiers', `<code>data/${esc(m.fichier)}</code> et <code>data/${esc(m.fichierVecteurs)}</code>`]
+    ], false, true));
+    s.append(mem);
+
+    const rt = el('div', 'ragcard item');
+    rt.append(el('h3', '', '2 · Routeur sémantique'));
+    rt.append(el('div', 'stats', stat(num(ro.intentions), 'intentions locales') + stat(num(ro.phrasesExemples), 'phrases d\'exemple') + stat(ro.seuil, 'seuil de similarité')));
+    rt.append(el('p', '', `Intentions : ${ro.liste.map((x) => `<code>${esc(x)}</code>`).join(' ')}. Une phrase n'est acceptée que si sa similarité atteint le seuil et dépasse la 2ᵉ meilleure intention d'une marge ; sinon la demande suit son chemin (jamais bloquant).`));
+    s.append(rt);
+
+    const ac = el('div', 'ragcard item');
+    ac.append(el('h3', '', '3 · Aide aux commandes'));
+    ac.append(el('div', 'stats', stat(num(r.aideCommandes.commandes), 'commandes cataloguées') + stat(num(r.aideCommandes.categories), 'catégories')));
+    ac.append(el('p', '', 'Score par mots en commun entre ta description et chaque commande, pondérés par leur rareté ; les compétences du dossier skills y sont ajoutées automatiquement.'));
+    s.append(ac);
+
+    const ru = el('div', 'ragcard item');
+    ru.append(el('h3', '', '4 · Recherche dans les réunions'));
+    ru.append(el('div', 'stats', stat(num(r.reunions.passages), 'passages de réunions') + stat(num(r.reunions.vecteurs), 'vecteurs calculés')));
+    ru.append(el('p', '', 'Utilisée par « qu\'a-t-on décidé sur… ? » (outils reunions_chercher et reunion_lire). Recherche par le sens quand le modèle est chargé, sinon par les mots.'));
+    s.append(ru);
+
+    const dc = el('div', 'ragcard item');
+    dc.append(el('h3', '', '5 · Documents locaux'));
+    const dd = r.documents || {};
+    dc.append(el('div', 'stats', stat(num(dd.dossiers), 'dossiers suivis') + stat(num(dd.fichiers), 'fichiers lus') + stat(num(dd.passages), 'passages') + stat(num(dd.vecteurs), 'vecteurs calculés')));
+    dc.append(el('p', '', 'Utilisée par « que dit mon … ? » (outil documents_chercher, lecture seule) : PDF, Word, texte, Markdown et CSV des dossiers choisis dans Administration › Documents. Recherche par le sens quand le modèle est chargé, sinon par les mots.'));
+    s.append(dc);
+
+    const sv = el('div', 'ragcard item');
+    sv.append(el('h3', '', '6 · Dossiers Data'));
+    const ds = r.savoir || {};
+    sv.append(el('div', 'stats', stat(num(ds.dossiers), 'dossiers') + stat(num(ds.enCours), 'recherches en cours') + stat(num(ds.sources), 'sources') + stat(num(ds.images), 'images') + stat(num(ds.passages), 'passages') + stat(num(ds.vecteurs), 'vecteurs calculés') + stat(`${((ds.taille || 0) / 1048576).toFixed(1)} Mo`, 'sur le disque')));
+    sv.append(el('p', '', `Utilisée par les questions sur un sujet documenté (outil savoir_chercher, lecture seule). Un RAG par dossier (data/savoir/), rempli par « fais un dossier sur… » : ${num(ds.budgetParDefaut)} min de recherche par défaut, ${num(ds.budgetMax)} au plus, ${num(ds.maxDossiers)} dossiers au plus. Recherche par le sens quand le modèle est chargé, sinon par les mots.`));
+    s.append(sv);
+
+    const ca = el('div', 'ragcard item');
+    ca.append(el('h3', '', '7 · Cache des réponses'));
+    ca.append(el('div', 'stats', stat(`${num(r.cacheReponses.entrees)} / ${num(r.cacheReponses.max)}`, 'réponses en cache') + stat(`${num(r.cacheReponses.dureeMinutes)} min`, 'durée de validité')));
+    ca.append(el('p', '', 'Questions de culture générale seulement ; jamais ce qui dépend du moment, de toi ou d\'une action.'));
+    s.append(ca);
+
+    s.append(el('p', 'note', `Modèle d'embeddings par défaut : <code>${esc(me.defaut)}</code> (multilingue, quantifié, exécuté hors ligne dans un fil dédié).`));
+    return s;
+  }
+
+  function modulesInstalles(d) {
+    const s = section('modules-installes', 'Modules installés', 'EN DIRECT');
+    if (!d || !Array.isArray(d.modules)) return offline(s);
+    if (!d.modules.length) { s.append(el('p', 'note', 'Aucun module dans le dossier modules/.')); return s; }
+    s.append(table(['Module', 'Card', 'Partie noyau', 'État'], d.modules.map((m) => [
+      `<strong>${esc(m.nom)}</strong> v${esc(m.version || '?')}<br><span class="note">${esc(m.description || '')} · modules/${esc(m.id)}/</span>`,
+      m.card ? `n° ${esc(m.card.numero)} · type ${esc(m.card.type)}` : '—',
+      !m.noyau ? 'non' : (m.lie ? 'oui' : 'non compilée'),
+      m.actif ? 'actif' : 'désactivé'
+    ]), true, true));
+    return s;
+  }
+
+  function etatCourant(d) {
+    const s = section('etat', 'État actuel de Jarvis', 'EN DIRECT');
+    if (!d) return offline(s);
+    const i = d.etat.ia;
+    s.append(table(['Élément', 'Valeur'], [
+      ['Moteur IA', `${esc(i.moteur)}${i.modele ? ' · ' + esc(i.modele) : ''}${i.effort ? ' · effort ' + esc(i.effort) : ''}`],
+      ['Voix de Jarvis', `${esc(i.voix)} (${esc(i.debit)})`],
+      ['Mode d\'écoute', esc({ wakeword: 'mot d\'éveil', ptt: 'appui pour parler', free: 'écoute libre' }[i.modeEcoute] || i.modeEcoute)],
+      ['Thème / densité', `${esc(i.theme)} / ${esc(i.densite)}`],
+      ['Personnage du cœur', esc(i.personnage)],
+      ['Connecteurs MCP actifs', d.etat.connecteurs.length ? d.etat.connecteurs.map(esc).join(', ') : 'aucun'],
+      ['Zones d\'accès', d.etat.zones.map((z) => `${esc(z.nom)} <span class="note">(lecture ${esc(z.lecture)}, écriture ${esc(z.ecriture)})</span>`).join('<br>')]
+    ], false, true));
+    return s;
+  }
+
+  function nouveautes(cl) {
+    const s = section('nouveautes', 'Dernières nouveautés', 'EN DIRECT');
+    if (!cl || !cl.versions) return offline(s);
+    for (const v of cl.versions.slice(0, 6)) {
+      const w = el('div', 'vers');
+      w.append(el('h4', '', `v${esc(v.version)} <span>${esc(v.date)} — ${esc(v.title)}</span>`));
+      const l = el('ul');
+      for (const c of v.changes) l.append(el('li', 'item', esc(c.text)));
+      w.append(l);
+      s.append(w);
+    }
+    s.append(el('p', 'note', 'L\'historique complet est dans le HUD : clic sur le numéro de version.'));
+    return s;
+  }
+
+  function offline(s) {
+    s.append(el('p', 'note', 'Données en direct indisponibles : ouvre cette page depuis le bouton « ? AIDE » du HUD (Jarvis doit être lancé).'));
+    return s;
+  }
+
+  // --- Assemblage -----------------------------------------------------------------------------------
+  async function main() {
+    const [contenu, donnees, cl] = await Promise.all([load('aide-contenu.json'), load('/aide/donnees.json'), load('changelog.json')]);
+    const root = $('#main');
+    if (!contenu) { root.append(el('p', 'bad', 'Contenu de l\'aide introuvable (ui/aide-contenu.json).')); return; }
+    $('#intro').textContent = contenu.sousTitre;
+    const v = donnees && donnees.version;
+    $('#ver').textContent = v && v.version ? `Jarvis v${v.version} — ${v.title || ''}` : '';
+
+    // Ordre : rédigé, avec les sections vivantes insérées là où elles complètent le texte.
+    const live = {
+      fonctions: [() => commandes(donnees)],
+      modules: [() => modulesInstalles(donnees)],
+      securite: [() => capacites(donnees)],
+      'rag-texte': [() => rag(donnees), () => (window.AideListes ? window.AideListes.build() : section('rag-listes', 'RAG — Listes à fiches', 'EN DIRECT'))],
+      sauvegarde: [() => etatCourant(donnees), () => nouveautes(cl)]
+    };
+    const nav = $('#nav');
+    const vide = $('#vide');
+    const toc = [];
+    for (const sec of contenu.sections) {
+      const s = section(sec.id, sec.titre);
+      if (sec.intro) s.append(el('p', 'note', esc(sec.intro)));
+      for (const b of sec.blocs) s.append(bloc(b));
+      root.insertBefore(s, vide);
+      toc.push([sec.id, sec.titre, false]);
+      for (const mk of live[sec.id] || []) {
+        const ls = mk();
+        root.insertBefore(ls, vide);
+        toc.push([ls.id, ls.querySelector('h2').firstChild.textContent, true]);
+      }
+    }
+    nav.innerHTML = '';
+    nav.append(el('div', 'grp', 'Sommaire'));
+    for (const [id, titre, liveSec] of toc) {
+      const a = el('a', '', `${esc(titre)}${liveSec ? ' ·' : ''}`);
+      a.setAttribute('href', `#${id}`);
+      nav.append(a);
+    }
+    $('#foot').innerHTML = `Cette page est mise à jour à chaque nouvelle fonction de Jarvis (texte : <code>ui/aide-contenu.json</code>, révision v${esc(contenu.aJourVersion)} ; les sections « en direct » viennent du noyau).`;
+
+    // Section courante dans le sommaire.
+    const links = [...nav.querySelectorAll('a')];
+    const io = new IntersectionObserver((es) => {
+      for (const e of es) if (e.isIntersecting) links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === `#${e.target.id}`));
+    }, { rootMargin: '-80px 0px -70% 0px' });
+    root.querySelectorAll('section').forEach((s) => io.observe(s));
+
+    // Recherche : masque ce qui ne correspond pas, et les sections vides.
+    const q = $('#q');
+    q.addEventListener('input', () => {
+      const terms = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+      let any = false;
+      for (const s of root.querySelectorAll('section')) {
+        const items = s.querySelectorAll('.item');
+        let shown = 0;
+        items.forEach((i) => { const hit = terms.every((t) => i.textContent.toLowerCase().includes(t)); i.classList.toggle('hide', !hit); if (hit) shown++; });
+        const titleHit = terms.length && terms.every((t) => s.querySelector('h2').textContent.toLowerCase().includes(t));
+        if (titleHit) items.forEach((i) => i.classList.remove('hide'));
+        const visible = !terms.length || titleHit || shown > 0;
+        s.classList.toggle('hide', !visible);
+        s.querySelectorAll('.cmdcat').forEach((c) => c.classList.toggle('hide', terms.length > 0 && !titleHit && !c.querySelector('.cmd:not(.hide)')));
+        if (visible) any = true;
+      }
+      vide.style.display = any ? 'none' : 'block';
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); } });
+    if (location.hash) { const t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); }
+  }
+  main();
+})();
+</script>
+</body>
+</html>

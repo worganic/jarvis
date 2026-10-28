@@ -1,0 +1,10 @@
+/* --- Card Nomade (renderNomade) --- */
+.widget.w-nomade { cursor: default; }
+.w-nomade .w-head { cursor: grab; }
+.w-nm-state { font-size: calc(11px * var(--ui)); color: rgba(220, 245, 255, 0.85); margin-bottom: calc(8px * var(--ui)); }
+.w-nm-state.w-nm-err { color: #ffb36b; }
+.w-nm-depot { border-top: 1px solid rgba(var(--w-rgb), 0.15); padding: calc(7px * var(--ui)) 0; }
+.w-nm-text { font-size: calc(12px * var(--ui)); color: #e6faff; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+.w-nm-sub { font-size: calc(10px * var(--ui)); color: rgba(200, 235, 245, 0.6); margin: 2px 0 5px; }
+.w-nm-depot .w-note-actions { margin-top: 0; }
+.w-nm-group { font-size: calc(10px * var(--ui)); letter-spacing: 0.08em; text-transform: uppercase; color: #ffb36b; margin-top: calc(8px * var(--ui)); }

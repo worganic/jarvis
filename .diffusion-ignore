@@ -1,0 +1,18 @@
+# Fichiers du dépôt privé jamais publiés sur le dépôt de diffusion (tools/publier.ps1).
+# Un motif par ligne, chemin relatif à la racine (jokers * et ?), un dossier se termine par /.
+
+# Documents de travail
+afaire.md
+modif-separation-data.md
+PORTAGE.md
+CLAUDE.md
+cahier_des_charges_*.md
+docs/
+
+# Configuration propre au serveur Nomade (accès générés par deploy.ps1, déploiement)
+web-nomade/private/
+web-nomade/deploy.ps1
+
+# Outils du développeur
+tools/publier.ps1
+web-reseau/deploy.ps1

@@ -1,0 +1,30 @@
+/* Module Create module : styles de la card (tous préfixés pour ne rien toucher d'autre). */
+#mod-creer-module { position: fixed; left: 34%; top: 14%; z-index: 7; width: calc(380px * var(--ui)); max-height: 78vh; display: flex; flex-direction: column; }
+#mod-creer-module .cm-body { padding: calc(8px * var(--ui)) 0; font-size: calc(11px * var(--ui)); color: rgba(200, 235, 245, 0.9); overflow-y: auto; min-height: 0; }
+#mod-creer-module.mod-collapsed .mod-body { display: none; }
+#mod-creer-module .cm-close { margin-left: auto; background: none; border: 0; color: inherit; cursor: pointer; opacity: 0.7; font-size: calc(13px * var(--ui)); }
+#mod-creer-module .cm-close:hover { opacity: 1; }
+#mod-creer-module .cm-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+#mod-creer-module .cm-title { font-weight: 700; letter-spacing: 0.04em; color: rgba(190, 140, 255, 0.95); margin-bottom: 6px; }
+#mod-creer-module .cm-top .cm-title { margin-bottom: 0; }
+#mod-creer-module .cm-list { display: flex; flex-direction: column; gap: 6px; }
+#mod-creer-module .cm-row { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border: 1px solid rgba(190, 140, 255, 0.25); border-radius: 8px; background: rgba(190, 140, 255, 0.06); }
+#mod-creer-module .cm-row-text { flex: 1; min-width: 0; }
+#mod-creer-module .cm-sub { opacity: 0.75; font-size: calc(10px * var(--ui)); margin-top: 2px; }
+#mod-creer-module .cm-tag { margin-left: 6px; padding: 0 5px; border-radius: 6px; font-size: calc(9px * var(--ui)); background: rgba(190, 140, 255, 0.2); }
+#mod-creer-module .cm-empty { opacity: 0.75; line-height: 1.5; }
+#mod-creer-module .cm-in { width: 100%; box-sizing: border-box; resize: vertical; padding: 6px 8px; border-radius: 8px; border: 1px solid rgba(190, 140, 255, 0.35); background: rgba(10, 16, 28, 0.7); color: inherit; font: inherit; }
+#mod-creer-module .cm-actions { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+#mod-creer-module .cm-btn { padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(190, 140, 255, 0.4); background: rgba(190, 140, 255, 0.1); color: inherit; font: inherit; cursor: pointer; }
+#mod-creer-module .cm-btn:hover { background: rgba(190, 140, 255, 0.25); }
+#mod-creer-module .cm-btn.primary { background: rgba(190, 140, 255, 0.35); font-weight: 700; }
+#mod-creer-module .cm-btn.danger:hover { background: rgba(255, 77, 94, 0.35); border-color: rgba(255, 77, 94, 0.7); }
+#mod-creer-module .cm-chat { display: flex; flex-direction: column; gap: 6px; max-height: calc(260px * var(--ui)); overflow-y: auto; margin-bottom: 8px; }
+#mod-creer-module .cm-msg { padding: 6px 9px; border-radius: 9px; max-width: 92%; line-height: 1.45; white-space: pre-wrap; }
+#mod-creer-module .cm-msg.me { align-self: flex-end; background: rgba(56, 225, 255, 0.14); }
+#mod-creer-module .cm-msg.ai { align-self: flex-start; background: rgba(190, 140, 255, 0.16); }
+#mod-creer-module .cm-msg.err { align-self: flex-start; background: rgba(255, 77, 94, 0.18); }
+#mod-creer-module .cm-think { opacity: 0.7; font-style: italic; }
+#mod-creer-module .cm-propose { margin: 4px 0 8px; padding: 8px; border-radius: 9px; border: 1px solid rgba(53, 255, 158, 0.4); background: rgba(53, 255, 158, 0.07); }
+#mod-creer-module .cm-msg-line { margin-top: 8px; color: rgba(53, 255, 158, 0.95); }
+#mod-creer-module .cm-msg-line.err { color: rgba(255, 110, 120, 0.95); }

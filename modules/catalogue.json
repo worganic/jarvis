@@ -1,0 +1,212 @@
+{
+  "version": "4.103.0",
+  "modules": [
+    {
+      "id": "actions",
+      "nom": "Actions",
+      "description": "Card 5 : la liste des cards qu'on peut ouvrir, d'après les fiches des autres modules (un clic ouvre, un second referme).",
+      "socle": true,
+      "noyau": false,
+      "dependances": [],
+      "octets": 21858.0
+    },
+    {
+      "id": "audio",
+      "nom": "Audio",
+      "description": "Sortie, micro et voix de Jarvis : volumes, sourdines, choix du périphérique, niveaux en direct.",
+      "socle": true,
+      "noyau": true,
+      "dependances": [],
+      "octets": 37697.0
+    },
+    {
+      "id": "conversation",
+      "nom": "Conversation",
+      "description": "Card 4 : la conversation en cours (ce que tu dis, ce que répond Jarvis), dessinée sur le canevas du HUD par ui/app.js.",
+      "socle": true,
+      "noyau": false,
+      "dependances": [],
+      "octets": 348.0
+    },
+    {
+      "id": "achats",
+      "nom": "Achats",
+      "description": "Fiche d'un produit : image, caractéristiques, prix de chaque boutique, meilleure offre et suivi des prix.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 7288.0
+    },
+    {
+      "id": "agenda",
+      "nom": "Agenda",
+      "description": "Rendez-vous de Google Agenda : prochains rendez-vous et agenda du jour (card de liste du système).",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 465.0
+    },
+    {
+      "id": "agents",
+      "nom": "Agents",
+      "description": "Agents autonomes créés à partir d'une demande texte ou vocale : surveillance continue (mails, matériel CPU/RAM/GPU, horaires, web) et exécution IA (Gemini 3.8 Flash / Claude Haiku).",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 44956.0
+    },
+    {
+      "id": "amis",
+      "nom": "Amis",
+      "description": "Jarvis Réseau : compte par mail, demandes d'ami (accepter, refuser, bloquer), messages chiffrés de bout en bout, présence des amis (leur cœur), listes et dossiers partagés ami par ami.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 18541.0
+    },
+    {
+      "id": "bureau",
+      "nom": "Bureau",
+      "description": "Card 1 : fenêtres de chaque écran, applications en arrière-plan, emplacements 1-4 et capture d'écran (card de liste compacte du système).",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 1965.0
+    },
+    {
+      "id": "checkup",
+      "nom": "Checkup",
+      "description": "Bilan des fonctions vitales de Jarvis, avec le cœur passé au scanner holographique 3D (« Jarvis, checkup »).",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 46033.0
+    },
+    {
+      "id": "compagnon",
+      "nom": "Compagnon",
+      "description": "Compagnon de bureau (tamagotchi) : le cœur choisi naît d'un œuf et évolue selon l'usage du PC (stade, branche, faim, humeur, énergie, souvenirs). Option de l'administration, désactivée par défaut.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 12426.0
+    },
+    {
+      "id": "creer-module",
+      "nom": "Create module",
+      "description": "Créer ses propres modules Jarvis : décrire la card voulue, répondre aux questions de l'IA, puis lister, modifier ou supprimer ses modules (rangés dans data/user-modules/).",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 14996.0
+    },
+    {
+      "id": "savoir",
+      "nom": "Data",
+      "description": "Dossiers de recherche sur un thème ou un produit : collecte web en temps limité, RAG dédié, images, approfondissement, statistiques.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 35381.0
+    },
+    {
+      "id": "devant",
+      "nom": "Devant",
+      "description": "Applications ouvertes en liste verticale (mini-cards, premier plan, réduites) et applications retirées.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 19991.0
+    },
+    {
+      "id": "diction",
+      "nom": "Diction",
+      "description": "Corriger la prononciation de Jarvis : les 3 dernières phrases dites, mots cliquables (mots suspects signalés), écoute du mot tel qu'il est dit, essai et enregistrement de la bonne prononciation, pour toutes les voix ou la voix choisie.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 12704.0
+    },
+    {
+      "id": "listes",
+      "nom": "Listes à fiches",
+      "description": "Listes à fiches (vinyles, Lego, livres…) : mini-cards, fiche complète, création guidée et vue « Mes listes ».",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 61803.0
+    },
+    {
+      "id": "mails",
+      "nom": "Mails",
+      "description": "Derniers mails et nouveaux mails (card de liste du système) et lecture d'un mail avec ses actions.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 5882.0
+    },
+    {
+      "id": "materiel",
+      "nom": "Matériel",
+      "description": "Processeur, GPU, mémoire et disques en direct : jauges circulaires et barres néon (interface seule ; mesures du cœur).",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 17444.0
+    },
+    {
+      "id": "musique",
+      "nom": "Musique",
+      "description": "Card du lecteur de musique (Spotify, lecteur interne de Jarvis…) : pochette, progression, commandes, niveaux et volume de l'application qui joue. Contient le lecteur interne (webradios).",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 34301.0
+    },
+    {
+      "id": "navigateur",
+      "nom": "Navigateur",
+      "description": "Card d'un navigateur (Chrome, Edge) : instances numérotées et leurs pages « 1.1, 1.2… » (extension Chrome). Card de liste du système : la fiche suffit.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 312.0
+    },
+    {
+      "id": "nomade",
+      "nom": "Nomade",
+      "description": "Site Nomade (Hostinger) : état de la synchronisation des données partagées et dépôts faits depuis le téléphone (en note, en rappel, en demande, ou ignorés).",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 8117.0
+    },
+    {
+      "id": "projets",
+      "nom": "Projets",
+      "description": "Liste des projets (Claude Code, dossiers de travail) avec leurs actions. Card de liste du système : la fiche suffit, sans script.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 460.0
+    },
+    {
+      "id": "reunions",
+      "nom": "Réunions",
+      "description": "Card d'une réunion enregistrée (personnes présentes, voix à nommer, texte en direct, résumé) et liste des réunions.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 18154.0
+    },
+    {
+      "id": "terminal",
+      "nom": "Terminal",
+      "description": "Card des terminaux et agents ouverts par Jarvis (Claude Code, tmux…) : une ligne par agent, dictée dans le terminal, actions.",
+      "socle": false,
+      "noyau": false,
+      "dependances": [],
+      "octets": 2993.0
+    }
+  ]
+}

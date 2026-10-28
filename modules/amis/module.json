@@ -1,0 +1,11 @@
+{
+  "id": "amis",
+  "nom": "Amis",
+  "version": "1.0.0",
+  "description": "Jarvis Réseau : compte par mail, demandes d'ami (accepter, refuser, bloquer), messages chiffrés de bout en bout, présence des amis (leur cœur), listes et dossiers partagés ami par ami.",
+  "card": { "type": 2, "numero": 124, "titre": "AMIS", "emplacement": "amis_view" },
+  "widgets": ["amis_view"],
+  "ui": { "scripts": ["ui/amis.js"], "styles": ["ui/amis.css"] },
+  "actions": [{ "ico": "♥", "titre": "Amis", "sous": "Messages, présence, partages", "appel": ["reseau", "ouvrir"], "emplacement": "amis_view" }],
+  "parDefaut": true
+}

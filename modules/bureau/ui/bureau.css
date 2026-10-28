@@ -1,0 +1,4 @@
+/* Module Bureau : bouton de capture d'écran tout en bas de la card. */
+.w-shot { flex: none; align-self: center; margin-top: calc(6px * var(--ui)); width: calc(34px * var(--ui)); height: calc(28px * var(--ui)); border: 1px solid rgba(var(--w-rgb), 0.4); background: rgba(var(--w-rgb), 0.08); border-radius: 5px; cursor: pointer; font-size: calc(13px * var(--ui)); }
+.w-shot:hover { background: rgba(var(--w-rgb), 0.25); border-color: rgba(var(--w-rgb), 0.8); }
+.w-compact.w-collapsed .w-shot { display: none; }

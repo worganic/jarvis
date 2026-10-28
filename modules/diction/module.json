@@ -1,0 +1,10 @@
+{
+  "id": "diction",
+  "nom": "Diction",
+  "version": "1.0.0",
+  "description": "Corriger la prononciation de Jarvis : les 3 dernières phrases dites, mots cliquables (mots suspects signalés), écoute du mot tel qu'il est dit, essai et enregistrement de la bonne prononciation, pour toutes les voix ou la voix choisie.",
+  "widgets": ["diction_view"],
+  "ui": { "scripts": ["ui/diction.js"], "styles": ["ui/diction.css"] },
+  "actions": [{ "ico": "🗣", "titre": "Diction", "sous": "Corriger une prononciation", "dire": "Corrige ta prononciation" }],
+  "parDefaut": true
+}

@@ -1,0 +1,11 @@
+{
+  "id": "nomade",
+  "nom": "Nomade",
+  "version": "1.0.0",
+  "description": "Site Nomade (Hostinger) : état de la synchronisation des données partagées et dépôts faits depuis le téléphone (en note, en rappel, en demande, ou ignorés).",
+  "card": { "type": 2, "numero": 120, "titre": "NOMADE", "emplacement": "nomade_view" },
+  "widgets": ["nomade_view"],
+  "ui": { "scripts": ["ui/nomade.js"], "styles": ["ui/nomade.css"] },
+  "actions": [{ "ico": "⇅", "titre": "Nomade", "sous": "Site partagé et dépôts", "dire": "Montre Nomade", "emplacement": "nomade_view" }],
+  "parDefaut": true
+}

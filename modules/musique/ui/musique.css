@@ -1,0 +1,72 @@
+/* Module Musique : card du lecteur (pochette, titre, progression, boutons) et niveaux / volume de l'application qui joue.
+   États estompé et fantôme : règles communes de ui/style.css. */
+.widget.w-music {
+  min-width: calc(340px * var(--ui));
+}
+.w-track { display: flex; gap: calc(14px * var(--ui)); align-items: center; }
+.w-cover {
+  width: calc(82px * var(--ui));
+  height: calc(82px * var(--ui));
+  object-fit: cover;
+  flex: none;
+  border: 1px solid rgba(var(--w-rgb), 0.5);
+  border-radius: 6px;
+  background: rgba(2, 16, 24, 0.7);
+  box-shadow: 0 0 16px rgba(var(--w-rgb), 0.25);
+}
+.w-cover.empty { display: flex; align-items: center; justify-content: center; color: rgba(var(--w-rgb), 0.6); background: rgba(var(--w-rgb), 0.06); }
+.w-meta { min-width: 0; flex: 1; overflow: hidden; }
+.w-playlist {
+  font-size: calc(10px * var(--ui));
+  letter-spacing: 1.5px;
+  color: rgba(var(--w-rgb), 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.w-song {
+  font-size: calc(14px * var(--ui));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(var(--w-rgb), 0.3);
+}
+.w-artist {
+  color: rgba(200, 235, 245, 0.85);
+  font-size: calc(11.5px * var(--ui));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 3px;
+}
+.w-progress { position: relative; height: 3px; background: rgba(var(--w-rgb), 0.12); margin: calc(10px * var(--ui)) 0 calc(4px * var(--ui)); }
+.w-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: rgba(var(--w-rgb), 0.85); box-shadow: 0 0 6px rgba(var(--w-rgb), 0.6); }
+.w-time { position: absolute; right: 0; top: 6px; font-size: calc(9px * var(--ui)); color: rgba(200, 235, 245, 0.4); }
+.w-controls { display: flex; justify-content: center; gap: calc(10px * var(--ui)); margin-top: calc(14px * var(--ui)); }
+.w-btn {
+  width: calc(44px * var(--ui)); height: calc(34px * var(--ui)); border: 1px solid rgba(var(--w-rgb), 0.32);
+  background: rgba(var(--w-rgb), 0.08); color: #d8f6ff; cursor: pointer; font-size: calc(14px * var(--ui));
+  display: inline-flex; align-items: center; justify-content: center; border-radius: 4px;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+.w-btn:hover {
+  background: rgba(var(--w-rgb), 0.24); border-color: rgba(var(--w-rgb), 0.7);
+  box-shadow: 0 0 12px rgba(var(--w-rgb), 0.35); transform: scale(1.05);
+}
+.w-btn.primary { border-color: rgba(var(--w-rgb), 0.85); background: rgba(var(--w-rgb), 0.28); box-shadow: 0 0 14px rgba(var(--w-rgb), 0.35); }
+.w-btn.stop { border-color: rgba(255, 77, 94, 0.6); background: rgba(255, 77, 94, 0.15); color: #ff9da8; }
+.w-btn.stop:hover { background: rgba(255, 77, 94, 0.3); border-color: rgba(255, 77, 94, 0.9); box-shadow: 0 0 12px rgba(255, 77, 94, 0.45); transform: scale(1.05); }
+.w-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* Card musique : niveaux gauche / droite + curseur de volume (à droite de la pochette). */
+/* Module Audio désactivé : ni niveaux ni volume (modules-loader.js › classe mod-audio). */
+html:not(.mod-audio) .w-volume { display: none; }
+.w-volume { flex: none; display: flex; align-items: stretch; gap: calc(5px * var(--ui)); height: calc(82px * var(--ui)); }
+.w-vu { position: relative; width: calc(8px * var(--ui)); border: 1px solid rgba(var(--w-rgb), 0.4); border-radius: 3px; background: rgba(var(--w-rgb), 0.08); overflow: hidden; }
+.w-vu-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 0; transition: height 0.09s linear; background: linear-gradient(0deg, rgb(var(--w-rgb)) 65%, rgb(255, 196, 64) 85%, rgb(255, 77, 94)); background-size: 100% calc(82px * var(--ui)); background-position: bottom; }
+.w-vol { writing-mode: vertical-lr; direction: rtl; width: calc(14px * var(--ui)); height: 100%; margin: 0; accent-color: rgb(var(--w-rgb)); cursor: pointer; }

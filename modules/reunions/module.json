@@ -1,0 +1,12 @@
+{
+  "id": "reunions",
+  "nom": "Réunions",
+  "version": "1.0.0",
+  "description": "Card d'une réunion enregistrée (personnes présentes, voix à nommer, texte en direct, résumé) et liste des réunions.",
+  "card": { "type": 2, "numero": 105, "titre": "RÉUNION", "emplacement": "meeting" },
+  "autresCards": [{ "type": 2, "numero": 108, "titre": "MES RÉUNIONS", "emplacement": "tool:reunions" }],
+  "widgets": ["meeting"],
+  "ui": { "scripts": ["ui/reunions.js"], "styles": ["ui/reunions.css"] },
+  "actions": [{ "ico": "◉", "titre": "Réunions", "sous": "Mes réunions enregistrées", "dire": "Liste mes réunions", "emplacement": "tool:reunions" }],
+  "parDefaut": true
+}

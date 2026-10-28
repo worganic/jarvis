@@ -1,0 +1,385 @@
+{
+  "aJourVersion": "4.103.0",
+  "titre": "Aide de Jarvis",
+  "sousTitre": "Tout ce que Jarvis sait faire, comment il fonctionne, ses raccourcis et sa mémoire (RAG).",
+  "sections": [
+    {
+      "id": "presentation",
+      "titre": "Présentation",
+      "blocs": [
+        { "type": "p", "texte": "Jarvis est un assistant personnel vocal pour Windows. Tu lui parles en français, il comprend, répond à voix haute et agit sur l'ordinateur : ouvrir un logiciel, chercher un fichier, lire tes mails, piloter la musique, prendre des notes, lancer Claude Code dans un projet, répondre à une question." },
+        { "type": "liste", "titre": "Trois idées structurent tout le système", "items": [
+          "Local d'abord : tout ce qui peut être traité sur le PC l'est, sans IA externe et sans coût (heure, volume, applications, fichiers, météo, calculs, rappels…). L'IA externe n'est sollicitée que lorsqu'elle est réellement nécessaire.",
+          "Jarvis est le seul point de contrôle : Claude Code et AGY proposent et exécutent, mais c'est Jarvis qui autorise, journalise et détient la mémoire.",
+          "Confiance vérifiable : toute action sensible exige une validation (souvent un code à 4 chiffres retapé au clavier), et tout ce que fait Jarvis est inscrit dans un journal scellé que personne ne peut effacer."
+        ] },
+        { "type": "table", "titre": "Les composants", "colonnes": ["Programme", "Rôle"], "lignes": [
+          ["jarvis.exe (coquille)", "Fenêtres : HUD, widget, administration, Bureau JARVIS ; zone de notification ; raccourcis globaux. Il lance le noyau."],
+          ["jarvis-core.exe (noyau)", "Orchestrateur : comprend les demandes, applique la sécurité, tient la mémoire et le journal, pilote les connecteurs. Il lance le moteur vocal."],
+          ["jarvis-voice.exe (moteur vocal)", "Micro, anti-écho, détection de parole, mot d'éveil, transcription Whisper, empreinte vocale, synthèse de la voix."],
+          ["Claude Code / AGY", "Moteurs d'IA externes, appelés seulement pour les demandes que Jarvis ne traite pas lui-même."]
+        ] },
+        { "type": "astuce", "texte": "Ports locaux : 8797 (fenêtres et cette page), 8798 (moteur vocal), 8799 (outils MCP et validations). Un seul Jarvis à la fois." }
+      ]
+    },
+    {
+      "id": "fonctionnement",
+      "titre": "Comment Jarvis fonctionne",
+      "blocs": [
+        { "type": "liste", "titre": "Le trajet d'une phrase, du moins cher au plus cher", "ordonnee": true, "items": [
+          "Écoute : le micro est lu en continu, l'anti-écho retire la voix de Jarvis et le son du PC. Whisper (local) transcrit ; rien n'est envoyé à un service externe pour la transcription.",
+          "Mot d'éveil : « Jarvis » (variantes mal transcrites tolérées). Après une réponse, tu peux enchaîner sans le redire pendant quelques secondes.",
+          "Filtre : bruit, phrases inventées par la reconnaissance, écho de Jarvis et voix non reconnues sont ignorés et ne déclenchent jamais d'action.",
+          "Politesses et acquittements (« merci », « ok ») : réponse courte locale, aucun appel IA.",
+          "Terminal au premier plan, prise de notes, dictée, mission en cours : la phrase leur est donnée en priorité.",
+          "Intentions locales à règles (< 200 ms, 0 jeton) : heure, météo, minuteurs, volume, applications, fenêtres, Spotify, mails, agenda, rappels, listes, notes, projets, lumières…",
+          "Demandes multiples (« ouvre Chrome et mets de la musique »), raccourcis vocaux personnels, compétences (dossier skills).",
+          "Routeur sémantique local : la phrase est comparée par le sens aux exemples des intentions locales (voir RAG).",
+          "Cache des réponses : la même question générale posée dans les 30 minutes reçoit la même réponse.",
+          "Micro-appel IA pour une question générale sans action ; appel IA complet (outils, mémoire, conversation continue) pour une vraie tâche."
+        ] },
+        { "type": "table", "titre": "La couleur du cœur raconte ce qui se passe", "colonnes": ["Signe", "Signification"], "lignes": [
+          ["Zone jaune autour du cœur", "Tu parles : Jarvis écoute."],
+          ["Zone blanche", "Tu t'es tu : Jarvis traite la phrase."],
+          ["Cœur orange animé", "Un appel à une IA externe est en cours."],
+          ["Teinte ambre", "Une validation par code est attendue."],
+          ["Teinte rouge / magenta", "Échec ou refus."],
+          ["Contour rouge au mot « Jarvis »", "Le mot d'éveil a été reconnu."],
+          ["Croix rouge sur le cœur", "Le moteur vocal n'est pas lancé : Jarvis n'entend plus (boutons MICRO et SON grisés)."],
+          ["Zone bleue / verte (cards)", "Actions internes / actions externes."]
+        ] },
+        { "type": "liste", "titre": "Les annonces spontanées", "items": [
+          "Tout ce que Jarvis dit sans qu'on lui parle (nouveau mail, colis, fin de tâche Claude Code ou AGY, recherche ou comparaison de prix terminée, rappel, programmation) suit une seule politique (Administration › Général › Annonces spontanées).",
+          "Sourdine contextuelle (visio, enregistrement, musique) : l'annonce s'affiche aussitôt et elle est dite dès la fin de la sourdine.",
+          "Heures calmes (22 h 30 – 7 h 30 par défaut) : si tu es absent depuis 15 minutes, l'annonce attend ton retour ; si tu es là, elle est dite. Les rappels et programmations, demandés par toi, passent toujours.",
+          "Rafale : moins de 30 secondes après une annonce (réglable), les suivantes sont regroupées en une seule (« 3 annonces en attente… », cinq au plus à voix haute). Une réponse à ce que tu viens de demander n'est jamais retardée."
+        ] },
+        { "type": "liste", "titre": "L'IA externe", "items": [
+          "Claude Code (abonnement Claude, sans clé API) ou AGY (Gemini) exécutent les tâches complexes : lire, chercher, écrire des fichiers, lancer des commandes, naviguer sur le web, utiliser les connecteurs.",
+          "Un démon résident reste chaud : pas de démarrage à froid à chaque phrase. La conversation est renouvelée après 10 minutes sans échange ou 20 tours.",
+          "Plusieurs tâches en parallèle, priorités (« urgent » passe devant), tâches de fond (« en fond »), annulation (« annule », Échap, bouton STOP).",
+          "Les fichiers créés ou modifiés par les agents vont dans le dossier du projet concerné ; sans projet, dans le dossier de travail (workspace).",
+          "Le moteur, le modèle et l'effort se changent à la voix (« passe en opus », « effort maximum », « passe sur AGY ») ou avec /moteur, /model, /effort."
+        ] },
+        { "type": "liste", "titre": "Ce que Jarvis garde sur disque (dossier de données %LOCALAPPDATA%\\Jarvis\\donnees, noté data/ dans cette aide)", "items": [
+          "memory.json et memory-vectors.json : la mémoire long terme et ses vecteurs.",
+          "collections/ : tes listes à fiches (une par fichier), vectors.json (l'index de leur RAG) et images/ (pochettes et photos copiées). lists/ : les listes à cocher.",
+          "history/journal.jsonl : le journal scellé (chaque ligne contient l'empreinte de la précédente).",
+          "config.json, zones.json, vocabulary.json, projets.json, listes, rappels, automatisations, raccourcis.",
+          "voiceprint.json et voice-corpus/ : ton empreinte vocale et le corpus de calibrage.",
+          "Une sauvegarde automatique de tout cela est faite dans Documents\\Jarvis-sauvegardes (voir « Sauvegarde et dépannage »)."
+        ] }
+      ]
+    },
+    {
+      "id": "voix",
+      "titre": "Parler à Jarvis",
+      "blocs": [
+        { "type": "liste", "titre": "Modes d'écoute (touche F8, ou « écoute-moi »)", "items": [
+          "Mot d'éveil (défaut) : dis « Jarvis, … ». Après une réponse, la conversation reste ouverte un moment.",
+          "Écoute libre : plus besoin de dire « Jarvis ». « Merci, c'est tout » referme la conversation.",
+          "Appui pour parler : maintiens la barre Espace pendant que tu parles."
+        ] },
+        { "type": "liste", "titre": "Pendant la conversation", "items": [
+          "Tour de parole : quand tu parles, Jarvis ne commence jamais à parler par-dessus toi ; ce qu'il avait à dire (annonce des mails…) attend la fin de ta phrase. Si c'était une demande, il y répond et l'annonce reste écrite dans la conversation.",
+          "Interruption : parle par-dessus Jarvis, il se met en pause et t'écoute. Une vraie demande l'arrête et il y répond ; un « oui », un bruit ou une phrase qui ne lui est pas adressée le laisse reprendre (il redit la phrase interrompue si la pause a duré plus d'une seconde).",
+          "Fin de tour intelligente : Jarvis distingue une pause de réflexion d'une fin de phrase.",
+          "Parole en flux : il commence à parler dès la première phrase générée.",
+          "« Répète » rejoue la dernière réponse. « Non, j'ai dit… » corrige une phrase mal comprise et apprend la correction.",
+          "Sourdine contextuelle : Jarvis se tait seul quand un jeu, une visioconférence, un enregistrement ou une réunion Meet est au premier plan (bouton SON : MUET AUTO). Tant qu'une musique est lancée, Jarvis se tait aussi (ses réponses restent écrites ; réglage : Administration › Interface › Musique). Pendant une réunion Google Meet, l'écoute de Jarvis est aussi mise en pause (micro coupé) pour ne pas gêner la visio : le moteur vocal ferme alors le micro, l'anti-écho et le niveau du son du PC, même en « Sourdine forcée » ; tout reprend à la fin (réglage : Administration › Interface › Écoute pendant une visio). Carte son virtuelle (VB-Cable, VoiceMeeter) : les réglages engine.micDevice et engine.outDevice de data/config.json (fragment du nom du périphérique, vide = défaut Windows) choisissent le micro d'écoute et la sortie de la voix de Jarvis ; redémarrer Jarvis pour les appliquer.",
+          "Casque ou haut-parleurs : le changement de périphérique audio est suivi à chaud ; il peut aussi se basculer depuis le HUD."
+        ] },
+        { "type": "liste", "titre": "Boutons MICRO et SON (haut du HUD)", "items": [
+          "MICRO : coupe ou rétablit l'écoute orale (tu écris alors tes demandes dans la console). Touche F3.",
+          "SON : coupe la voix de Jarvis ; il écrit alors ses réponses sous le cœur.",
+          "Les deux sont grisés tant que le moteur vocal n'est pas lancé (un cœur rouge à l'envers est alors sur le cœur, et les personnages te tournent le dos)."
+        ] },
+        { "type": "liste", "titre": "Reconnaissance de ta voix", "items": [
+          "Jarvis reconnaît le locuteur par son empreinte vocale (enrôlement guidé dans Administration › Assistant voix). Plusieurs personnes peuvent être enregistrées.",
+          "Une voix non reconnue (TV, visio, autre personne) est ignorée en mode strict ; une voix douteuse n'est acceptée que pour un terminal.",
+          "Quand une voix est inconnue, la phrase peut attendre que tu dises qui parlait (apprentissage des voix, Maj+F5).",
+          "Si l'écoute te rejette trop, l'administration propose un calibrage sur ton corpus (seuils par durée de phrase)."
+        ] },
+        { "type": "liste", "titre": "Vocabulaire et prononciation", "items": [
+          "« Apprends le mot Worganic » : le mot est fourni à la reconnaissance.",
+          "« Prononce Worganic comme Oueur-ganic » : corrige la façon dont Jarvis lit un mot (Administration › Voix › Prononciation).",
+          "La voix (Denise, Henri…), le débit et le ton se règlent dans l'administration ou à la voix."
+        ] }
+      ]
+    },
+    {
+      "id": "fonctions",
+      "titre": "Ce que Jarvis sait faire",
+      "intro": "Résumé par domaine. Le détail des phrases à dire est dans la section « Commandes vocales », générée à partir du catalogue réel de Jarvis (elle reflète donc toujours les commandes disponibles, compétences apprises comprises).",
+      "blocs": [
+        { "type": "domaines", "domaines": [
+          { "icone": "▤", "titre": "Applications, fichiers, système", "texte": "Ouvrir et fermer des applications (index du menu Démarrer), chercher un fichier ou un dossier par son nom, l'ouvrir, régler le volume et la luminosité, verrouiller la session, mettre en veille, éteindre ou redémarrer (avec compte à rebours annulable), vider la corbeille, lire le presse-papier, lire l'écran par OCR ou faire une capture (uniquement sur demande explicite), cliquer ou remplir un champ dans une application, dessiner dans Paint, taper un texte dicté dans un traitement de texte." },
+          { "icone": "▦", "titre": "Bureau, fenêtres, Chrome", "texte": "La card Bureau numérote les fenêtres par écran et les applications en arrière-plan : déplacer une fenêtre sur un écran, la réduire, l'agrandir, la fermer, mémoriser des emplacements (1 à 4) et des dispositions. Un bouton 📷, tout en bas de la card, ouvre l'outil de capture de Windows : le curseur de sélection apparaît, on choisit la zone (l'image est copiée dans le presse-papier). La card musique affiche le niveau de sortie gauche et droite et un curseur de volume de Windows. Avec l'extension Chrome, toutes les pages sont listées en direct : aller sur la page 2.3, fermer des onglets, recharger, résumer une page, cliquer ou remplir un champ." },
+          { "icone": "♫", "titre": "Musique et médias", "texte": "Lecture, pause, suivant, précédent, titre en cours et pochette pour toute lecture Windows. « Mets X sur Spotify » joue un artiste, un titre ou une playlist dans l'application Spotify ; « mets de la musique » sans précision reprend la lecture, ou rejoue ta dernière demande. Un lecteur interne (webradios) existe sans application externe." },
+          { "icone": "✉", "titre": "Mails, agenda, rappels", "texte": "Lire les derniers mails (Gmail), en chercher, ouvrir ou résumer un mail, proposer une réponse (jamais envoyée sans ton code), ne plus annoncer certains expéditeurs. Agenda du jour ou de la semaine, création de rendez-vous (code). Rappels à date, dans un délai ou répétés ; briefing du matin (météo, agenda, rappels, mails, projets). Météo : si Open-Meteo ne répond pas, Jarvis donne le dernier relevé de moins de 24 heures en disant de quand il date." },
+          { "icone": "✎", "titre": "Notes, réunions, listes à cocher", "texte": "Notes dictées dans une card, sauvegardées en fichier et résumées par l'IA. Enregistrement de réunions en visio (Meet, Teams…) avec qui parle, résumé, compte rendu dans Google Docs. Listes à cocher (courses, voyage, bricolage, tâches, cadeaux) affinées par quelques questions, mémorisées dans le RAG." },
+          { "icone": "🌐", "titre": "Traduction à la voix", "texte": "« Traduis où est la gare en espagnol », « comment dit-on merci en japonais », « dis bonne nuit en italien » : l'IA (Claude Haiku, sans outil) traduit, la traduction s'affiche, puis Jarvis la dit avec une voix de la langue demandée (anglais, américain, espagnol, allemand, italien, portugais, néerlandais, polonais, russe, japonais, chinois, arabe, turc, coréen). La voix des réglages n'est pas modifiée ; sans connexion à edge-tts, la traduction s'affiche sans être lue (la voix locale est française)." },
+          { "icone": "🗣", "titre": "Diction : corriger la prononciation", "texte": "« Jarvis, corrige ta prononciation » (ou « tu as mal prononcé… », bouton Diction de la card Actions, ou bouton 🗣 DICTION de la zone Conversation, à gauche d’APPRENTISSAGE) ouvre la card Diction : ses 3 dernières phrases, chaque mot cliquable. En orange, les mots probablement mal lus (anglais, sigles, références, noms propres) ; en vert, ceux déjà corrigés. Touche un mot (et le mot voisin pour une expression de 4 mots au plus, « Airbus Helicopters »), ▶ écoute-le tel qu'il est dit, écris comment le dire (« hélicoptère »), ▶ essaie, puis enregistre pour toutes les voix ou seulement la voix choisie : la phrase est rejouée corrigée. Les voix multilingues Vivienne et Rémy disent l'anglais naturellement au milieu du français (comparaison dans Administration › Voix › Prononciation).Pendant une présentation Data, la card Diction (elle prend le numéro 120 si elle est la première card ouverte) affiche une barre de pilotage : ⏸ Pause, ▶ Relancer (la scène en cours est redite avec la correction), ◀ scène précédente, ▶▶ suivante, ⏮ début, ■ arrêter. Un bouton 🗣 DICTION de la zone Conversation l'ouvre à tout moment." },
+          { "icone": "⇅", "titre": "Nomade : mes données hors du PC", "texte": "Un site personnel (dossier web-nomade, hébergé chez Hostinger) pour retrouver sur le téléphone ou un autre PC, même quand celui-ci est éteint, ce que tu choisis de partager (Administration › Nomade) : listes à fiches, listes à cocher, notes, rappels, colis, produits suivis, programmations, réunions, faits de la mémoire, agenda (90 jours), agents autonomes, projets et dossiers Data. Le site s'organise en rubriques (menu à gauche sur ordinateur, barre défilante en haut sur téléphone) : Accueil (vue d'ensemble : chiffres de chaque rubrique, prochains rendez-vous, agents, derniers dossiers, projets récents, listes), Listes (séparées en « Mes listes » et « Partagées avec moi »), Data (fiche complète de chaque dossier : résumé, fiche technique, sections, chronologie, vidéos, sources, vignette), Agenda (calendrier du mois et rendez-vous jour par jour), Agents (état, déclencheurs, dernier résultat, historique), Projets (description, technologies, branche git, dernier commit, fichiers modifiés ; jamais le chemin sur le disque), Autres (notes, rappels, suivis, mémoire) et Déposer. Une rubrique n'apparaît que si sa source est cochée dans Administration › Nomade. Dans une liste à fiches que Jarvis sait compléter (Lego, vinyles…), le bouton « 📷 Scanner » lit le code-barres de la boîte ou de la pochette avec la caméra du téléphone (ou se tape à la main) : la fiche est ajoutée aussitôt, puis Jarvis retrouve son nom, ses infos et sa photo (disques : catalogue MusicBrainz par code-barres ; autres listes : recherche web de l'IA avec le code). Chaque fiche arrive avec son image (pochette, photo du Lego, affiche : la copie gardée par Jarvis est envoyée au site, consultable hors ligne) et ses liens cliquables (champs « lien », boutiques d'un produit). La connexion reste mémorisée 90 jours et le site s'installe comme une application. Depuis le site, on peut ajouter ou modifier une fiche, cocher une liste de courses, écrire une note ou un rappel, et « Déposer pour Jarvis » (texte ou dictée) : Jarvis reprend tout en direct s'il est allumé (toutes les 45 s), sinon à son démarrage. Les dépôts arrivent dans la card Nomade (numéro 120, bouton « ↗ Ouvrir le site » pour l'ouvrir dans le navigateur) : en note, en rappel, en demande, ou ignorés. Le bouton « ✚ Demander une liste » (propriétaire comme invités) ouvre un formulaire (nom, type de liste, champs souhaités, exemples) pour une liste d'un type nouveau (films, vêtements, animaux…) : la demande arrive dans la card Nomade avec le nom du demandeur ; « ✔ Créer la liste » fait préparer un modèle sur mesure (modèle livré ou déjà créé, sinon l'IA sans outil, 3 études par jour et par personne), crée la liste dans Mes listes et la partage sur le site. Celle d'un invité y porte le badge « 👤 nom · invité » (groupe « Listes des invités »), et l'invité peut la modifier même en lecture seule ailleurs ; « ✕ Refuser » la refuse. Le créateur d'une liste est toujours indiqué (« Créée par … » dans Jarvis, « par … » sur le site) ; un invité qui a créé une liste règle son partage avec le bouton « 👥 Partager » du site : pour chaque autre invité, aucun accès, lecture seule ou lecture et écriture (le propriétaire la voit toujours). Une fiche ajoutée sur le site avec une adresse trop longue est gardée (adresse raccourcie ou fiche ajoutée sans le lien) au lieu d'être perdue. Ce que Jarvis n'a pas pu reprendre tel quel (fiche refusée, doublon, fiche changée des deux côtés) apparaît dans la card Nomade sous « À vérifier » (les écarts identiques regroupés, « ×14 ») : « ↻ Réessayer » rejoue une modification refusée, « ✕ Ignorer » garde la version de Jarvis (la fiche refusée est retirée du site), « ✓ Vu » retire une simple information et « ✕ Tout effacer » vide la liste ; mêmes boutons dans Administration › Nomade. Un dépôt « Liste à cocher » (un nom, puis un élément par ligne) devient aussitôt une liste de Jarvis, partagée sur le site pour être cochée depuis le téléphone. Partages : une autre personne peut recevoir par mail l'adresse du site, son identifiant et un lien pour choisir son mot de passe ; elle ne voit que les données choisies pour elle, en lecture seule ou en lecture et écriture. Elle peut aussi créer ses propres listes (cadeaux, idées, à voir…) : Jarvis les relit à chaque changement et les range dans sa mémoire, dans la catégorie de votre lien (famille, amis, collègues), pour répondre à « qu'est-ce que Marie voudrait pour Noël ? ». « Synchronise le site Nomade », « montre Nomade », « qu'est-ce que j'ai déposé ? »." },
+          { "icone": "◉", "titre": "Présence par webcam", "texte": "Désactivée au départ (Administration › Général). Le HUD envoie une petite image par seconde au noyau, qui compte les visages sur le PC avec YuNet (téléchargé une fois depuis OpenCV, empreinte vérifiée) et l'oublie aussitôt : rien n'est enregistré ni envoyé ailleurs. Retour après une absence : briefing du matin s'il est attendu, sinon les annonces gardées. Absent (2 à 20 min sans visage) : les heures calmes s'appliquent, la musique peut être mise en pause. D'autres visages : mode vie privée, cards floutées et mails non annoncés." },
+          { "icone": "📦", "titre": "Suivi de colis", "texte": "« Suis le colis 6A12345678901 de La Poste » (transporteur facultatif), « où en est mon colis », « mes colis », « arrête de suivre le colis 901 » : aucune clé de transporteur, toutes les 3 heures l'IA lit la page de suivi en tâche de fond et Jarvis n'annonce que les changements de statut ; un colis livré n'est plus suivi. Chaque statut est daté de sa dernière lecture (« relevé de 8 h 10 ») ; si le suivi est illisible, Jarvis redonne le dernier statut connu avec sa date. Numéros et statuts dans data/colis.json (30 colis au plus)." },
+          { "icone": "⌂", "titre": "Maison connectée (Hue, prises)", "texte": "Administration › Maison : associe ton pont Philips Hue (bouton du pont, puis son adresse) et déclare tes prises Shelly ou TP-Link Kasa (nom + adresse). Ensuite : « allume la cafetière », « éteins la prise du salon », « mets le salon à 40 pour cent » ; l'IA dispose aussi de l'outil maison. Seules les adresses du réseau local sont acceptées, le jeton du pont reste dans data/maison.json et n'est jamais affiché. Les ampoules Yeelight restent détectées toutes seules (« allume la lumière »)." },
+          { "icone": "▤", "titre": "Documents locaux (PDF, Word, texte)", "texte": "Administration › Documents : tu choisis des dossiers, Jarvis lit les PDF, fichiers Word (.docx), texte, Markdown et CSV qu'ils contiennent, les découpe en passages et les indexe (data/documents/, 3000 fichiers et 25 Mo par fichier au plus). Ensuite : « que dit mon contrat d'assurance sur la franchise ? », « retrouve dans mes documents la date de l'état des lieux » : l'IA cherche par le sens avec l'outil documents_chercher (lecture seule) et ne reçoit que les extraits utiles. Les dossiers en zone interdite sont refusés, les fichiers nouveaux ou modifiés sont repris par « Analyser maintenant », et le journal garde la trace des recherches, jamais le contenu." },
+          { "icone": "◈", "titre": "Dossiers Data (recherche sur un sujet)", "texte": "« Fais un dossier sur l'hélicoptère Airbus H160 en 10 minutes » (5 minutes sans précision, 30 au plus) : l'IA cherche sur le web en tâche de fond et écrit dans le dossier de travail un dossier structuré (résumé, fiche technique chiffrée, sections, chronologie, comparaisons, pièces visibles, images, vidéos, modèles 3D libres, sources) et un rapport. Jarvis le relit champ par champ (adresses publiques seulement), télécharge les images (https, 3 Mo chacune, 60 par dossier) et un éventuel modèle 3D .glb (50 Mo), puis indexe le tout dans un RAG propre au sujet (data/savoir/<sujet>/). Au-delà du temps donné (+ 2 minutes), la recherche s'arrête et ce qui est déjà écrit est gardé. La card Data (110) liste les sujets avec leur état, leurs images et leurs chiffres ; un clic ouvre la fiche : résumé, fiche technique, galerie, sections, pièces, vidéos, sources et historique des recherches, avec ✦ Approfondir (un axe : « versions militaires »), 🔗 Ajouter un lien (page ou vidéo lue par l'IA) et 🗑 Supprimer (deux clics). À la voix : « ouvre la data », « ouvre le dossier H160 », « complète le dossier H160 avec les moteurs », « statistiques du dossier H160 », « supprime le dossier H160 » (puis « supprime définitivement le dossier H160 »). Les questions sur un sujet documenté (« quelle est la vitesse de croisière du H160 ? ») passent par l'outil savoir_chercher, en lecture seule. Une recherche coupée par un arrêt de Jarvis est marquée « interrompue » et se relance d'un clic. Pendant la recherche, la card SUIVI DATA (111) s'ouvre et montre tout en direct : l'étape (file, recherche web, vérification, images, indexation RAG, enregistré), le temps écoulé sur le temps donné, les chiffres du dossier, chaque élément recueilli par l'IA (caractéristique, section, date, image, source…), son activité (recherches et pages lues, accords demandés), les images téléchargées une à une, puis ce qui est enregistré dans le RAG (passages, vecteurs, exemples de passages) ; boutons Ouvrir le dossier et Présenter à la fin. Profils de dossier : à la création, Jarvis choisit le profil du sujet (mots-clés, sinon l'IA) — Produit / appareil (prix chez plusieurs vendeurs, points forts et faibles, avis, concurrents, pièces, et modèle 3D à la fin), Musique (albums, titres, concerts, de quoi écouter sur Spotify et YouTube), Film / série (casting, notes, bande-annonce, où le regarder), Lieu / voyage (infos pratiques, budget, avis, 3D d'un monument), ou Sujet général. Pour un sujet qui n'entre dans aucun (les orchidées, les races de chiens…), l'IA crée un profil (ce qu'il faut chercher, liens utiles) gardé pour les dossiers suivants du même genre. La recherche suit la consigne du profil, puis la présentation est préparée aussitôt (avec le modèle 3D pour un objet) : « présente-moi … » démarre sans attente. Ses scènes dépendent du profil (points forts et faibles, prix du moins cher au plus cher, avis et notes, « À écouter » — dis « écoute-le » pour le lancer sur Spotify —, liens) et sa fin aussi : explorateur 3D, écran « Écoute et vidéos » (titres à écouter sur Spotify, lecteur YouTube intégré, avis, prix, liens du profil) ou liens. La card montre le profil, ses liens utiles (comparateur de prix, setlists, bande-annonce, carte…) et les boutons ◆ 3D ou ♪ Écoute & vidéos. Explorateur 3D : le produit s'affiche en grand par-dessus le HUD avec un modèle réaliste fait par un graphiste, trouvé automatiquement sur Sketchfab (connexion Internet nécessaire ; le meilleur modèle d'abord, les autres en vignettes à gauche, avec leur auteur et leur licence en bas), sinon un modèle 3D libre (.glb) du dossier, sinon un schéma simplifié construit par l'IA. Jarvis relie les pièces du dossier à celles du modèle (Haiku, une fois par modèle) et repère leur position sur l'image ; l'explorateur s'ouvre (« montre-moi le H160 en 3D », bouton ◆ 3D de la card, ou à la fin d'une présentation) : on tourne autour à la souris, on clique une pièce pour voler jusqu'à elle et lire sa description et ses caractéristiques, ▶ Faire fonctionner met en marche ce qui tourne, ⇲ Vue éclatée écarte les pièces, ◐ Rayons X rend le produit transparent ; le panneau « Pour aller plus loin » liste les sources, vidéos et lectures du dossier (un clic les ouvre). À la voix : « fais-le fonctionner », « vue éclatée », « rayons X », « montre-moi le rotor », « recentre », « ferme la 3D », ou une question dont la réponse s'affiche à côté du produit. Échap ferme l'explorateur." },
+          { "icone": "▶", "titre": "Présentation animée d'un dossier", "texte": "« Présente-moi le H160 » (ou le bouton ▶ Présenter de la card Data) : Claude Haiku écrit le script à partir du dossier — une narration par scène — et Jarvis le vérifie : chaque chiffre, image, date, comparaison ou pièce affiché vient du dossier, rien d'autre. Le cœur laisse la place à un panneau animé (titre, images en travelling, chiffres qui défilent, fiche technique, chronologie, comparaison, pièce montrée sur l'image, vidéo, conclusion) et le personnage du cœur présente à côté, en parlant (Bobot si le cœur est classique). Chaque scène passe quand Jarvis a fini d'en dire la narration. Pendant la présentation : « suivant », « reviens », « pause », « recommence », « stop » ; toute autre question (« quelle est sa vitesse maximale ? », « montre-moi le cockpit ») reçoit une réponse tirée du dossier, avec l'image ou la pièce qui l'illustre, puis la présentation reprend. Une commande connue (musique, volume…) garde son effet habituel ; Échap ou STOP arrêtent aussi la présentation. Pendant la présentation, toutes les autres cards passent à 10 % d'opacité pour la mettre en avant (le survol de la souris rend une card lisible). Sans IA disponible, un script simple est construit à partir du dossier." },
+          { "icone": "✚", "titre": "Create module (tes propres modules)", "texte": "Crée tes propres cards Jarvis : ouvre la card « Create module » depuis la card Actions, clique sur « Nouveau module » et décris ce que tu veux. Une IA te pose quelques questions de précision, puis propose le module ; tu le crées d'un clic. Tu peux ensuite lister tes modules, les activer ou désactiver, les modifier (nouvelle conversation avec l'IA) ou les supprimer (ils vont dans la corbeille). Les modules sont rangés dans data/user-modules/ (hors du dépôt Git) et le code généré est vérifié avant écriture : pas de réseau, pas d'accès aux validations ni à la voix." },
+          { "icone": "♥", "titre": "Amis entre Jarvis (Jarvis Réseau)", "texte": "Card Amis (n° 124, « montre mes amis ») : relie ton mail (code reçu par mail, adresse du service donnée par la personne qui t’invite), puis envoie une demande d’ami par mail ; ton ami accepte, refuse ou bloque (sans Jarvis, il reçoit une invitation avec la commande d’installation). Rien n’est partagé par défaut : pour chaque ami tu choisis ta présence (en ligne, absent, ne pas déranger, et le stade de ton compagnon), chaque liste à fiches (lecture, ou il peut la modifier) et l’envoi d’une copie d’un dossier (25 Mo au plus, reçu en lecture seule dans données › reseau, jamais exécuté). Messages avec accusé de lecture, à la voix « dis à Léa que je rentre », lecture à voix haute au choix par ami (jamais en ne pas déranger ni en réunion). Tout est chiffré de bout en bout (X25519) : le service ne voit que qui écrit à qui ; l’empreinte de ta clé se compare de vive voix. Retirer un ami arrête tous les partages ; supprimer ton compte efface tout sur le service." },
+          { "icone": "◉", "titre": "Compagnon de bureau (tamagotchi)", "texte": "Option de l'administration (Administration › Général › Interface, sous « Apparence du cœur », bouton Activer / Désactiver de la card Compagnon, ou « active / désactive le compagnon » ; désactivé, le cœur reprend son animation classique et le compagnon est gardé tel quel), désactivée par défaut. Le cœur choisi (holographique, Bobot, Marvin, Petit Robot ou le chat) devient un compagnon qui vit dans le widget flottant et dans le cœur du HUD, sur un cycle de 7 ou 30 jours d'utilisation du PC (un PC éteint ne le fait pas vieillir) : œuf (il éclot quand tu utilises le PC et fais des demandes à Jarvis), bébé (60 % de sa taille, il fait souvent la sieste), ado (82 %, un accessoire), adulte (accessoires complets et aura). Sa branche dépend des applications au premier plan (le nom du programme seulement, une minute = 1 XP), fixée à l'adolescence : Gamer (casque, lueur RGB), Dev (lunettes, tasse), Artiste (béret, taches de peinture), Chill (plaid, pop-corn). Trois jauges (faim, humeur, énergie) ; il ne meurt jamais, il boude. Glisse un fichier sur le cœur (widget, Bureau JARVIS ou fenêtre principale) pour le nourrir : image = friandise, document = légumes (+ XP Dev), programme ou archive = plat épicé (il bugue 5 s) ; seule l'extension compte, le fichier n'est ni lu, ni copié, ni modifié. Vider la corbeille lui envoie des croquettes ; faire tourner la souris autour de lui le fait ronronner. Il réagit au PC : sueur au-delà de 80 % de CPU, pancarte « Va dormir ! » entre 1 h et 5 h, « Chut, en réunion » en visio, mode furtif en jeu, sommeil après 10 minutes d'absence, notes de musique, antenne sans réseau, batterie faible. Au repos depuis 2 minutes, il se promène le long de la barre des tâches et revient à sa place dès que Jarvis s'active. Jarvis reste prioritaire : dès qu'il écoute, réfléchit, parle ou travaille, ses gestes passent devant ; le compagnon ne parle jamais de lui-même (annonce vocale des évolutions en option). En fin de cycle, il part en voyage (souvenir dans sa card) et laisse un nouvel œuf qui hérite d'un peu de sa branche. Card Compagnon (N° 123, « ouvre le compagnon ») : stade, jour, jauges, XP des branches, historique, souvenirs, boutons ne pas déranger et nouvel œuf. À la voix : « comment va mon compagnon », « mets le compagnon en veille », « réveille le compagnon », « nouvel œuf », « désactive le compagnon ». Réglages : cycle, annonce vocale, mode furtif, promenade. État : data/companion.json." },
+          { "icone": "🤖", "titre": "Agents autonomes (surveillance & action)", "texte": "La card Agents (122, bouton dans la card Actions ou « ouvre mes agents ») crée à partir d'une simple demande en texte libre un agent qui surveille en permanence et agit en conséquence : résumer les mails une fois par jour ou à chaque mail important, surveiller le PC (seuils CPU, RAM, GPU et température à 0 jeton tant que tout va bien, puis diagnostic et conseils de performance avec la liste des processus gourmands en cas de dépassement), ou donner chaque jour et à la demande une veille web (comme le programme TV et les horaires des matchs de rugby du Top 14). Chaque agent utilise au minimum Gemini 3.8 Flash sur AGY ou Claude Haiku sur Claude Code (avec bascule automatique si un moteur est indisponible), se met en pause, s'exécute à la demande (bouton ▶ ou par la voix), se modifie (en langage naturel ou via son formulaire complet : déclencheurs, seuils, horaire, modèle IA, consigne, mode de sortie voix/HUD/Telegram) et se supprime." },
+          { "icone": "💿", "titre": "Listes à fiches (vinyles, Lego, livres…)", "texte": "Des listes de choses que tu possèdes ou voudrais posséder, où chaque élément est une fiche aux champs de ton choix. « Crée-moi une liste de disques vinyle » : Jarvis propose un nom et des champs (titre, artiste, année, possédé ou souhaité, prix payé, date et lieu d'achat, notes…), tu gardes ce qui te suffit (« c'est bon », « enlève le prix », « ajoute un champ pays », « appelle-la Mes disques »). Pour un sujet inconnu, l'IA propose les champs. Ensuite : « ajoute à ma liste vinyle le disque Under a Blood Red Sky du groupe U2 » (tu peux dire le prix, le lieu et la date : « acheté 18 euros à la Fnac le 12 mars », ou « que je voudrais » pour un souhait), « affiche ma liste de disques » (mini-cards ; un clic ouvre la fiche, dont chaque valeur se modifie au clic), « retire … de ma liste vinyle », « supprime ma liste … » (après ton « oui »). « Annule » rétablit le dernier ajout, retrait ou changement. Les listes se gèrent aussi dans la card « Mes listes » (formulaires pour ajouter, modifier les champs, supprimer) et dans cette page d'aide, section « RAG — Listes à fiches » : toutes les listes et leur contenu en tableaux, avec des formulaires pour ajouter, modifier, supprimer, exporter en CSV, réindexer et tester ce que le RAG retrouverait pour une question. Un bouton « + Ajouter en texte » permet aussi de coller ou d'écrire plusieurs éléments d'un coup au format texte (par exemple une liste de numéros de sets Lego séparés par des espaces, virgules ou retours à la ligne) : le texte est mis en forme par l'IA selon les champs de la liste, tous les éléments non présents sont enregistrés en une fois, et l'enrichissement automatique complète ensuite les noms et photos. Chaque fiche est indexée dans le RAG « Listes à fiches ». Jarvis retrouve aussi les informations et la pochette tout seul à l'ajout : pour les disques via MusicBrainz et Cover Art Archive (gratuits, sans compte), pour les autres sujets (Lego…) par une recherche web de l'IA en tâche de fond. Ce qui est trouvé complète la fiche sans jamais écraser ce que tu as saisi ; jamais de statut, prix payé, lieu, date ni notes. Une fiche peu sûre est marquée « à vérifier » avec un bouton « Autre résultat », et « ↻ Réenrichir » relance la recherche. Les images sont copiées dans data/collections/images (3 Mo au plus chacune, 500 Mo en tout). On interroge ses listes à la voix : « est-ce que j'ai le Lego 75436 ? » (réponse, fiche ouverte, prix, lieu et date d'achat ; sinon Jarvis propose de l'ajouter à tes souhaits), « affiche-moi Thriller », « combien j'ai de vinyles », « combien j'ai dépensé en Lego », « quels disques de U2 j'ai », « affiche mes souhaits Lego », « j'ai acheté Thriller 25 euros à la Fnac », « ajoute un champ pays à ma liste vinyle », « renomme ma liste vinyle en Mes disques ». Chaque liste a ses boutons dans la fiche : ▶ Écouter sur Spotify et Discogs pour les disques, Fiche LEGO et Prix actuel (recherche web, historique des prix et variation annoncée) pour les sets ; à la voix « écoute le vinyle Thriller », « donne-moi le prix du Lego 75436 », « ouvre la fiche Lego du 75436 ». Les questions libres adressées à l'IA passent par deux outils en lecture seule (listes_chercher, listes_lire) : elle lit tes listes mais ne les modifie jamais. Modèles prêts : vinyles, Lego, films, séries, concerts (« crée-moi une liste de films »). Pour les films, séries et concerts, le statut se dit « Vu / À voir » (« Vue » pour une série) au lieu de « Possédé / Souhaité » : « ajoute à ma liste films Inception de Christopher Nolan 2010 » (un film ajouté sans précision est à voir ; « que j'ai vu hier » le marque vu avec la date), « j'ai vu Dune » (passe un film à voir en vu), « est-ce que j'ai vu Inception ? », « affiche mes films à voir », « combien de films j'ai vu ». Un concert se dit avec sa date, sa salle et sa ville (« ajoute à ma liste concerts U2 au Stade de France à Paris le 12 juin 2024 ») : passé il est marqué vu, à venir il est à voir ; boutons Spotify, Setlists et Dates et billets ; l'IA cherche aussi sur le web l'image du concert (photo de l'artiste, sinon pochette de l'album de la tournée). Les infos des séries (année, genre, chaîne, saisons, épisodes, affiche) viennent de TVmaze, gratuit et sans compte ; celles des films, faute de catalogue gratuit fiable sans clé, d'une recherche web de l'IA en tâche de fond ; boutons Bande-annonce, Où le voir et Allociné." },
+          { "icone": "◧", "titre": "Projets, Claude Code, terminaux", "texte": "Liste numérotée de tes projets (favoris, mis de côté), état git, lancement de Claude Code dans un projet (PowerShell ou tmux), relais vocal vers un Claude Code (« parle à Claude »), dictée dans le terminal au premier plan (« je valide le prompt » envoie), lecture de l'écran d'un agent, interruption. La card Terminal suit les agents lancés : un clic affiche le terminal, un second le réduit." },
+          { "icone": "☀", "titre": "Maison", "texte": "Pilotage des ampoules Yeelight du réseau local : allumer, éteindre, intensité, couleur, ambiances (travail, détente, cinéma, nuit…)." },
+          { "icone": "🛒", "titre": "Recherche et achats", "texte": "Recherche web approfondie en tâche de fond (rapport et sources cliquables). Achat : card des offres du moins cher au plus cher, fiche produit, bibliothèque de produits avec actualisation des prix." },
+          { "icone": "◉", "titre": "Vision", "texte": "« Regarde ce que je te montre » : une photo par la webcam, décrite par l'IA (une seule image, uniquement sur demande). « Lis l'erreur à l'écran » : OCR de l'écran." },
+          { "icone": "✦", "titre": "Raccourcis, automatisations, compétences", "texte": "« Quand je dis mode travail, ouvre VS Code et mets de la musique » crée un raccourci vocal. « Quand Spotify s'ouvre, … » crée une automatisation. Chaque fichier .js du dossier skills devient une commande sans IA, prise en compte en une seconde." },
+          { "icone": "◈", "titre": "Missions et annulation", "texte": "Une demande en plusieurs étapes (« ouvre VS Code, puis explique-moi le dernier commit, puis baisse le son ») est découpée, exécutée étape par étape et vérifiée ; au premier échec, « reprends la mission » repart de là. « Défais » annule la dernière action réversible (volume, lumière, rappel…)." },
+          { "icone": "✈", "titre": "Telegram", "texte": "Parler à Jarvis depuis le téléphone et recevoir ses notifications. Bot privé appairé par un code à 6 chiffres (Administration › Telegram) ; un code de validation n'y est jamais accepté." },
+          { "icone": "⬡", "titre": "Connecteurs MCP", "texte": "Ajout, test et activation de serveurs MCP externes (Google Workspace, Spotify, dossiers…) depuis l'administration. Chaque outil découvert devient une action de la section Sécurité." }
+        ] }
+      ]
+    },
+    {
+      "id": "interface",
+      "titre": "L'interface (HUD)",
+      "blocs": [
+        { "type": "liste", "titre": "Le cœur et son personnage", "items": [
+          "Le cœur respire et change de taille selon l'activité. Un personnage 3D peut prendre sa place (Marvin, Bobot, le petit robot, le chat grincheux : « affiche Marvin », « cœur classique »).",
+          "Le personnage réagit à ce que fait Jarvis (écoute, réfléchit, parle, danse sur la musique, dort) et tourne la tête vers la card qui retient l'attention : celle que tu survoles ou déplaces, une card qui vient de s'activer, la card musique tant qu'elle joue.",
+          "Checkup : « check-up » ou /checkup passe le cœur au scanner holographique et affiche les fonctions vitales de Jarvis (cerveau, mémoire, oreilles, bouche, yeux, noyau, journal, connecteurs, outils, ressources, erreurs)."
+        ] },
+        { "type": "liste", "titre": "Cards et widgets", "items": [
+          "Les cards d'action autour du cœur (mails, musique, agenda, navigateur, système, assistant) s'allument quand une tâche les concerne. Elles se déplacent à la souris.",
+          "Les widgets (musique, mail, agenda, Bureau, Terminal, notes, réunions, listes, achats, matériel…) sont numérotés : cards de type 1 (toujours actives : Bureau, Audio, Matériel, Conversation, Actions) de 1 à 99, cards de type 2 (temporaires) de 100 à 199. À la voix, « ferme la card 2 » désigne la card 102, « ouvre la card 2 », « cache la card 2 », « ferme toutes les cards ».",
+          "Listes à fiches : « affiche mes listes » ouvre la card « Mes listes » (nouvelle liste, ouvrir une liste ; les listes demandées par un invité de Nomade sont dans le groupe « Listes des invités »). Dans une liste demandée sur mesure, Jarvis repère seul les fiches incomplètes (toutes les 10 minutes, 3 par passage, une même fiche au plus une fois par semaine) et demande à l'IA de remplir les champs vides ; le bouton « ✨ Compléter (IA) ». « Modifier la liste » fixe aussi l'ordre d'affichage par défaut des fiches (ajoutées récemment, A → Z, possédées d'abord, ou par date : plus récente ou plus ancienne d'abord pour une liste qui a un champ date, comme la date d'un concert) et rend un champ obligatoire (case « obligatoire » : une fiche sans lui n'est pas enregistrée ; la date du concert l'est dans la liste Concerts) de la fiche le fait à la demande. Une liste s'affiche en mini-cards (rang horizontal, grille ou liste ; recherche, filtres possédés / souhaités, tri) ; un clic sur une mini-card ouvre la fiche, dont chaque valeur se modifie au clic. « + Ajouter », « + Ajouter en texte » (ajout multiple en texte libre mis en forme par l'IA) « ☑ Sélection » (cocher plusieurs fiches pour les supprimer ou leur donner la même valeur dans un champ ; un seul « annule » défait tout), « 📊 Stats » (totaux, dépenses et répartitions par champ : concerts par artiste et par année, disques par artiste…), « ⇪ CSV » (import d'un fichier CSV exporté d'Excel ou d'un tableur : la 1re ligne porte le nom des champs, les doublons sont ignorés, un seul « annule » défait l'import), « 🖼 Images » (recherche web de l'image de chaque fiche qui n'en a pas, une recherche IA par fiche, en tâche de fond, relancée jusqu'à 2 fois si aucune image n'est trouvée) et « ✎ Liste » donnent les formulaires pour ajouter des fiches, modifier les champs ou supprimer la liste.",
+          "Card Terminal : une ligne par agent lancé (Claude Code, AGY) avec son état. Un clic affiche son terminal, un second clic le réduit.",
+          "Zone matériel (CPU, RAM, périphérique audio) en bas à gauche ; moteur, modèle, effort, quota et jetons du jour en bas à droite."
+        ] },
+        { "type": "liste", "titre": "Modes de fenêtre", "items": [
+          "Plein écran HUD ou demi-écran.",
+          "Widget flottant : mini-orbe de 80 × 80 px toujours au premier plan (« mode widget », Ctrl+Maj+W). Glisser pour déplacer, double-clic pour revenir, clic droit pour le menu.",
+          "Mode fantôme : le widget laisse tout traverser (Ctrl+Maj+G pour en sortir).",
+          "Ctrl maintenu au-dessus du widget : il s'efface et laisse passer les clics vers la fenêtre de derrière (relâcher pour le retrouver).",
+          "Compagnon de bureau activé : déposer un fichier sur le cœur (widget, Bureau JARVIS ou fenêtre principale) le nourrit, faire tourner la souris autour le caresse, double-clic du bouton du milieu : ne pas déranger (ou réveil).",
+          "Bureau JARVIS : le HUD devient le fond d'un bureau virtuel dédié (Ctrl+Maj+B pour y aller) ; quand une fenêtre recouvre le cœur, il reste sous les fenêtres et glisse vers un endroit libre du fond (il ne passe jamais devant). Option « Fond d'écran de Windows » : l'image de fond de Windows remplace le fond noir, sous les effets et les cards, sans les icônes (voile réglable)."
+        ] },
+        { "type": "p", "texte": "Thèmes de couleur (F4) et densités d'affichage (Maj+F4) se changent à la voix ou au clavier. Le rendu s'arrête quand la fenêtre est masquée, la voix continue." }
+      ]
+    },
+    {
+      "id": "modules",
+      "titre": "Modules",
+      "intro": "Jarvis est le système principal ; chaque card est un module indépendant, qu'on peut ajouter, enlever ou créer.",
+      "blocs": [
+        { "type": "p", "texte": "Les modules sont rangés dans le dossier modules/ de Jarvis, un dossier par module. Chaque dossier contient sa fiche (module.json : nom, version, description, numéro et type de card), son interface (ui/ : scripts et styles de la card) et, si le module a une logique propre, sa partie noyau (core/ : une crate Rust reliée à Jarvis)." },
+        { "type": "table", "titre": "Gérer les modules", "colonnes": ["Action", "Comment"], "lignes": [
+          ["Activer / désactiver", "Administration › Modules : un interrupteur par module. L'interface apparaît ou disparaît aussitôt (le HUD se recharge) ; la partie noyau suit au prochain démarrage de Jarvis."],
+          ["Enlever", "Désactiver le module, ou supprimer son dossier modules/<id>/. Un module avec une partie noyau se retire aussi de crates/jarvis-modules (une ligne dans Cargo.toml, une dans src/lib.rs), puis Jarvis se recompile."],
+          ["Créer avec l'IA", "Card « Create module » (N° 121, bouton dans la card Actions) : décris le module, réponds aux questions de l'IA et valide ; le module apparaît aussitôt (sans recompiler), rangé dans data/user-modules/perso-<nom>/. Modifier ou supprimer se fait dans la même card."],
+          ["Ajouter / créer à la main", "Copier modules/_modele sous un nouveau nom, changer « id » (= nom du dossier), « nom » et le numéro de card dans module.json, puis écrire la card dans ui/. Un module sans partie noyau apparaît sans recompiler. Mode d'emploi complet : modules/README.md."],
+          ["Numéros de card", "Chaque fiche donne le numéro par défaut de sa card (type 1 : 1 à 99, toujours active ; type 2 : 100 à 199, temporaire). Deux modules ne peuvent pas prendre le même numéro ; un numéro choisi dans l'administration reste prioritaire."]
+        ] },
+        { "type": "astuce", "texte": "Toutes les cards sont des modules : Bureau (1), Audio (2), Matériel (3), Conversation (4), Actions (5), Musique (100), Terminal (101), Mails (102), Agenda (103), Notes (104), Réunions (105), Listes à fiches (106), Create module (121), Agents (122), Compagnon (123), Projets (109), Data (110), Suivi Data (111), Nomade (120), et sans numéro fixe Navigateur, Devant, Checkup, Achats et Diction. Certains n'ont qu'une fiche : leur card est la card de liste commune du système (Agenda, Projets, Navigateur) ou est dessinée par le HUD (Conversation) ; l'interrupteur les retire quand même. La card Actions (5) liste les cards à ouvrir (dont Agents et Checkup), avec à droite le nombre de leurs éléments : listes, notes, projets, réunions, dossiers Data, agents. Son bouton ⚙ (en-tête) la personnalise : coche les lignes à afficher, ▲ ▼ pour les ranger dans l'ordre voulu, « Tout afficher · ordre d'origine » pour revenir au départ ; le choix est mémorisé." }
+      ]
+    },
+    {
+      "id": "raccourcis",
+      "titre": "Raccourcis et commandes",
+      "blocs": [
+        { "type": "table", "titre": "Boutons du HUD (en haut à droite, sous AIDE)", "colonnes": ["Bouton", "Action"], "lignes": [
+          ["Danse des personnages", "Quand une musique joue, les personnages du cœur dansent selon son style (calme, pop, électro, rock, rap, latino), deviné d'après le titre, l'artiste et la playlist, ou le tempo et l'énergie du son. Réglage : Administration › Interface › Danse des personnages (automatique ou un style imposé)."],
+          ["Voix presque reconnue", "Si tu dis « Jarvis » et que ta voix est tout près du seuil de reconnaissance, la demande est exécutée quand même (réglage : Administration › Voix › Tolérance près du seuil, 12 points par défaut, 0 = jamais). Une voix vraiment inconnue reste ignorée : Jarvis le dit, et la phrase rouge est cliquable pour confirmer."],
+          ["▾ OUTILS", "Ouvre ou ferme la liste des boutons RANGER, PLACER, ACTIONS, FIGER et RESTAURER (fermée, seul OUTILS reste affiché ; l'état est mémorisé)."],
+          ["⇤ RANGER", "Réduit les cards toujours actives (type 1 : Bureau, Audio, Matériel, Conversation, Actions) en boutons jaunes et les aligne en colonne, collés à gauche, puis range dessous les cards temporaires ouvertes (Terminal, mails, notes…) en boutons violets ; les cards inactives ne bougent pas"],
+          ["Boutons jaunes / violets", "Une card réduite devient un bouton : jaune pour les cards toujours actives (Bureau, Audio, Matériel), violet pour les cards temporaires (Terminal, mails, notes…). Clic : la rouvrir ; glisser : la déplacer ; clic sur le titre d'une card ouverte : la réduire. La card Terminal reste affichée en mode inactif quand elle est fermée."],
+          ["❄ FIGER / ⟲ RESTAURER", "FIGER enregistre la vue : l'emplacement et l'état (ouverte, réduite) de toutes les cards. RESTAURER replace toutes les cards comme au dernier FIGER ; une card fermée à ce moment s'ouvrira à sa place enregistrée."],
+          ["Couleurs des cards", "Type 1 (toujours actives : Bureau, Audio, Matériel, Conversation, Actions) et type 2 (temporaires : Terminal, mails, musique, listes…) : une couleur ouverte et une couleur réduite en bouton pour chacun, au choix dans Administration › Interface › Couleurs des cards (violet par défaut pour le type 2, jaune réduit pour le type 1)."],
+          ["En-tête des cards", "Poignée, numéro, titre, puis 📍 (emplacement par défaut), 📌 (figer : la card ne se déplace plus), – (réduire en bouton) et × (fermer). Le numéro de card sert à la voix (« ferme la card 2 » = card 102) ; type 1 : Bureau 1, Audio 2, Matériel 3, Conversation 4, Actions 5 ; type 2 : de 100 à 199, la musique a le 100, Terminal 101, Mails 102, Agenda 103, Note 104, Réunion 105, Mes listes 106, les autres à partir de 120 ; la card Actions affiche le numéro de chaque card après son titre. Tous ces numéros se changent dans Administration › Interface › Numéros des cards."],
+          ["↺ PLACER", "Remet à leur emplacement par défaut toutes les cards qui en ont un ; un second clic, quand elles y sont déjà, les ouvre toutes. Le bouton 📍 de chaque card tourne en boucle : un clic fixe l'emplacement ; fixage actif, un clic replace la card, un second clic désactive le fixage (Maj + clic : l'oublier)"],
+          ["☰ ACTIONS", "Ouvre / réduit la card Actions (type 1 : 📍 📌 –) qui liste les cards temporaires qu'on peut ouvrir (Listes, Agenda : tes 3 prochains rendez-vous avec un bouton vers Google Agenda, Notes, Réunions, Projets) : un clic sur une action ouvre la card voulue, un second clic la referme"]
+        ] },
+        { "type": "table", "titre": "Clavier dans le HUD", "colonnes": ["Touche", "Action"], "lignes": [
+          ["F1", "Ouvrir cette page d'aide"],
+          ["Maj + F1", "Aide-mémoire des touches dans le HUD"],
+          ["F2", "Mode débogage"],
+          ["F3", "Couper / rétablir le micro"],
+          ["F4", "Thème suivant"],
+          ["Maj + F4", "Densité d'affichage suivante"],
+          ["F5", "Transcription"],
+          ["Maj + F5", "Apprentissage des voix (« qui parle ? »)"],
+          ["F6", "Mémoire"],
+          ["F7", "État : moteur, quota, journal"],
+          ["F8", "Mode d'écoute (mot d'éveil, appui pour parler, écoute libre)"],
+          ["F9", "Journal et réponse complète"],
+          ["F10", "Configuration (administration)"],
+          ["V", "Vérifier le journal (panneau ouvert)"],
+          ["Espace", "Parler (mode appui pour parler)"],
+          ["Page ↑ / Page ↓", "Faire défiler les panneaux"],
+          ["Début / Fin", "Aller au plus ancien / au plus récent"],
+          ["Échap", "Vider la console, puis tout arrêter (tâches, validations, parole) ; explorateur 3D ouvert : le fermer seulement"],
+          ["Souris (explorateur 3D)", "Glisser : tourner autour · molette : zoom · clic droit : déplacer · clic : choisir une pièce · double-clic : centrer"],
+          ["Entrée", "Envoyer la commande ou le code de validation tapé dans la console"],
+          ["Ctrl + Q", "Quitter Jarvis"]
+        ] },
+        { "type": "table", "titre": "Raccourcis globaux (partout dans Windows)", "colonnes": ["Touche", "Action"], "lignes": [
+          ["Ctrl + Maj + J", "Afficher / masquer Jarvis"],
+          ["Ctrl + Maj + W", "Mode widget flottant"],
+          ["Ctrl + Maj + G", "Sortir du mode fantôme"],
+          ["Ctrl + Maj + B", "Aller au Bureau JARVIS (ou l'activer)"],
+          ["Ctrl maintenu (sur le widget)", "Le widget s'efface et laisse passer les clics"],
+          ["Double-clic du bouton du milieu (sur le widget)", "Compagnon de bureau : ne pas déranger / réveil"]
+        ] },
+        { "type": "table", "titre": "Zone de notification (clic droit sur l'icône)", "colonnes": ["Entrée", "Effet"], "lignes": [
+          ["Afficher / masquer Jarvis", "Comme Ctrl+Maj+J"],
+          ["Bureau JARVIS", "Active le bureau virtuel dédié"],
+          ["Démarrer avec Windows", "Lancement automatique à l'ouverture de session"],
+          ["Redémarrer la voix", "Relance le moteur vocal"],
+          ["Mode widget flottant", "Réduit Jarvis en mini-orbe"],
+          ["Configuration…", "Ouvre l'administration"],
+          ["Quitter Jarvis", "Ferme tout"]
+        ] },
+        { "type": "table", "titre": "Souris", "colonnes": ["Geste", "Effet"], "lignes": [
+          ["Clic sur ? AIDE", "Ouvre cette page"],
+          ["Clic sur ⚙ CONFIG", "Ouvre l'administration"],
+          ["Clic sur le numéro de version", "Historique des modifications"],
+          ["Glisser une card ou un widget", "Le déplacer (la position est mémorisée)"],
+          ["Clic sur une ligne de la card Terminal", "Afficher le terminal ; second clic : le réduire"],
+          ["Bouton STOP", "Tout arrêter (comme Échap)"],
+          ["Bandeau « Jarvis a été modifié »", "Relancer Jarvis (recompilation si le noyau a changé)"]
+        ] },
+        { "type": "table", "titre": "Commandes écrites (console du HUD)", "colonnes": ["Commande", "Effet"], "lignes": [
+          ["/model, /effort, /moteur", "Modèle, effort de réflexion, moteur d'IA (Claude Code ou AGY)"],
+          ["/voix", "Voix de Jarvis"],
+          ["/theme, /densite", "Thème de couleur, densité d'affichage"],
+          ["/zone add|remove", "Ajouter ou retirer une zone d'accès"],
+          ["/autoriser <zone> <durée>", "Autorisation d'écriture temporaire"],
+          ["/locuteur", "Filtrage par empreinte vocale"],
+          ["/sourdine, /economie", "Sourdine contextuelle ; économie de quota"],
+          ["/autostart", "Démarrage avec Windows"],
+          ["/journal, /verifier, /reponse", "Journal scellé, vérification d'intégrité, dernière réponse complète"],
+          ["/vibe", "Vibe coding (modification d'un élément pointé à l'écran)"],
+          ["/checkup", "Scanner de santé du cœur"],
+          ["/stop, /cancel, /annule", "Arrêter une tâche ou tout"],
+          ["/fond <demande>", "Lancer une demande en tâche de fond"],
+          ["/corrige <phrase>", "Corriger la dernière phrase mal comprise"]
+        ] },
+        { "type": "astuce", "texte": "Un code de validation se tape toujours au clavier dans la console, jamais à la voix." }
+      ]
+    },
+    {
+      "id": "securite",
+      "titre": "Sécurité et confiance",
+      "blocs": [
+        { "type": "table", "titre": "Niveaux d'accord", "colonnes": ["Niveau", "Signification"], "lignes": [
+          ["Direct (allow)", "Exécution automatique."],
+          ["Accord oral (voice)", "« Oui » suffit."],
+          ["Code (code)", "Un code à 4 chiffres s'affiche à l'écran, tu le retapes au clavier."],
+          ["Interdit (deny)", "Refus systématique."]
+        ] },
+        { "type": "liste", "titre": "Règles", "items": [
+          "Resserrer un niveau est libre ; en abaisser un exige le code ; tout changement est journalisé.",
+          "Autorisation temporaire d'écriture accordable à la voix pour une courte durée.",
+          "Zones d'accès : le dossier de travail (workspace) est libre ; Bureau, Documents, Téléchargements et Projets demandent un accord pour écrire ; hors zone, l'écriture est interdite et la lecture demande un code ; les données internes de Jarvis sont inaccessibles aux IA.",
+          "Les identifiants (Google, Spotify, MCP, Telegram) sont chiffrés par Windows (DPAPI) et ne sont jamais transmis aux modèles.",
+          "Le journal scellé est en ajout seul : chaque ligne porte l'empreinte de la précédente, toute altération est détectable (vérification au démarrage, touche V, /verifier).",
+          "La session IA tourne en mode de permission manuel : aucun réglage global ne peut court-circuiter la validation de Jarvis.",
+          "Par défaut, Claude Code lancé dans un terminal demande avant d'agir ; chaque lancement sans validation est inscrit au journal.",
+          "Page d'aide : le contenu de tes listes n'est servi qu'avec un jeton propre à chaque lancement de Jarvis, transmis dans l'adresse ouverte par le bouton « ? AIDE » (jamais envoyé au serveur ni conservé dans l'adresse affichée) ; l'hôte et l'origine de chaque requête sont vérifiés, et seules les opérations sur les listes sont possibles."
+        ] },
+        { "type": "p", "texte": "La liste complète des capacités de Jarvis et de leur niveau d'accord actuel est dans la section « Capacités et niveaux d'accord », générée en direct." }
+      ]
+    },
+    {
+      "id": "administration",
+      "titre": "L'administration (F10)",
+      "blocs": [
+        { "type": "table", "colonnes": ["Section", "Contenu"], "lignes": [
+          ["Général", "État de Jarvis, moteur, démarrage, interface (personnage du cœur), surveillance des agents IA, annonces spontanées (heures calmes, écart minimal), présence par webcam (absence, vie privée, musique au départ)."],
+          ["Assistant voix", "Mise en place guidée : micro, enrôlement de ta voix, calibrage."],
+          ["Voix", "Voix, débit, délais de fin de tour, interruptions, anti-écho, bruit, gain, modèle de transcription, mot d'éveil (détecteur phonétique, openWakeWord ou les deux, seuil), prononciation."],
+          ["Profil & préférences", "Nom, prénom d'appel, tutoiement, ton, concision, humour, consignes libres."],
+          ["Maison", "Pont Philips Hue (association) et prises Shelly ou Kasa déclarées ; essai d'une prise."],
+          ["Documents", "Dossiers de documents que Jarvis peut lire (PDF, Word, texte, Markdown, CSV), analyse et nombre de passages indexés."],
+          ["Mémoire (RAG)", "Consulter, ajouter, modifier, oublier (code) ou purger (code) les souvenirs ; une date facultative rend un souvenir temporaire. Panneau « Mémoire automatique » : activer, délai de silence, analyser maintenant, journal des dernières analyses."],
+          ["Mes données", "Emplacement des données (%LOCALAPPDATA%\\Jarvis\\donnees, bouton « Ouvrir le dossier »), export de toutes les données en archive .jarvis (mot de passe facultatif : il protège les secrets des connecteurs, sinon ils ne sont pas exportés), restauration d’une archive placée dans le dossier des sauvegardes (aperçu, mot de passe, code de validation, appliquée à la relance ; les données remplacées sont gardées à côté)."],
+          ["Mise à jour", "Jarvis installé (installer.ps1) : version installée, nouvelle version publiée et ses nouveautés, « Vérifier maintenant », « Préparer » (récupérée et compilée en arrière-plan), « Installer et redémarrer » (la version précédente est gardée) ; réglage automatique (installée à la fermeture), me demander ou manuel. Modules : installer ou retirer chaque module hors socle (aussitôt pour un module d’interface, au redémarrage pour un module compilé ; ses données sont gardées). Version de développement : rappel de la publication (tools/publier.ps1)."],
+          ["Projets", "Dossier racine des projets, favoris, projets mis de côté."],
+          ["Zones & vocabulaire", "Zones d'accès et droits, mots appris, corrections."],
+          ["Connecteurs MCP", "Ajouter, tester, activer des serveurs ; secrets chiffrés."],
+          ["Telegram", "Appairage et notifications du téléphone."],
+          ["Nomade", "Adresse du site, identifiant et mot de passe (le premier « Relier » crée le compte sur un site neuf ; les changer ensuite demande un code de validation, avec l'option de déconnecter les appareils déjà connectés). Liste de toutes les données partageables, à cocher une à une (décocher efface ces données du site, code de validation). Synchronisation automatique et intervalle, synchroniser maintenant, dépôts reçus, modifications à vérifier (réessayer, ignorer, tout effacer), appareils connectés au site (révocation). Partages : créer un accès pour une autre personne (nom, mail, identifiant, lecture seule ou lecture et écriture, données visibles), invitation envoyée par le Gmail de Jarvis (lien de 7 jours, aussi affiché pour le transmettre autrement), nouveau lien en cas d'oubli, modification et suppression ; créer ou modifier un partage demande un code de validation ; lien avec la personne (famille, ami·e, collègue, autre) qui range ses listes dans la mémoire ; panneau « Listes des invités ». Version du site : Jarvis compare l'empreinte de chaque fichier en ligne à son dossier web-nomade (au démarrage, toutes les 10 minutes, ou « Vérifier maintenant ») et signale les fichiers à déployer et les migrations de base manquantes. Mot de passe et clé de Jarvis chiffrés par Windows."],
+          ["Terminal", "Dictée, couleurs et actions du terminal, tmux."],
+          ["Sécurité", "Niveau d'accord de chaque type d'action."],
+          ["Journal & dialogues", "Consultation et vérification du journal scellé."],
+          ["Qualité vocale", "Phrases comprises, écartées ou acceptées de justesse sur 24 h et 7 jours, avec les dernières phrases rejetées et leur similarité. Le voyant « Oreilles » du Checkup passe à l'orange si plus de 40 % des phrases sont écartées."],
+          ["Échecs & apprentissage", "Demandes ratées et ce que Jarvis en apprend."],
+          ["Widget", "Taille, opacité, clics traversants, mode fantôme."],
+          ["Bureau JARVIS", "Bureau virtuel dédié : écran, bureau, masques, fond d'écran de Windows et voile."],
+          ["Optimisation", "Options de performance, préréglages, mode automatique, consommation mesurée, espace disque des compilations (alerte au-delà d’un seuil, effacement des anciennes copies des crates)."]
+        ] },
+        { "type": "p", "texte": "Seule la fenêtre d'administration peut modifier les réglages (liste blanche de méthodes) ; chaque modification est journalisée." }
+      ]
+    },
+    {
+      "id": "rag-texte",
+      "titre": "La mémoire et les RAG",
+      "intro": "RAG signifie « recherche augmentée » : avant de répondre ou de décider, Jarvis retrouve par le sens les informations utiles dans ses propres données. Il en utilise plusieurs, tous locaux et hors ligne. Les chiffres en direct sont dans la section « RAG en direct » ci-dessous.",
+      "blocs": [
+        { "type": "table", "colonnes": ["RAG", "À quoi il sert", "Comment il cherche"], "lignes": [
+          ["Mémoire long terme", "Retenir tes goûts, ton identité, tes habitudes, ton profil de dialogue, la liste de tes projets, tes listes. Chaque session IA reçoit l'essentiel (identité, lieu, préférences de dialogue, situations temporaires) et le nombre des autres souvenirs par catégorie ; elle les consulte avec memoire_lire quand la demande en dépend.", "Embeddings sémantiques (75 %) mêlés à un score lexical (25 %) ; repli lexical seul si le modèle est absent."],
+          ["Routeur sémantique", "Reconnaître par le sens une demande locale (heure, date, musique, volume, mails, agenda, météo, capture, diagnostic…) même formulée autrement.", "Comparaison aux phrases d'exemple de chaque intention ; seuil de similarité et marge sur la 2ᵉ meilleure, jamais bloquant."],
+          ["Aide aux commandes", "« Quelle commande pour… ? » : retrouver la phrase exacte à dire.", "Mots en commun avec le catalogue, pondérés par leur rareté ; « oui » exécute la commande proposée."],
+          ["Recherche dans les réunions", "Répondre à « qu'a-t-on décidé sur… ? » à partir des réunions enregistrées.", "Embeddings des passages ; repli sur les mots."],
+          ["Documents locaux", "Répondre à « que dit mon bail sur le préavis ? » à partir des PDF, Word, texte, Markdown et CSV des dossiers que tu as choisis (Administration › Documents).", "Embeddings des passages (~900 caractères) ; repli sur les mots. Lecture seule : seuls les extraits utiles sont transmis à l'IA."],
+          ["Dossiers Data", "Répondre sur un sujet que tu as fait documenter (« fais un dossier sur… ») : fiche technique, histoire, fonctionnement, comparaisons, vidéos.", "Un RAG par dossier : résumé, fiche, sections, chronologie, pièces, légendes et rapports découpés en passages ; embeddings (75 %) et score lexical (25 %), repli lexical sans modèle. Lecture seule pour l'IA (savoir_chercher)."],
+          ["Listes à fiches", "Retrouver un disque, un set Lego ou toute fiche de tes listes (« est-ce que j'ai le Lego 75436 ? ») et savoir ce que contient chaque liste.", "Un passage par fiche, rédigé avec les libellés de la liste ; un numéro ou un code retrouvé à l'identique passe en premier, puis embeddings (75 %) et score lexical (25 %) ; repli lexical sans modèle."],
+          ["Cache des réponses", "Resservir une question de culture générale déjà posée, sans appel IA.", "Question normalisée ; jamais pour ce qui dépend du moment, de toi ou d'une action."]
+        ] },
+        { "type": "liste", "titre": "Règles de la mémoire", "items": [
+          "Quand tu révèles une information durable (préférence, identité, habitude, projet), Jarvis la retient ; il ne retient jamais un mot de passe, un code de validation ni une information éphémère, et ne mémorise pas automatiquement le contenu de tes mails ou rendez-vous.",
+          "Quand une demande dépend de tes goûts ou de ton contexte, Jarvis lit sa mémoire avant de répondre.",
+          "Mémoire automatique (désactivée au départ, Administration › Mémoire) : les phrases où tu parles de toi (« je », « mon », « nous »…) restent en mémoire vive ; après quelques minutes de silence, Claude Haiku propose quoi retenir ou corriger en citant tes phrases. Jarvis écarte toute proposition sans preuve, sans rapport avec les phrases citées, déjà connue ou contenant un secret, applique le reste (5 au plus) et efface les phrases. Il n'oublie jamais rien de lui-même : effacer un souvenir demande toujours un code.",
+          "Souvenirs temporaires : une situation passagère (« je suis en congé jusqu'au 3 novembre », un déplacement, un invité) est retenue avec son dernier jour. Jarvis la cite avec son échéance puis l'oublie de lui-même le lendemain. La date se règle aussi dans l'administration (vide : durable).",
+          "Oublier un souvenir et effacer toute la mémoire exigent un code. L'IA n'a jamais d'écriture directe : elle passe par des outils dédiés.",
+          "Les souvenirs épinglés (profil de dialogue, liste des projets) sont tenus à jour par Jarvis ; on les modifie dans leur section d'administration.",
+          "Le modèle d'embeddings est chargé à la demande et libéré après 5 minutes d'inactivité pour rendre la mémoire."
+        ] }
+      ]
+    },
+    {
+      "id": "sauvegarde",
+      "titre": "Sauvegarde et dépannage",
+      "blocs": [
+        { "type": "liste", "titre": "Sauvegarde automatique", "items": [
+          "Une copie de data/ (toutes tes données : mémoire, savoir (RAG), listes à fiches et leurs images, réglages, empreinte vocale, journal scellé, corpus, Nomade ; sauf les modèles, les journaux de diagnostic et le cache vocal) est faite dans Documents\\Jarvis-sauvegardes, un dossier par jour, refaite toutes les 6 heures.",
+          "On garde les 7 derniers jours puis une copie par semaine sur 4 semaines. Les modèles et les journaux de diagnostic ne sont pas copiés.",
+          "Réglable dans config.json › backup (dir, enabled). Restauration, Jarvis fermé : jarvis-core restaurer --oui (ou --depuis <dossier>)."
+        ] },
+        { "type": "liste", "titre": "Installer Jarvis chez quelqu’un et le mettre à jour", "items": [
+          "Installer Jarvis sur un autre PC (Windows 10 ou 11, sans droits administrateur) : powershell -ExecutionPolicy Bypass -c \"irm https://raw.githubusercontent.com/worganic/jarvis/main/installer.ps1 | iex\". Le script installe les outils de compilation (Git, Rust, Build Tools, WebView2), fait choisir les modules, compile Jarvis sur le PC (10 à 20 minutes la première fois), l’installe dans %LOCALAPPDATA%\\Jarvis\\app, supprime les sources, télécharge les modèles vocaux (environ 3,6 Go) et propose de restaurer une archive .jarvis.",
+          "Mises à jour : Administration › Mise à jour, ou le bandeau du HUD. La nouvelle version est compilée en arrière-plan (Jarvis reste utilisable), puis installée au redémarrage ; la précédente est gardée dans app.precedent. En automatique, elle s’installe à la fermeture de Jarvis. Journal : %LOCALAPPDATA%\\Jarvis\\installation.log.",
+          "Plus tard, avec le script copié dans le programme (%LOCALAPPDATA%\\Jarvis\\app\\installer.ps1) : -MiseAJour, -AjouterModule <id>, -RetirerModule <id>, -Restaurer <archive.jarvis> [-MotDePasse m], -LibererPlace (vide le cache de compilation), -Desinstaller (les données sont gardées sauf accord)."
+        ] },
+        { "type": "liste", "titre": "Emporter ses données (autre PC, autre compte, installation neuve)", "items": [
+          "Administration › Mes données › « Créer l’archive » : un fichier Jarvis-donnees-AAAA-MM-JJ.jarvis dans le dossier des sauvegardes, avec toutes tes données sauf les modèles, les journaux de diagnostic et les caches (retéléchargés ou recalculés). À la voix : « sauvegarde mes données » (sans les mots de passe des connecteurs).",
+          "Les secrets des connecteurs (Google, Spotify, Telegram, Nomade…) sont chiffrés par Windows et illisibles ailleurs : avec un mot de passe d’archive (8 caractères au moins), ils sont rechiffrés par lui puis repassent au chiffrement Windows à la restauration ; sans mot de passe, ils sont retirés et à ressaisir. Un mot de passe perdu ne se retrouve pas.",
+          "Restaurer : place le fichier .jarvis dans le dossier des sauvegardes, puis Administration › Mes données › « Restaurer » (ou « restaure mes données »). L’archive est vérifiée (empreinte de chaque fichier, mot de passe, format) puis appliquée à la relance de Jarvis ; tes données d’avant sont gardées dans donnees.avant-import-AAAA-MM-JJ-HHMM et les modèles vocaux y sont repris.",
+          "En ligne de commande, Jarvis fermé : jarvis-core donnees exporter [fichier] [--mot-de-passe m] · donnees apercu <fichier> · donnees importer <fichier> --oui."
+        ] },
+        { "type": "table", "titre": "Problèmes courants", "colonnes": ["Symptôme", "Cause probable et solution"], "lignes": [
+          ["Croix rouge sur le cœur, MICRO et SON grisés", "Le moteur vocal n'est pas lancé (démarrage en cours, modèle en chargement, écoute orale désactivée). Attendre « Whisper prêt », ou menu de la zone de notification › Redémarrer la voix."],
+          ["Jarvis ne me répond pas", "Voix non reconnue (empreinte à refaire : Administration › Assistant voix), micro coupé (F3), ou sourdine contextuelle active."],
+          ["« Le terminal n'est plus au premier plan »", "Une autre application a pris le focus pendant la dictée. Jarvis ramène le terminal devant seulement si c'est une fenêtre de Jarvis qui l'a masqué."],
+          ["Le bandeau « Jarvis a été modifié » apparaît", "Le noyau, le moteur vocal ou la coquille ont changé : un clic relance Jarvis en le recompilant. Une petite fenêtre « Jarvis — mise à jour » suit la recompilation et liste les nouveautés installées (versions de l'historique parues depuis celle qui tournait). Une modification de l'interface seule recharge les fenêtres sans relance."],
+          ["Voix moins naturelle, accents mal prononcés", "Le service de voix de Microsoft (edge-tts) refuse la connexion et Jarvis parle avec sa voix de secours locale (Piper). Jarvis passe alors tout seul par le paquet Python edge-tts : il doit être installé (« pip install edge-tts ») et, si Microsoft change encore son accès, mis à jour (« pip install -U edge-tts »), puis Jarvis relancé. Le journal du moteur vocal (data/logs/engine.log) dit quelle voix est utilisée. Les personnages ont aussi leur voix : Marvin parle volontairement lentement avec un effet robot."],
+          ["Spotify « n'a rien à reprendre »", "Dis un titre précis, un artiste ou une playlist ; Jarvis rejouera ensuite ta dernière demande avec « mets de la musique »."],
+          ["Un agent demande un accord que je n'ai pas vu", "Les validations apparaissent dans le HUD avec un code à retaper au clavier ; Échap les refuse."]
+        ] }
+      ]
+    }
+  ]
+}

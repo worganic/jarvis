@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>JARVIS · widget</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: transparent;
+      user-select: none;
+    }
+    #stage {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: var(--s, 80px);
+      height: var(--s, 80px);
+      transform: translate(-50%, -50%);
+      display: block;
+    }
+    /* Seul le cœur réagit : le curseur l'indique quand il le survole. */
+    body.hover #stage { cursor: grab; }
+    body.dragging #stage { cursor: grabbing; }
+  </style>
+</head>
+<body>
+  <canvas id="stage" title="Double-clic : interface complète · Clic droit : menu"></canvas>
+  <script src="bridge.js"></script>
+  <script src="hud.js"></script>
+  <script src="orb.js"></script>
+  <!-- Compagnon de bureau (option) : le personnage du cœur vit aussi dans le widget. -->
+  <script src="character-director.js"></script>
+  <script type="module" src="character.js"></script>
+  <script src="widget.js"></script>
+<script src="orb-morph.js"></script>
+</body>
+</html>

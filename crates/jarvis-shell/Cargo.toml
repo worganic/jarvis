@@ -1,0 +1,23 @@
+[package]
+name = "jarvis-shell"
+version.workspace = true
+edition.workspace = true
+description = "Jarvis v4 - coquille Tauri (fenêtres, widget, zone de notification, raccourcis)"
+
+[[bin]]
+name = "jarvis"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "protocol-asset"] }
+tauri-plugin-single-instance = "2"
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-autostart = "2"
+serde.workspace = true
+serde_json.workspace = true
+getrandom.workspace = true
+# Bureau JARVIS (src/desk.rs) : bureaux virtuels, ordre des fenêtres, recouvrement. Même version que Tauri.
+windows.workspace = true

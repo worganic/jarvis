@@ -1,0 +1,38 @@
+# Données personnelles : mémoire, journal scellé, secrets (Google, Spotify), empreinte vocale,
+# échecs, modèles téléchargés, enregistrements. Jamais publiées.
+/data/
+workspace/
+# Notes et transcriptions de réunions (orchestrator/notes.js)
+notes/
+
+# Environnements et dépendances
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+
+# Compilation de la coquille Tauri
+shell/target/
+shell/target-next/
+shell/gen/
+
+# Journaux et caches (les journaux du moteur contiennent des transcriptions de la voix)
+*.log
+*.log.*
+voice/cache/
+*.tmp.js
+
+# Anciennes versions des outils natifs mises de côté pendant une recompilation
+tools/*.old-*.exe
+
+# Compilation Rust (jarvis v4)
+target/
+crates/jarvis-shell/gen/
+# Copie du lanceur compilé (cf. README : copy target\release\jarvis-launcher.exe "Jarvis v4.exe")
+*.exe
+
+# Jarvis Nomade : configuration du serveur générée par deploy.ps1 (accès à la base)
+web-nomade/private/config.php
+
+# Ancien emplacement des données, conservé après leur recopie dans %LOCALAPPDATA%\Jarvis\donnees (4.100)
+/data.migre-*/

@@ -1,0 +1,196 @@
+[
+  {
+    "key": "mouton",
+    "name": "un mouton",
+    "aliases": [
+      "mouton",
+      "moutons",
+      "agneau",
+      "agneaux",
+      "brebis",
+      "belier",
+      "mouton du petit prince"
+    ],
+    "say": "Voilà ton mouton, je l'ai dessiné dans Paint."
+  },
+  {
+    "key": "boite",
+    "name": "une boîte",
+    "aliases": [
+      "boite",
+      "boites",
+      "caisse",
+      "carton",
+      "boite a mouton",
+      "boite avec un mouton",
+      "boite avec des trous"
+    ],
+    "say": "Voici une boîte. Le mouton que tu veux est dedans."
+  },
+  {
+    "key": "chat",
+    "name": "un chat",
+    "aliases": [
+      "chat",
+      "chats",
+      "chaton",
+      "chatons",
+      "minou",
+      "minet"
+    ],
+    "say": "Voilà un chat, dessiné dans Paint."
+  },
+  {
+    "key": "chien",
+    "name": "un chien",
+    "aliases": [
+      "chien",
+      "chiens",
+      "chiot",
+      "chiots",
+      "toutou",
+      "chienne"
+    ],
+    "say": "Voilà un chien, dessiné dans Paint."
+  },
+  {
+    "key": "poisson",
+    "name": "un poisson",
+    "aliases": [
+      "poisson",
+      "poissons",
+      "poisson rouge",
+      "poissons rouges"
+    ],
+    "say": "Voilà un poisson, dessiné dans Paint."
+  },
+  {
+    "key": "maison",
+    "name": "une maison",
+    "aliases": [
+      "maison",
+      "maisons",
+      "maisonnette",
+      "petite maison"
+    ],
+    "say": "Voilà une maison, dessinée dans Paint."
+  },
+  {
+    "key": "arbre",
+    "name": "un arbre",
+    "aliases": [
+      "arbre",
+      "arbres",
+      "pommier"
+    ],
+    "say": "Voilà un arbre, dessiné dans Paint."
+  },
+  {
+    "key": "fleur",
+    "name": "une fleur",
+    "aliases": [
+      "fleur",
+      "fleurs",
+      "marguerite",
+      "marguerites"
+    ],
+    "say": "Voilà une fleur, dessinée dans Paint."
+  },
+  {
+    "key": "soleil",
+    "name": "un soleil",
+    "aliases": [
+      "soleil",
+      "soleils"
+    ],
+    "say": "Voilà un soleil, dessiné dans Paint."
+  },
+  {
+    "key": "etoile",
+    "name": "une étoile",
+    "aliases": [
+      "etoile",
+      "etoiles",
+      "etoile filante"
+    ],
+    "say": "Voilà une étoile, dessinée dans Paint."
+  },
+  {
+    "key": "coeur",
+    "name": "un cœur",
+    "aliases": [
+      "coeur",
+      "coeurs",
+      "cœur",
+      "cœurs"
+    ],
+    "say": "Voilà un cœur, dessiné dans Paint."
+  },
+  {
+    "key": "arc en ciel",
+    "name": "un arc-en-ciel",
+    "aliases": [
+      "arc en ciel",
+      "arcs en ciel",
+      "arc en ciels",
+      "arc en cie"
+    ],
+    "say": "Voilà un arc-en-ciel, dessiné dans Paint."
+  },
+  {
+    "key": "bonhomme",
+    "name": "un bonhomme",
+    "aliases": [
+      "bonhomme",
+      "bonhommes",
+      "bonhomme allumette",
+      "bonhomme baton",
+      "personnage",
+      "personnages",
+      "homme",
+      "personne",
+      "garcon"
+    ],
+    "say": "Voilà un bonhomme, dessiné dans Paint."
+  },
+  {
+    "key": "voiture",
+    "name": "une voiture",
+    "aliases": [
+      "voiture",
+      "voitures",
+      "auto",
+      "automobile",
+      "bagnole",
+      "voiture rouge"
+    ],
+    "say": "Voilà une voiture, dessinée dans Paint."
+  },
+  {
+    "key": "bateau",
+    "name": "un bateau",
+    "aliases": [
+      "bateau",
+      "bateaux",
+      "voilier",
+      "voiliers"
+    ],
+    "say": "Voilà un bateau, dessiné dans Paint."
+  },
+  {
+    "key": "smiley",
+    "name": "un smiley",
+    "aliases": [
+      "smiley",
+      "smileys",
+      "smiles",
+      "emoji",
+      "emoticone",
+      "visage",
+      "visage souriant",
+      "sourire",
+      "tete qui sourit"
+    ],
+    "say": "Voilà un smiley, dessiné dans Paint."
+  }
+]

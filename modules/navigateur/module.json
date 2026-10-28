@@ -1,0 +1,8 @@
+{
+  "id": "navigateur",
+  "nom": "Navigateur",
+  "version": "1.0.0",
+  "description": "Card d'un navigateur (Chrome, Edge) : instances numérotées et leurs pages « 1.1, 1.2… » (extension Chrome). Card de liste du système : la fiche suffit.",
+  "widgets": ["tool.navigateur"],
+  "parDefaut": true
+}

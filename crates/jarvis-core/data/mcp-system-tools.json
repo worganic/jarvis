@@ -1,0 +1,577 @@
+[
+ {
+  "name": "ouvrir_application",
+  "description": "Lance une application Windows enregistrée ou reconnue (ex: photoshop, chrome, notepad, spotify, code, calc, etc.).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "nom": {
+     "type": "string",
+     "description": "nom usuel de l'application (photoshop, chrome, notepad, spotify, calc...)"
+    },
+    "arguments": {
+     "type": "string",
+     "description": "arguments de ligne de commande optionnels"
+    }
+   },
+   "required": [
+    "nom"
+   ]
+  }
+ },
+ {
+  "name": "fermer_application",
+  "description": "Ferme une application ou un processus en cours d'exécution. Action sensible nécessitant un code de validation.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "nom": {
+     "type": "string",
+     "description": "nom de l'application ou du processus (ex: notepad, chrome)"
+    }
+   },
+   "required": [
+    "nom"
+   ]
+  }
+ },
+ {
+  "name": "lister_fenetres",
+  "description": "Liste les fenêtres d'applications actuellement ouvertes et visibles avec leur titre et processus.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "activer_fenetre",
+  "description": "Amène une fenêtre ouverte au premier plan selon son titre.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "titre": {
+     "type": "string",
+     "description": "titre ou partie du titre de la fenêtre à activer"
+    }
+   },
+   "required": [
+    "titre"
+   ]
+  }
+ },
+ {
+  "name": "ouvrir_url",
+  "description": "Ouvre une URL Web dans le navigateur par défaut de l'utilisateur.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "url": {
+     "type": "string",
+     "description": "adresse web commençant par http:// ou https://"
+    }
+   },
+   "required": [
+    "url"
+   ]
+  }
+ },
+ {
+  "name": "ouvrir_dossier",
+  "description": "Ouvre un répertoire dans l'Explorateur de fichiers Windows.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "chemin": {
+     "type": "string",
+     "description": "chemin d'accès du dossier à afficher"
+    }
+   },
+   "required": [
+    "chemin"
+   ]
+  }
+ },
+ {
+  "name": "presse_papier_lire",
+  "description": "Lit le contenu textuel actuellement présent dans le presse-papier Windows.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "presse_papier_ecrire",
+  "description": "Copie un texte dans le presse-papier Windows.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "texte": {
+     "type": "string",
+     "description": "texte à copier dans le presse-papier"
+    }
+   },
+   "required": [
+    "texte"
+   ]
+  }
+ },
+ {
+  "name": "capture_ecran",
+  "description": "Prend une capture instantanée de l'écran principal et l'enregistre en image PNG, avec extraction OCR optionnelle du texte visible.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "nom_fichier": {
+     "type": "string",
+     "description": "nom de base optionnel pour le fichier PNG généré"
+    },
+    "avec_ocr": {
+     "type": "boolean",
+     "description": "si vrai, extrait directement tout le texte visible par OCR local Windows"
+    }
+   }
+  }
+ },
+ {
+  "name": "lire_ecran_ocr",
+  "description": "Prend une capture de l'écran et en extrait immédiatement tout le texte via l'OCR local Windows, sans consommer de quota LLM. Idéal pour lire une erreur, un dialogue ou du texte affiché.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "filtrer_erreur": {
+     "type": "boolean",
+     "description": "si vrai, isole en priorité les lignes d'erreur détectées"
+    }
+   }
+  }
+ },
+ {
+  "name": "dessiner",
+  "description": "Dessine un sujet simple et l'ouvre dans Paint (image enregistrée dans workspace/dessins, que l'utilisateur peut retoucher). À utiliser dès qu'on te demande un dessin : ne réponds pas que tu ne sais pas dessiner. Pour un sujet absent de la liste, propose l'un de ceux-ci.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "sujet": {
+     "type": "string",
+     "enum": [
+      "mouton",
+      "boite",
+      "chat",
+      "chien",
+      "poisson",
+      "maison",
+      "arbre",
+      "fleur",
+      "soleil",
+      "etoile",
+      "coeur",
+      "arc en ciel",
+      "bonhomme",
+      "voiture",
+      "bateau",
+      "smiley"
+     ],
+     "description": "sujet du dessin"
+    }
+   },
+   "required": [
+    "sujet"
+   ]
+  }
+ },
+ {
+  "name": "lumiere",
+  "description": "Lumières Yeelight du réseau local. action : allumer, eteindre, basculer, luminosite (valeur 1-100), plus, moins, couleur (valeur : rouge, vert, bleu, jaune, orange, violet, rose, cyan, blanc…), chaud, froid, ambiance (valeur : travail, concentration, detente, cinema, lecture, nuit, soiree), lister. lampe : partie du nom d'une lampe (vide : toutes).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "action": {
+     "type": "string",
+     "enum": [
+      "allumer",
+      "eteindre",
+      "basculer",
+      "luminosite",
+      "plus",
+      "moins",
+      "couleur",
+      "chaud",
+      "froid",
+      "ambiance",
+      "lister"
+     ]
+    },
+    "valeur": {
+     "type": [
+      "string",
+      "number"
+     ],
+     "description": "luminosité (1-100), couleur ou ambiance selon l’action"
+    },
+    "lampe": {
+     "type": "string",
+     "description": "nom (ou partie du nom) de la lampe ; vide : toutes"
+    }
+   },
+   "required": [
+    "action"
+   ]
+  }
+ },
+ {
+  "name": "projets",
+  "description": "Projets de l'utilisateur (dossier réglé dans l'administration de Jarvis). action lister : ses projets, favoris d'abord puis du plus récemment actif au plus ancien (nom, chemin, description, technologies, dernière activité, favori) ; les projets qu'il a mis de côté sont omis, sauf avec tous=true (à n'utiliser que s'il les demande). action infos + nom : détail d'un projet (description, technologies, branche git, dernier commit, fichiers non commités, sous-projets). Lecture seule. À utiliser avant de répondre à une question sur ses projets ou d'y travailler.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "action": {
+     "type": "string",
+     "enum": [
+      "lister",
+      "infos"
+     ],
+     "description": "lister (par défaut) ou infos"
+    },
+    "nom": {
+     "type": "string",
+     "description": "nom du projet pour action infos (approximatif accepté : « stats ia », « jarvis v2 »), ou son numéro dans la card « Mes projets »"
+    },
+    "tous": {
+     "type": "boolean",
+     "description": "lister : inclure les projets mis de côté (seulement si l’utilisateur les demande)"
+    }
+   }
+  }
+ },
+ {
+  "name": "etat_bureau",
+  "description": "Ce qui est ouvert sur le PC, en direct : écrans (numéro, résolution), fenêtres numérotées (application, titre ou page affichée pour un navigateur, écran, état : au premier plan / réduite / agrandie) et applications ouvertes en arrière-plan. Lecture seule. À utiliser avant d'agir sur une application ou de dire ce qui est affiché.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "ecran": {
+     "type": "string",
+     "description": "limiter à un écran : « 1 », « 2 », « principal », « gauche »…"
+    }
+   }
+  }
+ },
+ {
+  "name": "fenetre",
+  "description": "Agit sur une fenêtre ouverte : afficher (premier plan), reduire, agrandir, restaurer, deplacer (vers un autre écran), gauche / droite (moitié de l'écran), tout_reduire (toutes, ou celles d'un écran). La cible est le nom de l'application (« Spotify »), « fenetre 3 » (numéro d'etat_bureau) ou « chrome 2 » (instance).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "action": {
+     "type": "string",
+     "enum": [
+      "afficher",
+      "reduire",
+      "agrandir",
+      "restaurer",
+      "deplacer",
+      "centrer",
+      "gauche",
+      "droite",
+      "tout_reduire"
+     ]
+    },
+    "cible": {
+     "type": "string",
+     "description": "application, « fenetre 3 » ou « chrome 2 »"
+    },
+    "ecran": {
+     "type": "string",
+     "description": "écran de destination (deplacer, centrer : écran 1 par défaut) ou écran concerné (tout_reduire)"
+    }
+   },
+   "required": [
+    "action"
+   ]
+  }
+ },
+ {
+  "name": "fenetre_fermer",
+  "description": "Ferme une fenêtre ouverte (fermeture normale : l'application peut demander d'enregistrer). Demande l'accord oral de l'utilisateur. La cible est le nom de l'application, « fenetre 3 » ou « chrome 2 ».",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "cible": {
+     "type": "string",
+     "description": "application, « fenetre 3 » ou « chrome 2 »"
+    }
+   },
+   "required": [
+    "cible"
+   ]
+  }
+ },
+ {
+  "name": "ui_lister",
+  "description": "Liste les boutons, liens, onglets, cases et champs visibles d'une application ouverte (UI Automation), numérotés. Lecture seule. Sans application : la fenêtre au premier plan.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "application": {
+     "type": "string",
+     "description": "nom de l’application (« Paint », « Outlook ») ou « fenetre 3 »"
+    }
+   }
+  }
+ },
+ {
+  "name": "ui_agir",
+  "description": "Clique sur un bouton d'une application par son nom (tel qu'affiché) ou par son numéro de ui_lister, ou remplit un champ. Voie fiable (accessibilité), OCR en secours ; ne clique jamais au hasard. Accord oral de l'utilisateur, sauf applis de confiance ; interdit dans les applis sensibles (mots de passe, terminaux…).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "action": {
+     "type": "string",
+     "enum": [
+      "cliquer",
+      "remplir"
+     ]
+    },
+    "application": {
+     "type": "string",
+     "description": "nom de l’application ; vide : fenêtre au premier plan"
+    },
+    "cible": {
+     "type": "string",
+     "description": "cliquer : texte du bouton"
+    },
+    "numero": {
+     "type": "number",
+     "description": "cliquer : numéro donné par ui_lister"
+    },
+    "champ": {
+     "type": "string",
+     "description": "remplir : nom du champ"
+    },
+    "valeur": {
+     "type": "string",
+     "description": "remplir : texte à écrire"
+    }
+   },
+   "required": [
+    "action"
+   ]
+  }
+ },
+ {
+  "name": "onglets",
+  "description": "Onglets de Chrome, en direct (extension Jarvis) : lister (instances numérotées et leurs pages « 2.3 » : titre, adresse, page affichée), activer (aller sur une page), fermer (une page, ou toutes celles qui correspondent à des mots : « youtube »), ouvrir (adresse ou recherche, nouvel onglet), recharger, lire (texte de la page, pour la résumer ou répondre). La page se désigne par son numéro « 2.3 » ou par des mots de son titre ou de son adresse.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "action": {
+     "type": "string",
+     "enum": [
+      "lister",
+      "activer",
+      "fermer",
+      "ouvrir",
+      "recharger",
+      "lire"
+     ]
+    },
+    "page": {
+     "type": "string",
+     "description": "« 2.3 » ou des mots du titre / de l'adresse"
+    },
+    "url": {
+     "type": "string",
+     "description": "ouvrir : adresse (youtube.com, https://…) ou recherche"
+    }
+   },
+   "required": [
+    "action"
+   ]
+  }
+ },
+ {
+  "name": "onglet_agir",
+  "description": "Agit dans une page de Chrome à la place de l'utilisateur (accord oral demandé) : cliquer sur un bouton ou un lien désigné par son texte, ou remplir un champ désigné par son libellé (jamais un mot de passe).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "action": {
+     "type": "string",
+     "enum": [
+      "cliquer",
+      "remplir"
+     ]
+    },
+    "page": {
+     "type": "string",
+     "description": "« 2.3 » ou des mots du titre / de l'adresse"
+    },
+    "texte": {
+     "type": "string",
+     "description": "cliquer : texte du bouton ou du lien"
+    },
+    "champ": {
+     "type": "string",
+     "description": "remplir : libellé, nom ou texte indicatif du champ"
+    },
+    "valeur": {
+     "type": "string",
+     "description": "remplir : texte à saisir"
+    }
+   },
+   "required": [
+    "action",
+    "page"
+   ]
+  }
+ },
+ {
+  "name": "volume",
+  "description": "Ajuste le volume sonore du système Windows (niveau 0 à 100, ou action up, down, mute).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "niveau": {
+     "type": "number",
+     "description": "niveau sonore absolu de 0 à 100"
+    },
+    "action": {
+     "type": "string",
+     "enum": [
+      "up",
+      "down",
+      "mute"
+     ],
+     "description": "action relative : up, down, ou mute"
+    }
+   }
+  }
+ },
+ {
+  "name": "luminosite",
+  "description": "Règle la luminosité de l'écran principal en pourcentage (10 à 100).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "pourcentage": {
+     "type": "number",
+     "description": "niveau de luminosité désiré (10 à 100)"
+    }
+   },
+   "required": [
+    "pourcentage"
+   ]
+  }
+ },
+ {
+  "name": "verrouiller",
+  "description": "Verrouille immédiatement la session Windows. Action sensible nécessitant un code de validation.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "veille",
+  "description": "Met l'ordinateur en veille. Action sensible nécessitant un code de validation.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "fenetre_active",
+  "description": "Retourne le processus et le titre de la fenêtre actuellement au premier plan sous Windows.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "sourdine_contextuelle",
+  "description": "Configure ou consulte la sourdine contextuelle de Jarvis (mode 'auto', 'on' ou 'off'). En mode auto, la voix est automatiquement coupée quand un jeu, une visioconférence ou un enregistrement est actif au premier plan.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "type": "string",
+     "enum": [
+      "auto",
+      "on",
+      "off"
+     ],
+     "description": "mode désiré : auto, on (silence forcé) ou off (voix active)"
+    }
+   }
+  }
+ },
+ {
+  "name": "media",
+  "description": "Contrôle la musique ou la vidéo en cours sous Windows (Spotify en priorité, sinon navigateur ou lecteur) : lecture, pause, suivant, précédent, ou état (titre, artiste, album). Ouvre le widget musique de Jarvis. Pour lancer une playlist, un artiste, un album ou un titre précis, passe action 'play' avec 'requete' (ex. « playlist Angus et Julia Stone », « du Daft Punk », « album Discovery ») : Spotify le joue en arrière-plan, sans clé ni Premium. Sans 'requete', 'play' lance seulement le lecteur interne de Jarvis (webradios).",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "action": {
+     "type": "string",
+     "enum": [
+      "play",
+      "pause",
+      "toggle",
+      "next",
+      "previous",
+      "status"
+     ],
+     "description": "commande à envoyer ; status pour savoir ce qui joue"
+    },
+    "requete": {
+     "type": "string",
+     "description": "contenu précis à jouer avec 'play' : « playlist <nom> », « album <nom> », « du <artiste> » ou un titre"
+    },
+    "app": {
+     "type": "string",
+     "enum": [
+      "spotify",
+      "jarvis"
+     ],
+     "description": "application visée : spotify (défaut quand 'requete' est donnée) ou jarvis (lecteur interne)"
+    }
+   },
+   "required": [
+    "action"
+   ]
+  }
+ },
+ {
+  "name": "maison",
+  "description": "Maison connectée (hors ampoules Yeelight) : lampes Philips Hue via le pont local et prises Shelly ou Kasa, déclarées par l'utilisateur. action : allumer, eteindre, basculer, luminosite (lampes Hue, valeur 1-100), lister. nom : nom (ou partie du nom) de l'appareil, par exemple « cafetière » ou « salon ».",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "action": {
+     "type": "string",
+     "enum": [
+      "allumer",
+      "eteindre",
+      "basculer",
+      "luminosite",
+      "lister"
+     ]
+    },
+    "nom": {
+     "type": "string",
+     "description": "nom ou partie du nom de la lampe Hue ou de la prise"
+    },
+    "valeur": {
+     "type": [
+      "string",
+      "number"
+     ],
+     "description": "luminosité 1-100 (lampes Hue)"
+    }
+   },
+   "required": [
+    "action"
+   ]
+  }
+ }
+]

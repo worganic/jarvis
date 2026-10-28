@@ -1,0 +1,9 @@
+{
+  "id": "conversation",
+  "nom": "Conversation",
+  "version": "1.0.0",
+  "description": "Card 4 : la conversation en cours (ce que tu dis, ce que répond Jarvis), dessinée sur le canevas du HUD par ui/app.js.",
+  "card": { "type": 1, "numero": 4, "titre": "CONVERSATION", "cle": "conversation" },
+  "parDefaut": true,
+  "socle": true
+}

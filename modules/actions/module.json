@@ -1,0 +1,10 @@
+{
+  "id": "actions",
+  "nom": "Actions",
+  "version": "1.0.0",
+  "description": "Card 5 : la liste des cards qu'on peut ouvrir, d'après les fiches des autres modules (un clic ouvre, un second referme).",
+  "card": { "type": 1, "numero": 5, "titre": "ACTIONS", "cle": "actions" },
+  "ui": { "scripts": ["ui/actions.js"], "styles": ["ui/actions.css"] },
+  "parDefaut": true,
+  "socle": true
+}

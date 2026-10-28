@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>JARVIS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="booting">
+  <div id="dragbar"></div>
+  <div id="window-controls">
+    <div class="win-btn-group">
+      <button id="btn-app-mode" class="hud-win-btn desk-only" title="Quitter le Bureau JARVIS : retour à la fenêtre d'application classique">
+        <span class="hud-win-icon">🗗</span>
+        <span class="hud-win-text">MODE APPLICATION</span>
+      </button>
+      <button id="btn-desk-mode" class="hud-win-btn" title="Mode bureau : JARVIS devient le fond du bureau virtuel n° 2 (Ctrl+Maj+B)">
+        <span class="hud-win-icon">▦</span>
+        <span class="hud-win-text">MODE BUREAU</span>
+      </button>
+      <button id="btn-half-screen" class="hud-win-btn" title="Réduire à la moitié de l'écran / Restaurer">
+        <span class="hud-win-icon">◧</span>
+        <span class="hud-win-text">½ ÉCRAN</span>
+      </button>
+      <button id="btn-widget-mode" class="hud-win-btn" title="Passer en mode widget flottant (Ctrl+Maj+W)">
+        <span class="hud-win-icon">◈</span>
+        <span class="hud-win-text">WIDGET</span>
+      </button>
+      <button id="btn-mode-dropdown" class="hud-win-btn icon-only" title="Choisir le mode d'affichage">
+        <span class="hud-win-icon">▾</span>
+      </button>
+    </div>
+    <div id="mode-dropdown" class="mode-dropdown hidden">
+      <button class="mode-item" data-mode="half">
+        <span class="mode-item-icon">◧</span>
+        <div class="mode-item-desc">
+          <div class="mode-item-title">Moitié d'écran</div>
+          <div class="mode-item-sub">Volet latéral 50%</div>
+        </div>
+      </button>
+      <button class="mode-item" data-mode="widget">
+        <span class="mode-item-icon">◈</span>
+        <div class="mode-item-desc">
+          <div class="mode-item-title">Widget flottant</div>
+          <div class="mode-item-sub">Mini-orbe discrète (Ctrl+Maj+W)</div>
+        </div>
+      </button>
+      <button class="mode-item" data-mode="normal">
+        <span class="mode-item-icon">🗖</span>
+        <div class="mode-item-desc">
+          <div class="mode-item-title">Taille normale</div>
+          <div class="mode-item-sub">Restaurer la fenêtre complète</div>
+        </div>
+      </button>
+    </div>
+  </div>
+  <!-- Sous-titres de Jarvis et boutons « micro » / « son » (caption.js) -->
+  <div id="jarvis-caption">
+    <div class="cap-buttons">
+      <button class="cap-sound cap-mic" type="button"><span class="cap-sound-icon">🎙</span><span class="cap-sound-label">MICRO</span></button>
+      <button class="cap-sound cap-voice" type="button"><span class="cap-sound-icon">🔊</span><span class="cap-sound-label">SON</span></button>
+    </div>
+    <div class="cap-text" aria-live="polite"></div>
+  </div>
+  <canvas id="stage"></canvas>
+  <canvas id="stage-front"></canvas><!-- la card Conversation y est dessinée quand elle passe devant les autres cards -->
+  <div id="widgets"></div>
+  <div id="console">
+    <span class="caret">&gt;</span>
+    <input id="input" type="text" autocomplete="off" spellcheck="false"
+           placeholder="commande ou code de validation">
+    <span id="hint">ENTRÉE</span>
+    <button id="stop-btn" type="button" title="Tout arrêter : tâches, validations, parole de Jarvis (Échap)"><span class="stop-ico">■</span>STOP<span class="stop-key">ÉCHAP</span></button>
+  </div>
+  <script src="bridge.js"></script>
+  <script src="hud.js"></script>
+  <script src="wallpaper.js"></script>
+  <script src="circuit.js"></script>
+  <script src="orb.js"></script>
+  <script src="boot.js"></script>
+  <script src="branches.js"></script>
+  <script src="app.js"></script>
+  <script src="voice.js"></script>
+  <script src="card-header.js"></script>
+  <script src="widgets.js"></script>
+  <script src="cards-dock.js"></script>
+  <script src="card-front.js"></script>
+  <script src="caption.js"></script>
+  <script src="speaker-ask.js"></script>
+  <script src="keypad.js"></script>
+  <script src="update-banner.js"></script>
+  <script src="version-badge.js"></script>
+  <script src="orb-morph.js"></script>
+  <script src="music-style.js"></script>
+  <script src="character-director.js"></script>
+  <script src="character-gaze.js"></script>
+  <script src="presenter.js"></script>
+  <script src="dossier-media.js"></script>
+  <script src="vibe-overlay.js"></script>
+  <!-- Modules (modules/<id>/) : chargés en dernier, d'après la liste des modules actifs -->
+  <script src="modules-loader.js"></script>
+  <!-- Personnage 3D du cœur (three.js) : module chargé après le reste, le cœur classique s'affiche en attendant. -->
+  <script type="module" src="character.js"></script>
+  <!-- Explorateur 3D des dossiers Data (three.js), ouvert par l'événement « savoir_3d ». -->
+  <script type="module" src="viewer3d.js"></script>
+</body>
+</html>

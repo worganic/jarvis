@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Jarvis — onglets",
+  "version": "1.1.0",
+  "description": "Relie Chrome à Jarvis (assistant vocal local) : liste des onglets en direct et commandes (aller sur un onglet, le fermer, en ouvrir un, lire ou cliquer dans une page, titre et participants d'une réunion Google Meet). Tout reste sur ce PC (127.0.0.1).",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlDIO+8lGNYBhHi8NZyQc29UxHu4rzRSkQd4Z4n3V6HrRuKikqjDqX/FLTl83INZKWFrZg2HaIGzYW3JcAEMVoPngFd5zLZ40i3duqtq/VU57pBTp2/I6+1SVNkxJrLukMP0F/ENVWhtfoYG4XA+TFugBm3heOjSHTTY7wOfZXoeWMt5gO3RvgPYnGJtImabwQPS99LMv496kgVOnX+HpMOCGVxGHg/X8ow3q9C/7ZE1UIZ8Eamxgz1fAHZg49jQGX2fX0hCMNVQBOMKeC56gjrXesJp8e8cZGbALj07SgcWv8RVd3qyf6/Rd1h9izfXS1Xh6GzLaTXnZCFBt8iX6TwIDAQAB",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "action": {
+    "default_title": "Jarvis — onglets",
+    "default_popup": "options.html"
+  },
+  "minimum_chrome_version": "116"
+}

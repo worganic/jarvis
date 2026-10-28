@@ -1,0 +1,27 @@
+/* --- Card Diction (modules/diction) --- */
+.widget.w-diction { cursor: default; }
+.w-diction .w-head { cursor: grab; }
+.w-diction .dc-refresh { margin-left: auto; padding: 0 calc(6px * var(--ui)); }
+.dc-help { font-size: calc(10px * var(--ui)); color: rgba(200, 235, 245, 0.65); margin-bottom: calc(8px * var(--ui)); }
+.dc-phrase { display: flex; gap: calc(6px * var(--ui)); align-items: flex-start; border-top: 1px solid rgba(var(--w-rgb), 0.15); padding: calc(7px * var(--ui)) 0; }
+.dc-words { flex: 1; display: flex; flex-wrap: wrap; gap: calc(4px * var(--ui)); }
+.dc-word {
+  font: inherit; font-size: calc(12px * var(--ui)); color: #e6faff; cursor: pointer;
+  background: rgba(var(--w-rgb), 0.06); border: 1px solid rgba(var(--w-rgb), 0.18); border-radius: calc(5px * var(--ui));
+  padding: calc(2px * var(--ui)) calc(6px * var(--ui));
+}
+.dc-word:hover { border-color: rgba(var(--w-rgb), 0.6); }
+.dc-word.suspect { border-color: rgba(255, 179, 107, 0.8); color: #ffd2a6; }
+.dc-word.fixed { border-color: rgba(53, 255, 158, 0.7); text-decoration: underline; text-decoration-color: rgba(53, 255, 158, 0.8); }
+.dc-word.on { background: rgba(var(--w-rgb), 0.35); border-color: rgba(var(--w-rgb), 1); color: #fff; }
+.dc-replay { background: none; border: 0; color: rgba(var(--w-rgb), 0.9); cursor: pointer; font-size: calc(12px * var(--ui)); padding: calc(2px * var(--ui)); }
+.dc-editor { border: 1px solid rgba(var(--w-rgb), 0.35); border-radius: calc(6px * var(--ui)); padding: calc(8px * var(--ui)); margin-top: calc(6px * var(--ui)); display: flex; flex-direction: column; gap: calc(6px * var(--ui)); }
+.dc-line { display: flex; align-items: center; gap: calc(8px * var(--ui)); font-size: calc(12px * var(--ui)); color: #e6faff; }
+.dc-label { flex: none; width: calc(92px * var(--ui)); font-size: calc(10px * var(--ui)); letter-spacing: 0.5px; color: rgba(200, 235, 245, 0.6); text-transform: uppercase; }
+.dc-input { flex: 1; min-width: 0; font: inherit; color: #e6faff; background: rgba(0, 8, 14, 0.8); border: 1px solid rgba(var(--w-rgb), 0.4); padding: calc(4px * var(--ui)) calc(6px * var(--ui)); }
+.dc-tag { font-size: calc(9px * var(--ui)); border: 1px solid currentColor; border-radius: 999px; padding: 0 calc(6px * var(--ui)); }
+.dc-tag.ok { color: #35ff9e; }
+.dc-why { font-size: calc(10px * var(--ui)); color: #ffb36b; }
+.dc-voices { display: flex; gap: calc(14px * var(--ui)); font-size: calc(11px * var(--ui)); color: rgba(220, 245, 255, 0.85); }
+.dc-message { font-size: calc(11px * var(--ui)); color: #35ff9e; margin-top: calc(6px * var(--ui)); }
+.dc-pres { border: 1px solid rgba(var(--w-rgb), 0.35); border-radius: calc(6px * var(--ui)); padding: calc(8px * var(--ui)); margin-bottom: calc(8px * var(--ui)); display: flex; flex-direction: column; gap: calc(6px * var(--ui)); }

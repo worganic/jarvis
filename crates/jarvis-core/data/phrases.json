@@ -1,0 +1,25 @@
+{
+  "_commentaire": "Phrases courtes partagées entre l'orchestrateur et le service vocal. Elles sont synthétisées au démarrage et conservées sur disque (voice/cache) pour être prononcées sans délai réseau.",
+  "accuse": [
+    "Je regarde.",
+    "Une seconde.",
+    "Je m'en occupe.",
+    "C'est parti.",
+    "Voyons ça."
+  ],
+  "accuse_fond": [
+    "Je lance ça en arrière-plan."
+  ],
+  "courantes": [
+    "Action validée.",
+    "Action annulée.",
+    "Tâche interrompue.",
+    "Toutes les tâches ont été arrêtées.",
+    "Nouvelle session ouverte.",
+    "Volume augmenté.",
+    "Volume diminué.",
+    "La tâche a échoué avec Claude Code.",
+    "La tâche a échoué avec AGY.",
+    "Pour une action critique, tape le code affiché à l'écran."
+  ]
+}

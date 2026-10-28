@@ -1,0 +1,9 @@
+{
+  "id": "projets",
+  "nom": "Projets",
+  "version": "1.0.0",
+  "description": "Liste des projets (Claude Code, dossiers de travail) avec leurs actions. Card de liste du système : la fiche suffit, sans script.",
+  "card": { "type": 2, "numero": 109, "titre": "PROJETS", "emplacement": "tool:projets" },
+  "actions": [{ "ico": "⬡", "titre": "Projets", "sous": "La liste de mes projets", "dire": "Quels sont mes projets ?" }],
+  "parDefaut": true
+}

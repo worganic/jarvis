@@ -1,0 +1,23 @@
+/* --- Fiche d'un produit (renderProductView) --- */
+.widget.w-product { cursor: default; }
+.w-product .w-head { cursor: grab; }
+.w-product .w-title.w-mail-subject { text-transform: none; letter-spacing: 0.3px; font-size: calc(12px * var(--ui)); }
+.w-prod-top { display: flex; gap: calc(12px * var(--ui)); margin-bottom: calc(10px * var(--ui)); min-width: 0; }
+.w-prod-img {
+  flex: none; width: calc(110px * var(--ui)); height: calc(110px * var(--ui));
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(var(--w-rgb), 0.3); border-radius: calc(6px * var(--ui));
+}
+.w-prod-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.w-prod-img.w-prod-noimg { background: rgba(var(--w-rgb), 0.07); font-size: calc(34px * var(--ui)); color: rgba(var(--w-rgb), 0.8); }
+.w-prod-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: calc(5px * var(--ui)); }
+.w-prod-ref { font-size: calc(10px * var(--ui)); letter-spacing: 0.5px; color: rgba(var(--w-rgb), 0.75); }
+.w-prod-best { font-size: calc(12px * var(--ui)); color: #e6faff; }
+.w-prod-best b { color: #35ff9e; font-size: calc(17px * var(--ui)); }
+.w-prod-desc { font-size: calc(11px * var(--ui)); line-height: 1.45; color: rgba(220, 245, 255, 0.85); overflow-wrap: anywhere; user-select: text; }
+.w-prod-specs { display: grid; grid-template-columns: 1fr 1fr; gap: calc(3px * var(--ui)) calc(14px * var(--ui)); margin-bottom: calc(10px * var(--ui)); }
+.w-prod-spec { display: flex; justify-content: space-between; gap: calc(8px * var(--ui)); font-size: calc(10px * var(--ui)); border-bottom: 1px solid rgba(var(--w-rgb), 0.15); padding-bottom: 2px; min-width: 0; }
+.w-prod-spec span { color: rgba(200, 235, 245, 0.6); }
+.w-prod-spec b { color: #e6faff; font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+.w-prod-hist { font-size: calc(10px * var(--ui)); color: rgba(200, 235, 245, 0.65); margin-bottom: calc(8px * var(--ui)); }
+.w-prod-offers { max-height: calc(210px * var(--ui)); margin-bottom: calc(8px * var(--ui)); }

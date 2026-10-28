@@ -1,0 +1,10 @@
+{
+  "id": "compagnon",
+  "nom": "Compagnon",
+  "version": "1.0.0",
+  "description": "Compagnon de bureau (tamagotchi) : le cœur choisi naît d'un œuf et évolue selon l'usage du PC (stade, branche, faim, humeur, énergie, souvenirs). Option de l'administration, désactivée par défaut.",
+  "card": { "type": 2, "numero": 123, "titre": "COMPAGNON" },
+  "ui": { "scripts": ["ui/compagnon.js"], "styles": ["ui/compagnon.css"] },
+  "actions": [{ "ico": "◉", "titre": "Compagnon", "sous": "Stade, branche, faim et humeur", "appel": ["compagnon", "ouvrir"], "emplacement": "compagnon" }],
+  "parDefaut": true
+}

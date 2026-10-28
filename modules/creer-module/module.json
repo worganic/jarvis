@@ -1,0 +1,10 @@
+{
+  "id": "creer-module",
+  "nom": "Create module",
+  "version": "1.0.0",
+  "description": "Créer ses propres modules Jarvis : décrire la card voulue, répondre aux questions de l'IA, puis lister, modifier ou supprimer ses modules (rangés dans data/user-modules/).",
+  "card": { "type": 2, "numero": 121, "titre": "CREATE MODULE" },
+  "ui": { "scripts": ["ui/creer-module.js"], "styles": ["ui/creer-module.css"] },
+  "actions": [{ "ico": "✚", "titre": "Create module", "sous": "Créer ses propres modules", "appel": ["moduleStudio", "ouvrir"] }],
+  "parDefaut": true
+}

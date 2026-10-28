@@ -1,0 +1,10 @@
+{
+  "id": "mails",
+  "nom": "Mails",
+  "version": "1.0.0",
+  "description": "Derniers mails et nouveaux mails (card de liste du système) et lecture d'un mail avec ses actions.",
+  "card": { "type": 2, "numero": 102, "titre": "MAILS", "emplacement": "mail" },
+  "widgets": ["mail", "mail_view"],
+  "ui": { "scripts": ["ui/mails.js"], "styles": ["ui/mails.css"] },
+  "parDefaut": true
+}

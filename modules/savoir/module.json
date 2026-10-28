@@ -1,0 +1,12 @@
+{
+  "id": "savoir",
+  "nom": "Data",
+  "version": "1.0.0",
+  "description": "Dossiers de recherche sur un thème ou un produit : collecte web en temps limité, RAG dédié, images, approfondissement, statistiques.",
+  "card": { "type": 2, "numero": 110, "titre": "DATA", "emplacement": "savoir" },
+  "autresCards": [{ "type": 2, "numero": 111, "titre": "SUIVI DATA", "emplacement": "savoir_suivi" }],
+  "widgets": ["savoir", "savoir_suivi"],
+  "ui": { "scripts": ["ui/savoir.js", "ui/suivi.js"], "styles": ["ui/savoir.css", "ui/suivi.css"] },
+  "actions": [{ "ico": "◈", "titre": "Data", "sous": "Mes dossiers de recherche", "dire": "Ouvre la data" }],
+  "parDefaut": true
+}

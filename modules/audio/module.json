@@ -1,0 +1,11 @@
+{
+  "id": "audio",
+  "nom": "Audio",
+  "version": "1.0.0",
+  "description": "Sortie, micro et voix de Jarvis : volumes, sourdines, choix du périphérique, niveaux en direct.",
+  "card": { "type": 1, "numero": 2, "titre": "AUDIO" },
+  "ui": { "scripts": ["ui/audio.js"], "styles": ["ui/audio.css"] },
+  "core": "jarvis-mod-audio",
+  "parDefaut": true,
+  "socle": true
+}

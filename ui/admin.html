@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' ws://127.0.0.1:* ipc: http://ipc.localhost; img-src 'self' data: https: asset: http://asset.localhost; style-src 'self' 'unsafe-inline'">
+  <title>JARVIS · Administration</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header id="titlebar">
+    <div class="brand"><span class="logo">J.A.R.V.I.S.</span><span class="sub">ADMINISTRATION</span></div>
+    <div id="save-state" aria-live="polite"></div>
+    <div class="win-buttons">
+      <button id="btn-min" title="Réduire">—</button>
+      <button id="btn-close" title="Fermer (Échap)">×</button>
+    </div>
+  </header>
+
+  <div id="layout">
+    <nav id="nav" aria-label="Sections">
+      <button data-section="general" class="active"><span class="ico">◈</span>Général</button>
+      <button data-section="assistant"><span class="ico">✦</span>Assistant voix</button>
+      <button data-section="voice"><span class="ico">◉</span>Voix</button>
+      <button data-section="profile"><span class="ico">◎</span>Profil &amp; préférences</button>
+      <button data-section="memory"><span class="ico">▣</span>Mémoire (RAG)</button>
+    <button data-section="donnees"><span class="ico">⇵</span>Mes données</button>
+      <button data-section="projects"><span class="ico">◧</span>Projets</button>
+      <button data-section="zones"><span class="ico">▤</span>Zones &amp; vocabulaire</button>
+      <button data-section="mcp"><span class="ico">⬡</span>Connecteurs MCP</button>
+      <button data-section="telegram"><span class="ico">✈</span>Telegram</button>
+      <button data-section="nomade"><span class="ico">⇅</span>Nomade</button>
+      <button data-section="terminal"><span class="ico">▣</span>Terminal</button>
+      <button data-section="security"><span class="ico">⛨</span>Sécurité</button>
+      <button data-section="journal"><span class="ico">≣</span>Journal &amp; dialogues</button>
+      <button data-section="voixqualite"><span class="ico">≋</span>Qualité vocale</button>
+      <button data-section="maison"><span class="ico">⌂</span>Maison</button>
+      <button data-section="documents"><span class="ico">▤</span>Documents</button>
+      <button data-section="failures"><span class="ico">⚠</span>Échecs &amp; apprentissage</button>
+      <button data-section="widget"><span class="ico">◌</span>Widget</button>
+      <button data-section="desk"><span class="ico">▦</span>Bureau JARVIS</button>
+      <button data-section="perf"><span class="ico">◐</span>Optimisation</button>
+      <button data-section="modules"><span class="ico">⧉</span>Modules</button>
+    <button data-section="maj"><span class="ico">⟳</span>Mise à jour</button>
+      <div class="nav-foot" id="nav-foot"></div>
+    </nav>
+
+    <main id="content">
+      <section id="section-general" class="section active"></section>
+      <section id="section-assistant" class="section"></section>
+      <section id="section-voice" class="section"></section>
+      <section id="section-profile" class="section"></section>
+      <section id="section-memory" class="section"></section>
+    <section id="section-donnees" class="section"></section>
+      <section id="section-projects" class="section"></section>
+      <section id="section-zones" class="section"></section>
+      <section id="section-mcp" class="section"></section>
+      <section id="section-telegram" class="section"></section>
+      <section id="section-nomade" class="section"></section>
+      <section id="section-terminal" class="section"></section>
+      <section id="section-security" class="section"></section>
+      <section id="section-journal" class="section"></section>
+      <section id="section-voixqualite" class="section"></section>
+      <section id="section-maison" class="section"></section>
+      <section id="section-documents" class="section"></section>
+      <section id="section-failures" class="section"></section>
+      <section id="section-widget" class="section"></section>
+      <section id="section-desk" class="section"></section>
+      <section id="section-perf" class="section"></section>
+      <section id="section-modules" class="section"></section>
+    <section id="section-maj" class="section"></section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-title" id="modal-title">VALIDATION</div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <script src="bridge.js"></script>
+  <script src="admin.js"></script>
+  <script src="admin-journal.js"></script>
+  <script src="admin-security.js"></script>
+  <script src="admin-failures.js"></script>
+  <script src="admin-documents.js"></script>
+  <script src="admin-maison.js"></script>
+  <script src="admin-voixqualite.js"></script>
+  <script src="admin-mcp.js"></script>
+  <script src="admin-perf.js"></script>
+  <script src="admin-transfer.js"></script>
+  <script src="admin-update.js"></script>
+  <script src="admin-projects.js"></script>
+  <script src="admin-telegram.js"></script>
+  <script src="admin-nomade.js"></script>
+  <script src="admin-modules.js"></script>
+  <script src="admin-terminal.js"></script>
+  <script src="admin-pronunciation.js"></script>
+</body>
+</html>

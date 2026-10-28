@@ -1,0 +1,63 @@
+/* Module Audio : sortie, micro et voix de Jarvis, au style des cards matériel. */
+#audio-panel {
+  position: fixed; left: 6px; top: 60vh; z-index: 6; width: calc(232px * var(--ui));
+  --w-rgb: 56, 225, 255; pointer-events: none;
+}
+#audio-panel.collapsed { width: auto; }
+#audio-panel .au-card { pointer-events: auto; border-right: 1px solid rgba(var(--w-rgb), 0.4); border-left: 3px solid rgba(var(--w-rgb), 0.85); }
+.au-head { cursor: grab; touch-action: none; user-select: none; }
+.au-head:active { cursor: grabbing; }
+.au-body { display: flex; flex-direction: column; gap: calc(8px * var(--ui)); }
+.au-sec { display: flex; flex-direction: column; gap: calc(4px * var(--ui)); padding-top: calc(6px * var(--ui)); border-top: 1px solid rgba(var(--w-rgb), 0.18); }
+.au-sec:first-child { border-top: 0; padding-top: 0; }
+.au-sec-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.au-sec-t { font-size: calc(9px * var(--ui)); letter-spacing: 2px; font-weight: 700; opacity: 0.75; }
+.au-btns { display: inline-flex; gap: calc(4px * var(--ui)); }
+.au-btn {
+  width: calc(22px * var(--ui)); height: calc(18px * var(--ui)); padding: 0; line-height: 1; cursor: pointer;
+  font-size: calc(10px * var(--ui)); color: rgba(var(--w-rgb), 0.95); background: rgba(var(--w-rgb), 0.08);
+  border: 1px solid rgba(var(--w-rgb), 0.5); border-radius: 4px;
+}
+.au-btn:hover { background: rgba(var(--w-rgb), 0.22); }
+.au-btn.on { --w-rgb: 255, 77, 94; background: rgba(255, 77, 94, 0.18); }
+.au-select {
+  width: 100%; box-sizing: border-box; font: calc(9px * var(--ui)) 'Consolas', monospace; color: rgba(var(--w-rgb), 0.95);
+  background: rgba(2, 16, 22, 0.9); border: 1px solid rgba(var(--w-rgb), 0.35); border-radius: 4px;
+  padding: calc(2px * var(--ui)) calc(4px * var(--ui)); cursor: pointer; outline: none;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.au-select:hover, .au-select:focus { border-color: rgba(var(--w-rgb), 0.8); }
+.au-select option { background: #03141c; color: #d8f6ff; }
+.au-slide { display: flex; align-items: center; gap: calc(6px * var(--ui)); }
+.au-slide.off { opacity: 0.35; }
+.au-val { width: calc(32px * var(--ui)); text-align: right; font-size: calc(10px * var(--ui)); font-weight: 700; }
+.au-range {
+  flex: 1; min-width: 0; height: calc(14px * var(--ui)); margin: 0; cursor: pointer; background: transparent;
+  -webkit-appearance: none; appearance: none; --p: 0%;
+}
+.au-range::-webkit-slider-runnable-track {
+  height: calc(5px * var(--ui)); border: 1px solid rgba(var(--w-rgb), 0.4);
+  background: linear-gradient(90deg, rgb(var(--w-rgb)) var(--p), rgba(var(--w-rgb), 0.12) var(--p));
+  box-shadow: 0 0 6px rgba(var(--w-rgb), 0.35);
+}
+.au-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: calc(8px * var(--ui)); height: calc(14px * var(--ui)); margin-top: calc(-5.5px * var(--ui));
+  background: rgb(var(--w-rgb)); border: 0; box-shadow: 0 0 8px rgba(var(--w-rgb), 0.9);
+}
+.au-range:disabled { cursor: default; }
+.au-meter { height: calc(3px * var(--ui)); background: rgba(var(--w-rgb), 0.1); overflow: hidden; }
+.au-meter-fill { height: 100%; width: 0; background: linear-gradient(90deg, rgb(var(--w-rgb)) 70%, rgb(255, 196, 64) 90%, rgb(255, 77, 94)); background-size: calc(210px * var(--ui)) 100%; transition: width 0.09s linear; }
+.au-sec.muted .au-slide, .au-sec.muted .au-meter { opacity: 0.35; }
+/* Bouton miniature (card réduite) : comme ceux des cards matériel et Bureau — jaune, 50 %, plein au survol. */
+.au-pill {
+  display: none; align-items: center; justify-content: space-between; gap: 8px; box-sizing: border-box;
+  width: calc(170px * var(--ui)); height: calc(26px * var(--ui)); padding: 0 calc(10px * var(--ui));
+  font: 700 calc(10px * var(--ui)) / 1 'Consolas', monospace; letter-spacing: 2px; cursor: grab; touch-action: none; user-select: none;
+  color: rgb(var(--t1r-rgb)); background: rgba(2, 16, 22, 0.78); border: 1px solid rgba(var(--t1r-rgb), 0.9); border-radius: 0;
+  opacity: 0.5; transition: opacity 0.15s ease;
+}
+.au-pill:hover { opacity: 1; background: rgba(var(--t1r-rgb), 0.22); }
+.au-pill:active { cursor: grabbing; }
+.au-pill.muted .au-pill-v { color: rgb(255, 77, 94); }
+#audio-panel .au-card.collapsed { width: auto; min-width: 0; border: 0; }
+.au-card.collapsed .au-pill { display: flex; }

@@ -1,0 +1,2146 @@
+{
+  "themes": {
+    "interface": { "label": "Interface", "color": "#38e1ff" },
+    "coeur": { "label": "Cœur", "color": "#ff6ad5" },
+    "son": { "label": "Son & voix", "color": "#35ff9e" },
+    "noyau": { "label": "Noyau", "color": "#7aa2ff" },
+    "securite": { "label": "Sécurité", "color": "#ff4d5e" },
+    "memoire": { "label": "Mémoire", "color": "#b48cff" },
+    "connecteurs": { "label": "Connecteurs", "color": "#ffc440" },
+    "systeme": { "label": "Windows & système", "color": "#4fd1c5" },
+    "maj": { "label": "Mise à jour", "color": "#ff9f43" },
+    "outils": { "label": "Outils & docs", "color": "#9aa8b5" }
+  },
+  "versions": [
+    {
+      "version": "4.103.0",
+      "date": "2026-10-28",
+      "title": "Amis entre Jarvis : demandes, messages, présence et partages",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Jarvis Réseau : un compte par mail (code de vérification), des demandes d'ami à accepter, refuser ou bloquer (invitation par mail si l'ami n'a pas encore Jarvis), puis, ami par ami et rien par défaut : présence (en ligne, absent, ne pas déranger, stade du compagnon), listes à fiches en lecture ou modifiables, copie d'un dossier (25 Mo au plus). Messages avec accusé de lecture, lecture à voix haute au choix. Tout est chiffré de bout en bout (X25519 + XSalsa20-Poly1305) : le service ne voit que qui écrit à qui."
+        },
+        {
+          "theme": "interface",
+          "text": "Card Amis (n° 124) : relier son compte, demandes reçues, amis et leur présence, conversations, réglage des partages, listes reçues ; « montre mes amis », « dis à Léa que je rentre »."
+        },
+        {
+          "theme": "outils",
+          "text": "Service web-reseau/ (PHP, sur l'hébergement du site Nomade, tables res_ à part) : comptes, amitiés, boîte aux lettres chiffrée, présence, limites de débit, suppression du compte ; déployé par web-reseau/deploy.ps1. Le déploiement Nomade suit le nouveau dossier de données."
+        }
+      ]
+    },
+    {
+      "version": "4.102.0",
+      "date": "2026-10-28",
+      "title": "Jarvis s'installe chez tes proches et se met à jour",
+      "changes": [
+        {
+          "theme": "maj",
+          "text": "installer.ps1 installe Jarvis sur un autre PC depuis les versions publiées : outils de compilation (winget), choix des modules, compilation sur place (pas de certificat nécessaire), programme dans %LOCALAPPDATA%\\Jarvis\\app, sources supprimées, modèles vocaux téléchargés et vérifiés, restauration d'une archive .jarvis. Il sert aussi à désinstaller (données gardées ou non), restaurer et libérer le cache de compilation."
+        },
+        {
+          "theme": "maj",
+          "text": "Un Jarvis installé vérifie les nouvelles versions au démarrage puis toutes les 6 h (Administration › Mise à jour, bandeau du HUD) : la version est récupérée et compilée en arrière-plan pendant que Jarvis reste utilisable, puis installée en moins d'une minute au redémarrage, l'ancienne étant gardée. Réglage automatique (installée à la fermeture), me demander ou manuel ; canal stable ou bêta."
+        },
+        {
+          "theme": "interface",
+          "text": "Modules à la carte : un socle toujours installé (Conversation, Actions, Audio), les autres choisis à l'installation, puis ajoutés ou retirés dans Administration › Mise à jour (aussitôt pour un module d'interface, au redémarrage pour un module compilé ; ses données sont gardées). Les fiches module.json gagnent « socle » et « dependances »."
+        },
+        {
+          "theme": "outils",
+          "text": "tools/publier.ps1 publie une version sur le dépôt public de diffusion : contrôles (versions alignées, tests), export sans historique ni fichiers de travail (.diffusion-ignore), recherche de secrets et d'adresses privées, catalogue des modules, tag ; -Modeles empaquette les modèles vocaux en pièces jointes GitHub (rien sur Hostinger)."
+        }
+      ]
+    },
+    {
+      "version": "4.101.0",
+      "date": "2026-10-28",
+      "title": "Mes données : emporter et restaurer toutes ses données",
+      "changes": [
+        {
+          "theme": "memoire",
+          "text": "Nouvelle section Administration › Mes données : emplacement des données, export de tout (mémoire, savoir, listes et images, réglages, empreinte vocale, journal scellé…) dans une archive .jarvis, et restauration d'une archive sur ce PC ou un autre. Les secrets des connecteurs, liés à Windows, sont rechiffrés par un mot de passe d'archive (ou retirés sans mot de passe). L'archive est vérifiée (empreintes, mot de passe, format) puis appliquée à la relance, les données remplacées étant gardées à côté et les modèles repris. À la voix : « sauvegarde mes données », « restaure mes données »."
+        }
+      ]
+    },
+    {
+      "version": "4.100.0",
+      "date": "2026-10-28",
+      "title": "Tes données quittent le dossier du programme",
+      "changes": [
+        {
+          "theme": "memoire",
+          "text": "Les données de Jarvis (mémoire, savoir, listes, réglages, empreinte vocale, journal scellé, modèles…) vivent désormais dans %LOCALAPPDATA%\\Jarvis\\donnees, hors du dossier du programme : le recompiler, le déplacer ou le supprimer ne les touche plus. Au premier lancement, l'ancien dossier data/ est recopié (fichier par fichier, vérifié) puis renommé data.migre-AAAA-MM-JJ, jamais supprimé ; si la copie échoue, Jarvis continue sur l'ancien dossier et réessaie au lancement suivant. Une fiche VERSION.json marque le format des données."
+        }
+      ]
+    },
+    {
+      "version": "4.99.3",
+      "date": "2026-10-28",
+      "title": "Sauvegarde : plus aucun dossier de données oublié",
+      "changes": [
+        {
+          "theme": "memoire",
+          "text": "La sauvegarde automatique (Documents\\Jarvis-sauvegardes) copie désormais tous les dossiers de données, dont les listes à fiches avec leurs images et le savoir (RAG), qui n'étaient pas sauvegardés. Seuls les modèles, les journaux de diagnostic, l'état d'exécution et le cache vocal restent à l'écart. Première étape du plan de partage de Jarvis (séparation des données)."
+        }
+      ]
+    },
+    {
+      "version": "4.99.2",
+      "date": "2026-10-28",
+      "title": "Compagnon : un fichier se dépose aussi sur le cœur du Bureau JARVIS",
+      "changes": [
+        {
+          "theme": "coeur",
+          "text": "Glisser un fichier de l'Explorateur sur le cœur nourrit le compagnon dans le widget flottant, mais aussi sur le cœur du Bureau JARVIS et de la fenêtre principale (le curseur « interdit » n'apparaît plus qu'à côté du cœur). Seule l'extension du nom est lue ; le fichier n'est ni ouvert, ni copié, ni modifié."
+        }
+      ]
+    },
+    {
+      "version": "4.99.1",
+      "date": "2026-10-28",
+      "title": "Compagnon de bureau : bouton Désactiver dans sa card",
+      "changes": [
+        {
+          "theme": "coeur",
+          "text": "La card Compagnon (N° 123) a un bouton « ⏻ Désactiver » : le cœur du widget et du HUD reprend aussitôt son apparence et ses animations classiques ; le compagnon (stade, branche, souvenirs) est gardé pour la prochaine activation, depuis la card, l'administration ou « active le compagnon »."
+        }
+      ]
+    },
+    {
+      "version": "4.99.0",
+      "date": "2026-10-27",
+      "title": "Compagnon de bureau : le cœur naît, grandit et évolue avec ton PC",
+      "changes": [
+        {
+          "theme": "coeur",
+          "text": "Compagnon de bureau (tamagotchi), option de l'administration désactivée par défaut : le cœur choisi naît d'un œuf et évolue sur 7 ou 30 jours d'utilisation (bébé, ado, adulte), avec une branche Gamer, Dev, Artiste ou Chill selon les applications au premier plan, ses accessoires et son aura. Faim, humeur et énergie ; il ne meurt jamais."
+        },
+        {
+          "theme": "interface",
+          "text": "Il vit dans le widget flottant et le cœur du HUD : un fichier déposé le nourrit (extension seulement, fichier jamais lu), la souris qui tourne autour le caresse, double-clic du bouton du milieu pour ne pas le déranger, Ctrl maintenu pour effacer le widget. Il se promène le long de la barre des tâches au repos et réagit au CPU, à la musique, à la nuit, aux visios et aux jeux (mode furtif)."
+        },
+        {
+          "theme": "coeur",
+          "text": "Jarvis reste prioritaire : ses gestes (écoute, réflexion, parole, travail) passent devant ceux du compagnon, qui ne parle jamais de lui-même. Card Compagnon (N° 123) et commandes vocales : « comment va mon compagnon », « mets le compagnon en veille », « nouvel œuf »."
+        }
+      ]
+    },
+    {
+      "version": "4.98.0",
+      "date": "2026-10-27",
+      "title": "Nomade : menu par rubriques, agenda, agents, projets et dossiers Data",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Jarvis Nomade s'organise en rubriques : Accueil (vue d'ensemble de toutes tes informations), Listes, Data, Agenda, Agents, Projets, Autres et Déposer. Menu à gauche sur ordinateur, barre défilante sur téléphone ; une rubrique n'apparaît que si sa source est partagée."
+        },
+        {
+          "theme": "connecteurs",
+          "text": "Listes séparées en « Mes listes » et « Partagées avec moi ». Nouvelles sources partageables (Administration › Nomade) : agenda sur 90 jours avec calendrier du mois, agents autonomes (état, déclencheurs, dernier résultat, historique), projets (description, technologies, git, jamais le chemin du disque) et fiche complète des dossiers Data (résumé, fiche technique, sections, chronologie, vidéos, sources, vignette)."
+        }
+      ]
+    },
+    {
+      "version": "4.97.0",
+      "date": "2026-10-27",
+      "title": "Voix : tour de parole naturel, Jarvis ne parle plus par-dessus toi",
+      "changes": [
+        {
+          "theme": "son",
+          "text": "Tour de parole : pendant que tu parles, Jarvis ne commence plus à parler (l'annonce des mails au démarrage, une notification…) ; sa phrase attend la fin de la tienne. Si tu faisais une demande, il y répond et l'annonce reste écrite dans la conversation. Ta demande n'est plus mélangée à sa voix et n'est plus perdue."
+        },
+        {
+          "theme": "son",
+          "text": "Interruption : quand tu parles par-dessus Jarvis, il se met en pause (fondu de 80 ms) au lieu de baisser la voix, ce qui retire son écho du micro. Une vraie demande l'arrête et il y répond ; un « oui », un bruit ou une phrase qui ne lui est pas adressée le laisse reprendre, en redisant la phrase interrompue si la pause a duré plus d'une seconde."
+        }
+      ]
+    },
+    {
+      "version": "4.96.2",
+      "date": "2026-10-26",
+      "title": "Voix : ouverture directe de toutes les cards et modules sans l'IA",
+      "changes": [
+        {
+          "theme": "son",
+          "text": "Commandes vocales d'ouverture et de fermeture des cards et modules : « ouvre la card Listes », « ouvre le module Nomade », « ouvre la card 101 » ou « ouvre la card 120 » sont traitées directement par le routeur local sans passer par l'IA, même lorsque la dictée transcrit « card » en « carte », « Listes » en « List », « Nomade » en « Nomad » ou coupe la phrase par un point."
+        },
+        {
+          "theme": "interface",
+          "text": "Numéros de cards personnalisés : l'ouverture vocale par numéro (« ouvre la card 101 ») respecte les numéros personnalisés de la session utilisateur avant de se replier sur les numéros par défaut des modules."
+        }
+      ]
+    },
+    {
+      "version": "4.96.1",
+      "date": "2026-10-26",
+      "title": "Mise à jour : plus de blocage sur « Fermeture de Jarvis »",
+      "changes": [
+        {
+          "theme": "maj",
+          "text": "Fenêtre de mise à jour : l'écran est écrit par un fil à part. Si Windows Terminal cesse de l'afficher (fenêtre figée), la mise à jour continue quand même (fermeture, tests, recompilation, réouverture) au lieu de rester bloquée sur « Fermeture de Jarvis »."
+        }
+      ]
+    },
+    {
+      "version": "4.96.0",
+      "date": "2026-10-26",
+      "title": "Listes : tri par date et champs obligatoires",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Listes à fiches : une liste qui a un champ date (date du concert…) se trie par date, plus récente ou plus ancienne d'abord (menu de tri de la liste et ordre par défaut dans « Modifier la liste »). La liste Concerts s'ouvre désormais du plus récent au plus ancien."
+        },
+        {
+          "theme": "noyau",
+          "text": "Champs obligatoires : case « obligatoire » par champ dans « Modifier la liste » ; une fiche sans ce champ est refusée à l'ajout comme à la modification (voix, card, site Nomade), avec le nom du champ manquant. La date du concert est obligatoire dans la liste Concerts et dans le modèle Concerts."
+        }
+      ]
+    },
+    {
+      "version": "4.95.4",
+      "date": "2026-10-26",
+      "title": "Une card qui s'ouvre passe devant les autres",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Toute card qui s'ouvre (fiche d'une liste, card ouverte depuis la card Actions, Agents, card réduite qu'on redéplie…) passe au-dessus des cards déjà affichées, comme après un clic. Une card déjà ouverte qui se met à jour seule (Checkup, Terminal) ne change pas de plan."
+        }
+      ]
+    },
+    {
+      "version": "4.95.3",
+      "date": "2026-10-26",
+      "title": "Card Mes listes : les listes s'affichent de nouveau",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Card Mes listes (et toutes les cards du module Listes) : les listes s'affichent de nouveau au lieu de « (sans résultat) ». Une apostrophe mal placée depuis la 4.85.0 (réglage « Ordre d'affichage par défaut ») empêchait le chargement de l'interface du module."
+        }
+      ]
+    },
+    {
+      "version": "4.95.2",
+      "date": "2026-10-26",
+      "title": "Card Agents : le bouton × la ferme entièrement",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Card Agents (122) : le bouton × fait disparaître toute la card (seul le cadre disparaissait, le contenu restait à l'écran) ; elle se rouvre normalement ensuite."
+        }
+      ]
+    },
+    {
+      "version": "4.95.1",
+      "date": "2026-10-26",
+      "title": "Card Checkup : le bouton × la ferme",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Card Checkup : le bouton × ferme vraiment la card (il la réduisait en bouton, comme pour un terminal, parce qu'elle est gardée à l'écran sans s'effacer) ; ses mises à jour toutes les 15 s s'arrêtent avec elle."
+        }
+      ]
+    },
+    {
+      "version": "4.95.0",
+      "date": "2026-10-26",
+      "title": "Card Actions : Agents, Checkup, lignes et ordre au choix",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Card Actions (5) : nouvelles lignes Agents (122) et Checkup, qui ouvrent directement leur card (méthode « checkup » du noyau : plus de détour par l'IA). Le bouton ⚙ de l'en-tête ouvre le mode « personnaliser » : une case par ligne pour l'afficher ou la masquer, ▲ ▼ pour choisir l'ordre, « Tout afficher · ordre d'origine » pour revenir au départ. Le choix est mémorisé."
+        }
+      ]
+    },
+    {
+      "version": "4.94.1",
+      "date": "2026-10-26",
+      "title": "Voix : plus de phrases répétées · card Terminal : état exact de Claude Code",
+      "changes": [
+        {
+          "theme": "noyau",
+          "text": "Card TERMINAL : un Claude Code qui réfléchit longtemps ou attend une longue commande n'est plus affiché « terminé » (ni annoncé comme tel) au bout de 45 s. Le statut tenu par Claude Code lui-même (~/.claude/sessions) fait foi : « en cours » tant qu'il travaille, « terminé » dès qu'il s'arrête, y compris après une interruption par Échap."
+        },
+        {
+          "theme": "son",
+          "text": "Une même phrase n'est plus redite avant une minute (au lieu de 10 secondes), casse et espaces ignorés. Une annonce spontanée (état d'un terminal, fin de diagnostic…) est dite deux fois au plus par demi-heure ; une réponse à une demande répétée dans la minute s'affiche sans être redite ; « répète » fonctionne toujours."
+        }
+      ]
+    },
+    {
+      "version": "4.94.0",
+      "date": "2026-10-25",
+      "title": "Module Agents (card 122) : surveillance continue et actions IA sur mesure",
+      "changes": [
+        {
+          "theme": "noyau",
+          "text": "Nouveau module « Agents » (card 122 et orchestrateur Rust data/agents.json) : à partir d'une demande en texte libre (zone de texte ou à la voix), Jarvis configure un agent persistant combinant capteurs locaux temps réel (0 jeton au repos : seuils CPU, RAM, GPU, température et durée de dépassement, horaires quotidiens ou périodiques, arrivée de mails Gmail, déclenchement à la demande par mots-clés) et exécution IA avec collecte automatique du contexte (derniers mails, télémétrie matériel + processus les plus gourmands, agenda, recherche web)."
+        },
+        {
+          "theme": "connecteurs",
+          "text": "Sélection et garantie des modèles IA : chaque agent utilise au minimum Gemini 3.8 Flash (low, medium ou high) pour AGY ou Claude Haiku (ainsi que Sonnet/Opus) pour Claude Code, avec détection automatique du moteur actif de Jarvis et bascule automatique en cas d'indisponibilité ou de quota atteint."
+        },
+        {
+          "theme": "interface",
+          "text": "Card Agents (122) : zone de demande avec modèles d'exemples en un clic (Résumé quotidien des mails, Surveillance performances PC CPU/RAM/GPU, Matchs de rugby Top 14 avec date, heure et chaîne TV), liste des agents actifs ou en pause avec compteur dans la card Actions, exécution immédiate, historique des derniers rapports, modification hybride (par nouvelle consigne en texte libre ou formulaire complet des déclencheurs et seuils) et suppression."
+        }
+      ]
+    },
+    {
+      "version": "4.93.0",
+      "date": "2026-10-25",
+      "title": "Card Actions : nombre d'éléments de chaque card",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Card Actions (5) : le nombre d'éléments de chaque card s'affiche à droite de sa ligne — listes (à fiches et à cocher), notes, projets, réunions, dossiers Data. Mis à jour toutes les 30 secondes et dès qu'une liste, une note, une réunion ou un dossier change."
+        }
+      ]
+    },
+    {
+      "version": "4.92.1",
+      "date": "2026-10-25",
+      "title": "Explorateur 3D : étiquettes à leur place",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Les étiquettes des pièces d'un modèle animé (H160 qui décolle) pouvaient flotter au-dessus de l'appareil : l'animation démarrait parfois après la mise en pause, et les pièces étaient mesurées en plein mouvement. Le modèle est désormais remis au repos avant la mesure, chaque étiquette est vérifiée sur sa pièce (nouvelle mesure sinon), et une animation qui repart toute seule est arrêtée, étiquettes masquées le temps du retour."
+        }
+      ]
+    },
+    {
+      "version": "4.92.0",
+      "date": "2026-10-25",
+      "title": "Data : profils de dossier, présentation et 3D préparées automatiquement",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Chaque dossier Data a un profil choisi à sa création (mots-clés, sinon l'IA) : Produit / appareil, Musique, Film / série, Lieu / voyage ou Sujet général. Pour un sujet qui n'entre dans aucun, l'IA crée un profil (ce qu'il faut chercher, liens utiles), relu champ par champ et gardé pour les dossiers suivants du même genre. La recherche suit la consigne du profil : prix chez plusieurs vendeurs, points forts et points faibles, avis et notes pour un produit ; albums, titres, concerts et liens Spotify / YouTube pour de la musique ; casting, notes et bande-annonce pour un film ; budget et avis pour un lieu."
+        },
+        {
+          "theme": "interface",
+          "text": "Dès la fin de la recherche, la présentation est écrite selon le profil (et le modèle 3D réaliste cherché pour un objet) : « présente-moi … » démarre sans attente. Nouvelles scènes : points forts et faibles, prix (du moins cher au plus cher), avis et notes, « À écouter » (dis « écoute-le » : Spotify), liens utiles. La fin dépend du profil : explorateur 3D, nouvel écran « Écoute et vidéos » (titres à écouter sur Spotify, lecteur YouTube intégré, points forts et faibles, prix, avis, liens du profil) ou liens."
+        },
+        {
+          "theme": "interface",
+          "text": "Card Data : profil du dossier, ses liens utiles (comparateur de prix, setlists, billets, bande-annonce, carte…), boutons ◆ 3D ou ♪ Écoute & vidéos selon le profil. Card de suivi : profil choisi et nouvelle étape « Présentation »."
+        }
+      ]
+    },
+    {
+      "version": "4.91.0",
+      "date": "2026-10-25",
+      "title": "Data : modèles 3D réalistes dans l'explorateur",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "L'explorateur 3D montre désormais un vrai modèle fait par un graphiste, trouvé automatiquement sur Sketchfab (API publique, sans compte) et affiché par sa visionneuse : textures, matières, animation. Les modèles trop simples ou qui ne portent pas la référence du produit sont écartés ; les meilleurs restent proposés en vignettes pour changer de modèle, avec l'auteur et la licence affichés. La maquette de formes simples ne sert plus que de « Schéma » de secours."
+        },
+        {
+          "theme": "interface",
+          "text": "Les pièces du dossier sont reliées aux pièces nommées du modèle par Haiku (une fois par modèle, gardé dans data/savoir/<dossier>/sketchfab.json), puis repérées sur l'image affichée : étiquettes à leur place, clic sur une pièce, caméra qui vole jusqu'à elle. ▶ Faire fonctionner joue l'animation du modèle, ◐ Rayons X masque la coque pour montrer l'intérieur, ⇲ Vue éclatée écarte les pièces."
+        }
+      ]
+    },
+    {
+      "version": "4.90.0",
+      "date": "2026-10-25",
+      "title": "Data : explorateur 3D du produit",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Explorateur 3D en grand par-dessus le HUD pour un dossier Data qui a une maquette ou un modèle 3D : on tourne autour à la souris, on clique une pièce (la caméra vole vers elle, sa description et ses caractéristiques s'affichent), ▶ Faire fonctionner, ⇲ Vue éclatée, ◐ Rayons X, étiquettes, rotation automatique, et un panneau « Pour aller plus loin » avec les sources, vidéos et lectures du dossier. Bascule Maquette / Modèle réel quand un modèle .glb libre a été trouvé (avec son auteur et sa licence)."
+        },
+        {
+          "theme": "son",
+          "text": "Une présentation d'un dossier en 3D se termine dans l'explorateur, qui reste piloté à la voix : « fais-le fonctionner », « vue éclatée », « rayons X », « montre-moi le rotor », « recentre », « ferme la 3D », ou une question dont la réponse s'affiche à côté du produit. Hors présentation : « montre-moi le H160 en 3D », ou le bouton ◆ 3D de la card Data."
+        },
+        {
+          "theme": "interface",
+          "text": "Maquette 3D de l'IA mieux lue : ce qui tourne pivote autour du centre de sa pièce (le rotor autour de son moyeu, plus chaque pale sur elle-même), et les cylindres, capsules et cônes se couchent dans le bon sens quelle que soit la façon dont l'IA a donné leurs dimensions."
+        }
+      ]
+    },
+    {
+      "version": "4.89.0",
+      "date": "2026-10-25",
+      "title": "Fenêtre de mise à jour compacte, avec les nouveautés",
+      "changes": [
+        {
+          "theme": "maj",
+          "text": "La fenêtre « Jarvis — mise à jour » s'ouvre à une taille réduite (86 × 32 caractères) au lieu de la taille par défaut du terminal : Windows Terminal la reçoit au lancement, une console classique est redimensionnée par l'écran lui-même."
+        },
+        {
+          "theme": "maj",
+          "text": "Elle affiche les nouveautés installées : chaque version de l'historique parue depuis celle qui tournait, avec son titre et le début de ses changements, dans la place disponible (cachées si la compilation échoue, pour laisser voir les erreurs)."
+        }
+      ]
+    },
+    {
+      "version": "4.88.0",
+      "date": "2026-10-25",
+      "title": "Nomade : traiter la liste « à vérifier »",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Card Nomade et Administration › Nomade : les modifications du site que Jarvis n'a pas reprises telles quelles s'affichent avec leur liste et leur détail. « ↻ Réessayer » rejoue une fiche refusée (utile quand la règle a changé depuis, comme les liens trop longs), « ✕ Ignorer » garde la version de Jarvis et retire du site la fiche refusée restée en attente, « ✓ Vu » et « ✕ Tout effacer » vident la liste. Jusqu'ici, rien ne permettait de la vider."
+        },
+        {
+          "theme": "connecteurs",
+          "text": "Les écarts identiques (même article scanné plusieurs fois, déjà dans la liste) sont regroupés en une seule ligne avec leur nombre, y compris ceux déjà notés ; une fiche refusée est nommée d'après son titre au lieu de son identifiant technique."
+        }
+      ]
+    },
+    {
+      "version": "4.87.0",
+      "date": "2026-10-25",
+      "title": "Espace disque des compilations : alerte et nettoyage",
+      "changes": [
+        {
+          "theme": "outils",
+          "text": "Administration › Optimisation : nouveau panneau « Espace disque des compilations ». Il mesure le dossier target/ (toutes les 6 h) et un bouton efface les anciennes copies des crates de Jarvis, que Cargo garde à chaque nouvelle version. La compilation actuelle et les dépendances ne sont jamais touchées."
+        },
+        {
+          "theme": "systeme",
+          "text": "Alerte (une fois par jour au plus) quand les compilations dépassent le seuil réglable (40 Go par défaut), et rappel en bas de l'administration."
+        }
+      ]
+    },
+    {
+      "version": "4.86.1",
+      "date": "2026-10-25",
+      "title": "Compilation des tests beaucoup plus légère sur le disque",
+      "changes": [
+        {
+          "theme": "outils",
+          "text": "Profil de compilation des tests (dev) : seuls les numéros de ligne sont gardés et aucune information de débogage pour les dépendances. Le dossier target/debug avait atteint 171 Go (anciennes copies de chaque version, jamais effacées) ; il a été vidé."
+        }
+      ]
+    },
+    {
+      "version": "4.86.0",
+      "date": "2026-10-24",
+      "title": "Create module : créer ses propres modules avec l'IA",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Nouveau module « Create module » (card 121, bouton dans la card Actions) : tu décris la card voulue, une IA pose des questions de précision puis propose le module, créé d'un clic. Tu peux lister, activer, modifier (nouvelle conversation) et supprimer tes modules (corbeille)."
+        },
+        {
+          "theme": "noyau",
+          "text": "Les modules créés vivent dans data/user-modules/perso-<nom>/ (hors Git), chargés comme les modules livrés. Le noyau construit la fiche, choisit le numéro de card et vérifie le code généré (pas de réseau, d'accord ni de voix) ; l'IA n'a aucun outil."
+        }
+      ]
+    },
+    {
+      "version": "4.85.2",
+      "date": "2026-10-24",
+      "title": "Reconnaissance vocale sur le processeur (option)",
+      "changes": [
+        {
+          "theme": "systeme",
+          "text": "Nouveau réglage voice.sttCpu dans config.json : à true, Whisper tourne sur le processeur et n'utilise plus du tout la mémoire vidéo (Chrome et Windows restent fluides ; la transcription est un peu plus lente). Activé sur ce poste."
+        }
+      ]
+    },
+    {
+      "version": "4.85.1",
+      "date": "2026-10-24",
+      "title": "Moins de ralentissements graphiques",
+      "changes": [
+        {
+          "theme": "systeme",
+          "text": "Whisper se décharge du GPU après 10 minutes sans parler (réglable par JARVIS_STT_IDLE_MIN, 0 = jamais) et se recharge à la phrase suivante : les ~2,4 Go de mémoire vidéo qu'il gardait en permanence reviennent à Windows et aux navigateurs."
+        },
+        {
+          "theme": "interface",
+          "text": "Cadence du HUD limitée à 30 images/s par défaut (réglable dans Optimisation), au lieu de suivre la fréquence de l'écran."
+        }
+      ]
+    },
+    {
+      "version": "4.85.0",
+      "date": "2026-10-24",
+      "title": "Ordre d'affichage par défaut d'une liste",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Dans « Modifier la liste », un nouveau réglage « Ordre d'affichage par défaut » (récents d'abord, A → Z, possédés d'abord) fixe l'ordre des fiches à l'ouverture. Le menu de tri de la card reste utilisable pour un choix local."
+        }
+      ]
+    },
+    {
+      "version": "4.84.4",
+      "date": "2026-10-24",
+      "title": "Une card trop haute pour la place libre est raccourcie",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Quand aucun espace libre n'est assez haut pour une card qui s'ouvre (fiche d'une liste ouverte à côté de « Mes listes »), elle est raccourcie (sa liste défile) pour tenir dans l'espace libre au lieu de se glisser derrière une autre card. Un déplacement à la souris lui rend sa hauteur normale."
+        }
+      ]
+    },
+    {
+      "version": "4.84.3",
+      "date": "2026-10-24",
+      "title": "Les cards qui s'ouvrent ne se cachent plus entre elles",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Une card qui s'ouvre sans emplacement choisi (ni déplacée, ni fixée par 📍) prend la place libre la plus proche de son emplacement habituel. S'il n'y a plus de place, elle se pose là où elle recouvre le moins les autres et ne cache jamais le titre d'une autre card. Son emplacement n'est pas mémorisé."
+        }
+      ]
+    },
+    {
+      "version": "4.84.2",
+      "date": "2026-10-24",
+      "title": "Listes Nomade : même statut que le site, une image par fiche, infos rangées par champ",
+      "changes": [
+        {
+          "theme": "outils",
+          "text": "Les listes demandées sur mesure utilisent le même statut que le site Nomade (« Souhaité » / « Possédé ») dans Jarvis, à la place de choix inventés par l'IA (Idée, Commandé, Offert). Les listes déjà créées sont alignées automatiquement."
+        },
+        {
+          "theme": "outils",
+          "text": "Chaque fiche de ces listes a un champ image que l'IA remplit (et recherche si elle manque). Le commentaire devient un champ personnel : l'IA n'y écrit plus ; elle remplit les vrais champs (prix, marque…) en consultant d'abord le lien de la fiche. Ce que l'IA avait écrit dans un commentaire est retiré et la fiche est recherchée de nouveau."
+        }
+      ]
+    },
+    {
+      "version": "4.84.1",
+      "date": "2026-10-24",
+      "title": "Fiches complétées par l'IA, plus de « null »",
+      "changes": [
+        {
+          "theme": "outils",
+          "text": "Une fiche ajoutée avec quelques données seulement (depuis Nomade, la voix ou la card) dans une liste demandée sur mesure : Jarvis interroge l'IA (recherche web) pour remplir les champs manquants, jamais les champs personnels (statut, prix payé, notes). « Compléter les images » de la liste cherche aussi les fiches incomplètes."
+        },
+        {
+          "theme": "outils",
+          "text": "Surveillance automatique : une minute après le démarrage puis toutes les 10 minutes, Jarvis repère les fiches incomplètes des listes sur mesure (3 au plus par passage) et lance la recherche IA. Une fiche déjà essayée n'est pas relancée avant 7 jours ; « ✨ Compléter (IA) » reste disponible à tout moment."
+        },
+        {
+          "theme": "interface",
+          "text": "Fiche d'une liste : le « null null » affiché sous les champs est supprimé, et un bouton « ✨ Compléter (IA) » demande à tout moment à l'IA de remplir les champs vides de la fiche."
+        },
+        {
+          "theme": "interface",
+          "text": "Un « null », « N/A » ou « non renseigné » écrit en toutes lettres n'est plus gardé ni affiché : le champ reste vide, dans Jarvis comme sur le site Nomade (cache nomade-v9)."
+        }
+      ]
+    },
+    {
+      "version": "4.84.0",
+      "date": "2026-10-24",
+      "title": "Nomade : créateur et partage des listes, fiche du site conservée",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Une liste créée à la demande d'un invité indique son créateur sur le site (« par … ») et dans Jarvis (« 👤 Liste invité · par … »). Le créateur règle son partage avec « 👥 Partager » : pour chaque autre invité, aucun accès, lecture seule ou lecture et écriture ; le propriétaire la voit toujours (migration 005 du site)."
+        },
+        {
+          "theme": "connecteurs",
+          "text": "Correctif : une fiche ajoutée sur le site dont l'adresse du produit dépassait 500 caractères (lien Amazon avec pistage) était refusée par Jarvis puis effacée du site. L'adresse est désormais raccourcie (sans la requête) ; si un lien reste invalide, la fiche est ajoutée sans lui ; une fiche refusée reste sur le site au lieu de disparaître."
+        }
+      ]
+    },
+    {
+      "version": "4.83.1",
+      "date": "2026-10-24",
+      "title": "Nomade : formulaire de liste sans ascenseur",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Le formulaire « Demander une liste » du site Nomade tient à l'écran sans ascenseur : deux colonnes sur grand écran, champs plus courts, « Mes demandes » limité aux 3 dernières, texte long coupé proprement."
+        },
+        {
+          "theme": "interface",
+          "text": "Card Actions : la ligne Nomade affiche une alerte (⚠) quand des listes attendent ta validation, que des dépôts sont arrivés, que des modifications sont à vérifier ou que des données ont été ajoutées depuis le site ; le bouton réduit ▤ ACTIONS s'allume aussi (●)."
+        }
+      ]
+    },
+    {
+      "version": "4.83.0",
+      "date": "2026-10-24",
+      "title": "Nomade : demander une nouvelle liste",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Sur le site Nomade, le propriétaire comme les invités ont un bouton « ✚ Demander une liste » : un formulaire (nom, type de liste, champs souhaités, exemples) pour une liste de films, de vêtements, d'animaux… Les demandes sont limitées (5 en attente, 10 par jour et par personne) et suivies dans « Mes demandes »."
+        },
+        {
+          "theme": "outils",
+          "text": "Jarvis reçoit la demande (toutes les 45 s s'il est allumé, sinon au démarrage) et la montre dans la card Nomade et l'administration avec le nom du demandeur : « ✔ Créer la liste » ou « ✕ Refuser ». Le texte du demandeur n'est jamais exécuté : seul un modèle validé est créé."
+        },
+        {
+          "theme": "outils",
+          "text": "Modèles sur mesure : Jarvis réutilise un modèle livré ou déjà créé, sinon fait proposer les champs par l'IA sans outil (3 études par jour et par personne), puis enregistre le modèle (data/collection-models.json) pour les listes suivantes du même type."
+        },
+        {
+          "theme": "interface",
+          "text": "La liste demandée par un invité est marquée « 👤 nom · invité » dans un groupe « Listes des invités » de la card Mes listes ; l'invité peut la modifier sur le site, même en lecture seule ailleurs (migration 004 du site, à déployer avec web-nomade/deploy.ps1)."
+        }
+      ]
+    },
+    {
+      "version": "4.82.0",
+      "date": "2026-10-24",
+      "title": "Nomade : numéro de card et lien vers le site",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "La card Nomade a un numéro fixe (120), affiché aussi sur sa ligne de la card Actions, et un bouton « ↗ Ouvrir le site » qui ouvre le site Jarvis Nomade dans le navigateur."
+        }
+      ]
+    },
+    {
+      "version": "4.81.0",
+      "date": "2026-10-24",
+      "title": "Jarvis ne gêne plus le micro pendant une visio",
+      "changes": [
+        {
+          "theme": "son",
+          "text": "Pendant une visio (Google Meet), « micro coupé » ferme réellement le micro, l'anti-écho et le niveau du son du PC du moteur vocal au lieu de seulement ignorer la voix : Meet reste seul sur le micro. Plus de réouverture automatique de l'audio tant que le micro est coupé."
+        },
+        {
+          "theme": "son",
+          "text": "La pause d'écoute tient pendant toute la visio, même en « Sourdine forcée » ou si une autre application passe au premier plan : Whisper n'est plus relancé en pleine réunion."
+        },
+        {
+          "theme": "son",
+          "text": "Carte son virtuelle : réglages engine.micDevice (micro d'écoute) et engine.outDevice (sortie de la voix) dans data/config.json, par fragment du nom du périphérique (vide = défaut Windows)."
+        }
+      ]
+    },
+    {
+      "version": "4.80.1",
+      "date": "2026-10-24",
+      "title": "Cards absentes au lancement",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Si la fenêtre s'ouvre avant que le noyau soit prêt, la liste des modules est redemandée jusqu'à l'obtenir : les cards Audio, Matériel, Actions… ne restent plus absentes après un lancement."
+        }
+      ]
+    },
+    {
+      "version": "4.80.0",
+      "date": "2026-10-24",
+      "title": "Diction pendant une présentation Data",
+      "changes": [
+        {
+          "theme": "son",
+          "text": "La card Diction s'ouvre aussi pendant une présentation Data (bouton 🗣 DICTION de la zone Conversation) et la pilote : ⏸ pause, correction d'un mot, ◀ scène précédente, ▶ Relancer (la scène est redite avec la nouvelle prononciation), ▶▶ suivante, ⏮ début, ■ arrêter. La barre suit les scènes et dit si la présentation est en pause."
+        }
+      ]
+    },
+    {
+      "version": "4.79.0",
+      "date": "2026-10-24",
+      "title": "Un bouton Diction dans la zone Conversation",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Nouveau bouton 🗣 DICTION dans l'en-tête de la card Conversation, à gauche d'APPRENTISSAGE : un clic ouvre la card Diction pour corriger la prononciation de Jarvis, comme « Jarvis, corrige ta prononciation »."
+        }
+      ]
+    },
+    {
+      "version": "4.78.0",
+      "date": "2026-10-23",
+      "title": "Diction : toucher le mot mal prononcé pour le corriger",
+      "changes": [
+        {
+          "theme": "son",
+          "text": "Nouvelle card Diction (« Jarvis, corrige ta prononciation », « tu as mal prononcé… », card Actions) : les 3 dernières phrases dites par Jarvis, chaque mot cliquable. Les mots probablement mal lus sont signalés (anglais, sigles, références, noms propres), ceux déjà corrigés soulignés. Un mot ou une expression de 4 mots au plus : ▶ l'écouter tel qu'il est dit, écrire comment le dire, ▶ essayer, enregistrer ; la phrase est rejouée corrigée."
+        },
+        {
+          "theme": "son",
+          "text": "Prononciation par voix : une correction vaut pour toutes les voix ou seulement pour la voix choisie (la règle de la voix passe avant la générale). Voix multilingues Vivienne et Rémy ajoutées : elles disent les noms anglais naturellement au milieu du français ; « ▶ Comparer » dans Administration › Voix › Prononciation fait entendre la même phrase avec la voix actuelle puis la multilingue."
+        }
+      ]
+    },
+    {
+      "version": "4.77.0",
+      "date": "2026-10-23",
+      "title": "Prix relevés : lien direct vers le produit dans la boutique",
+      "changes": [
+        {
+          "theme": "outils",
+          "text": "Quand Jarvis relève le prix actuel d'une fiche (Lego…), il garde l'adresse de la page du produit chez le marchand (https, adresse publique vérifiée). Card Listes : chaque prix de l'historique qui a un lien s'ouvre d'un clic, et « ↗ Voir chez <boutique> » ouvre la page du dernier prix relevé ; c'est le noyau qui ouvre l'adresse enregistrée, jamais une adresse venue de la fenêtre. Site Nomade : les boutiques des derniers prix s'affichent en liens directs dans la fiche."
+        }
+      ]
+    },
+    {
+      "version": "4.76.0",
+      "date": "2026-10-23",
+      "title": "Nomade : vérifier que le site en ligne correspond à Jarvis",
+      "changes": [
+        {
+          "theme": "maj",
+          "text": "web-nomade/deploy.ps1 publie sur le site la version, le commit et l'empreinte (SHA-256) de chaque fichier envoyé, déploiements partiels compris. Jarvis compare ces empreintes à son propre dossier web-nomade au démarrage, toutes les 10 minutes ou sur demande : Administration › Nomade › « Version du site » indique « à jour » ou « à déployer », avec les fichiers différents ou absents et les migrations de base non appliquées. La version du site s'affiche aussi dans « Compte » sur le site."
+        }
+      ]
+    },
+    {
+      "version": "4.75.2",
+      "date": "2026-10-23",
+      "title": "Nomade : un scan, une fiche à valider",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Le scan de code-barres du site Nomade enregistrait aussitôt puis relançait la caméra en boucle. Désormais la caméra s'arrête dès qu'un code est lu et une fiche de validation s'affiche : code lu, nom facultatif, statut, avertissement si l'article est déjà dans la liste ; « Enregistrer », « Scanner à nouveau » ou « Annuler ». Un nouvel article repart du bouton 📷 Scanner."
+        }
+      ]
+    },
+    {
+      "version": "4.75.1",
+      "date": "2026-10-23",
+      "title": "Mise à jour proposée même après une compilation incomplète",
+      "changes": [
+        {
+          "theme": "maj",
+          "text": "Une relance dont la compilation échouait à moitié (disque plein : coquille et moteur vocal recompilés, noyau resté ancien) faisait croire Jarvis à jour : il ne proposait plus de se mettre à jour. Au démarrage, les sources sont maintenant comparées au plus ancien des exécutables (jarvis, jarvis-core, jarvis-voice)."
+        }
+      ]
+    },
+    {
+      "version": "4.75.0",
+      "date": "2026-10-23",
+      "title": "Nomade : scanner un code-barres pour ajouter un article",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Site Nomade : bouton « 📷 Scanner » dans les listes à fiches que Jarvis sait compléter (Lego, vinyles…). La caméra arrière lit le code-barres EAN/UPC (lecture native du navigateur, ou bibliothèque ZXing servie par le site pour Safari), la clé de contrôle écarte les mauvaises lectures, le code peut aussi se taper ; statut au choix et scans à la suite. La fiche est créée aussitôt avec un nom provisoire."
+        },
+        {
+          "theme": "noyau",
+          "text": "Fiche ajoutée par code-barres : le code est gardé sur la fiche et évite les doublons ; Jarvis cherche d'abord la sortie exacte dans MusicBrainz par code-barres (disques : titre, artiste, année, pochette), sinon l'IA cherche sur le web avec ce code (Lego…). Le vrai nom remplace le nom provisoire, l'image et les infos arrivent ensuite sur le site."
+        }
+      ]
+    },
+    {
+      "version": "4.74.0",
+      "date": "2026-10-23",
+      "title": "Nomade : créer une liste depuis « Déposer »",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Dans « Déposer » du site Nomade, le type « Liste à cocher » demande un nom et un élément par ligne (puces et numéros acceptés). Jarvis crée la liste dès qu'il reçoit le dépôt, sans attendre de geste sur le PC (le type est deviné d'après le nom : courses, voyage…), l'annonce, et la partage sur le site pour la cocher depuis le téléphone."
+        }
+      ]
+    },
+    {
+      "version": "4.73.1",
+      "date": "2026-10-23",
+      "title": "Site Nomade : « null » dans la barre des listes",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Le site Nomade affichait « null » entre les listes et « Déposer » pour le propriétaire (emplacement du bouton « + Liste », réservé aux invités) ; les éléments absents ne sont plus affichés, ni dans la barre ni dans les fenêtres."
+        },
+        {
+          "theme": "outils",
+          "text": "web-nomade/deploy.ps1 -Only accepte une liste séparée par des virgules aussi quand il est lancé par « pwsh -File »."
+        }
+      ]
+    },
+    {
+      "version": "4.73.0",
+      "date": "2026-10-23",
+      "title": "Nomade : les invités tiennent leurs listes, Jarvis s'en souvient",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Les personnes invitées sur le site Nomade peuvent créer leurs propres listes (« + Liste » : cadeaux, idées, à voir…), les renommer, les supprimer, et y ajouter des éléments avec une note, à cocher. Le propriétaire du site les voit aussi, avec le nom de leur auteur."
+        },
+        {
+          "theme": "memoire",
+          "text": "Jarvis relit les listes des invités à chaque changement et les range dans sa mémoire (RAG), un souvenir par liste, dans la catégorie du lien choisi pour le partage : famille, amis, collègues ou proches. Une liste supprimée, un partage retiré ou le site oublié les retirent de la mémoire. Administration › Nomade : choix du lien avec chaque personne et panneau « Listes des invités »."
+        },
+        {
+          "theme": "memoire",
+          "text": "Correctif : supprimer une liste à cocher retirait mal son souvenir de la mémoire (il restait) ; les souvenirs épinglés se retirent maintenant par leur épingle."
+        }
+      ]
+    },
+    {
+      "version": "4.72.1",
+      "date": "2026-10-23",
+      "title": "Administration : champs mail, adresse et date lisibles",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Les champs de type mail, adresse web, date et heure de l'administration (Nomade, Mémoire, Général) avaient le fond blanc du navigateur avec un texte clair, illisible : ils prennent maintenant le même style sombre que les autres."
+        }
+      ]
+    },
+    {
+      "version": "4.72.0",
+      "date": "2026-10-23",
+      "title": "Nomade : partager ses données avec d'autres personnes",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Partages Nomade : depuis Administration › Nomade, créer un accès pour une autre personne. Elle reçoit par mail (Gmail de Jarvis) l'adresse du site, son identifiant déjà rempli et un lien pour choisir son mot de passe à sa première visite ; ensuite elle se connecte comme sur n'importe quel site, la connexion restant mémorisée. Chaque partage a ses propres données visibles et ses droits : lecture seule, ou lecture et écriture (ses ajouts et modifications sont repris par Jarvis, avec son nom au journal)."
+        },
+        {
+          "theme": "securite",
+          "text": "Créer ou modifier un partage demande un code de validation ; supprimer un partage coupe ses connexions tout de suite. Un invité ne voit que ses données (fiches, images, connexions), jamais la boîte de dépôt ni les réglages ; son mot de passe est haché (Argon2id), le lien d'invitation n'est gardé que haché et expire au bout de 7 jours. Le propriétaire reste le seul à pouvoir relier Jarvis au site."
+        }
+      ]
+    },
+    {
+      "version": "4.71.0",
+      "date": "2026-10-23",
+      "title": "Nomade : images et liens des fiches",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Les fiches partagées sur le site Nomade arrivent avec leur image : la copie locale gardée par Jarvis (photo d'un Lego, pochette, affiche) est envoyée au site, sinon l'adresse d'origine de l'image est utilisée. Vignette dans la liste, grande image dans la fiche, images gardées sur le téléphone pour la lecture hors ligne. Les champs « lien » et les boutiques d'un produit suivi sont cliquables."
+        },
+        {
+          "theme": "securite",
+          "text": "Images nommées par l'empreinte de leur contenu (rien du disque n'est révélé), vérifiées par le site à la réception, rangées hors de portée directe et servies seulement à une session connectée ; celles qui ne servent plus sont effacées."
+        }
+      ]
+    },
+    {
+      "version": "4.70.0",
+      "date": "2026-10-23",
+      "title": "Nomade : mes données sur le téléphone, même PC éteint",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Nouveau site Nomade (dossier web-nomade, à héberger chez Hostinger) : une application web pour téléphone et PC, connexion mémorisée 90 jours, installable sur l'écran d'accueil et lisible hors ligne. Elle affiche ce que Jarvis partage (listes à fiches, listes à cocher, notes, rappels, colis, produits, programmations, réunions, mémoire) et permet d'ajouter ou modifier une fiche, cocher une liste, écrire une note ou un rappel, et « Déposer pour Jarvis ». Base MySQL de Hostinger derrière une API PHP : Jarvis n'ouvre aucun port et n'appelle le site qu'en HTTPS."
+        },
+        {
+          "theme": "noyau",
+          "text": "Synchronisation par différence (orch/nomade) : seul ce qui a changé est envoyé, toutes les 45 s et aussitôt après une modification d'une liste à fiches. Les modifications faites sur le site passent par les services habituels de Jarvis (listes, notes, rappels), en direct ou au prochain démarrage ; un élément changé des deux côtés est signalé dans « À vérifier ». Card Nomade pour traiter les dépôts (en note, en rappel, en demande, ignorer) ; « synchronise le site Nomade », « montre Nomade », « qu'est-ce que j'ai déposé ? »."
+        },
+        {
+          "theme": "securite",
+          "text": "Administration › Nomade : liste de toutes les données partageables, à cocher une à une ; décocher efface les données du site après un code de validation. Identifiant et mot de passe du site modifiables depuis l'administration (code de validation, déconnexion des appareils au choix) ; mot de passe et clé de Jarvis chiffrés par Windows, mots de passe hachés (Argon2id) côté site, tentatives limitées, appareils connectés révocables."
+        },
+        {
+          "theme": "outils",
+          "text": "web-nomade/deploy.ps1 : envoi du site par FTP et mise à jour du schéma de la base (migrations), à partir d'un fichier d'accès gardé hors du dépôt."
+        }
+      ]
+    },
+    {
+      "version": "4.69.1",
+      "date": "2026-10-23",
+      "title": "Voix Microsoft de retour (relais edge-tts)",
+      "changes": [
+        {
+          "theme": "son",
+          "text": "Microsoft a changé le jeton d'accès de son service de voix : Jarvis était refusé (403) et parlait avec la voix de secours Piper, moins naturelle et qui prononçait mal certains accents. Quand le client intégré est refusé, Jarvis passe maintenant par le paquet Python edge-tts (tenu à jour par sa communauté) resté ouvert en tâche de fond : mêmes voix neuronales, environ 1 seconde par phrase après le premier chargement. Délai de synthèse porté à 10 s."
+        },
+        {
+          "theme": "outils",
+          "text": "Test météo rendu indépendant de l'heure (il échouait entre minuit et 1 h)."
+        }
+      ]
+    },
+    {
+      "version": "4.69.0",
+      "date": "2026-10-22",
+      "title": "Suivi en direct de la création d'un dossier, présentation mise en avant",
+      "changes": [
+        {
+          "theme": "memoire",
+          "text": "« Fais un dossier sur… » ouvre la card SUIVI DATA (111) : étape en cours (file, recherche web, vérification, images, indexation RAG, enregistré), temps écoulé sur le temps donné, chiffres du dossier, chaque élément recueilli par l'IA au fil de l'écriture (le noyau relit son fichier toutes les 3 secondes), son activité (recherches, pages lues, accords demandés), les images téléchargées une à une et, à la fin, ce qui est enregistré dans le RAG (passages, vecteurs, exemples)."
+        },
+        {
+          "theme": "coeur",
+          "text": "Pendant une présentation, toutes les autres cards (cards des modules, cards d'actions, tâches, conversation, panneaux) passent à 10 % d'opacité ; le survol de la souris rend une card lisible."
+        }
+      ]
+    },
+    {
+      "version": "4.68.1",
+      "date": "2026-10-22",
+      "title": "Dossiers Data : plus de demande de code pendant la recherche",
+      "changes": [
+        {
+          "theme": "securite",
+          "text": "Une recherche « fais un dossier sur… » n'a plus que les outils web (WebSearch, WebFetch) et l'écriture dans le dossier de travail : l'IA passait par des commandes système (curl vers Wikimedia Commons), qui demandaient un code à chaque appel puis faisaient échouer la recherche. La consigne lui interdit aussi toute commande système et lui dit de continuer si un outil est refusé."
+        },
+        {
+          "theme": "interface",
+          "text": "Clavier du code de sécurité : il ne se referme plus quand l'IA passe à un autre outil pendant l'attente du code (la card affichait « CODE → SAISIR » sans clavier) ; il se referme quand la tâche est annulée ou terminée."
+        },
+        {
+          "theme": "memoire",
+          "text": "Dossiers Data : l'article du sujet est retiré (« l'hélicoptère H160 » devient « hélicoptère H160 »)."
+        }
+      ]
+    },
+    {
+      "version": "4.68.0",
+      "date": "2026-10-22",
+      "title": "Présentation animée d'un dossier Data, dans le cœur",
+      "changes": [
+        {
+          "theme": "coeur",
+          "text": "« Présente-moi le H160 » : le cœur laisse la place à un panneau animé (titre, images en travelling, chiffres qui défilent, fiche technique, chronologie, comparaison, pièce montrée, vidéo, conclusion) et le personnage du cœur présente à côté (Bobot si le cœur est classique). Chaque scène passe quand Jarvis a fini d'en dire la narration ; toutes les fenêtres suivent la même scène."
+        },
+        {
+          "theme": "memoire",
+          "text": "Script écrit par Claude Haiku et vérifié contre le dossier : chiffres, images, dates, comparaisons et pièces affichés en viennent tous ; script simple construit sans IA en repli. Questions pendant la présentation : réponse tirée du RAG du dossier, avec l'image ou la pièce qui l'illustre."
+        },
+        {
+          "theme": "interface",
+          "text": "Pilotage à la voix (« suivant », « reviens », « pause », « recommence », « stop ») ; Échap et STOP arrêtent aussi la présentation. Bouton ▶ Présenter actif dans la card Data."
+        }
+      ]
+    },
+    {
+      "version": "4.67.0",
+      "date": "2026-10-22",
+      "title": "Dossiers Data : recherche sur un sujet, RAG dédié et card Data",
+      "changes": [
+        {
+          "theme": "memoire",
+          "text": "« Fais un dossier sur l'hélicoptère Airbus H160 en 10 minutes » : l'IA cherche sur le web en tâche de fond pendant le temps donné (5 min par défaut, 30 au plus) et écrit un dossier structuré (résumé, fiche technique, sections, chronologie, comparaisons, pièces, images, vidéos, modèles 3D libres, sources) et un rapport. Jarvis le relit champ par champ, télécharge images et modèle .glb (adresses publiques seulement), fusionne sans doublon et indexe le tout dans un RAG propre au sujet (data/savoir/). Au-delà du temps donné, la recherche s'arrête et ce qui est écrit est gardé ; une recherche coupée par un arrêt est marquée interrompue."
+        },
+        {
+          "theme": "interface",
+          "text": "Nouveau module Data (card 110) : liste des dossiers avec vignette, état et chiffres ; fiche d'un dossier (résumé, fiche technique, galerie, sections, pièces, vidéos, sources, historique des recherches) avec Approfondir, Ajouter un lien (page ou vidéo lue par l'IA) et Supprimer. Champ « Nouveau sujet » et choix du temps de recherche."
+        },
+        {
+          "theme": "securite",
+          "text": "Outil savoir_chercher pour l'IA, en lecture seule (capacité « Chercher dans mes dossiers Data ») ; l'IA n'écrit jamais dans data/ : le noyau valide, télécharge et indexe lui-même."
+        }
+      ]
+    },
+    {
+      "version": "4.66.1",
+      "date": "2026-10-22",
+      "title": "Administration › Modules : colonne Type",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Tableau « Modules installés » : nouvelle première colonne Type (1 : toujours active, 2 : temporaire, — : sans card) ; les modules sont rangés par type puis par nom. La colonne Card ne donne plus que le numéro (ou « numéro donné à l'ouverture » pour les cards temporaires numérotées par le noyau)."
+        }
+      ]
+    },
+    {
+      "version": "4.66.0",
+      "date": "2026-10-22",
+      "title": "Toutes les cards sont des modules",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Les cards restantes deviennent des modules, chacune dans son dossier modules/<id>/ : Musique (card et lecteur interne), Terminal, Bureau, Actions, Conversation, Mails, Agenda, Achats (fiche produit), Listes à fiches, Projets, Navigateur, Devant et Checkup (scanner 3D). Chacune se désactive dans Administration › Modules ; sa card disparaît aussitôt (le HUD se recharge)."
+        },
+        {
+          "theme": "outils",
+          "text": "Cadre commun des cards (ui/widgets.js › J.widgetKit) : nouveaux points d'accroche pour les modules — registerTool (cards « tool » marquées : collection, checkup), guardClose et onIdle (la musique reste visible pendant la lecture, puis se réduit), ownKey (card numérotée par le HUD), headButtons et footButtons (boutons du Terminal, capture du Bureau), ghostKey et addGhost (fantôme du Terminal), dispatch (card locale). La card Actions est remplie par les fiches des modules (dire ou appel) ; une fiche peut décrire plusieurs cards (autresCards) et charger des modules JavaScript (ui.es)."
+        },
+        {
+          "theme": "outils",
+          "text": "Vérifié dans Jarvis en marche (débogage distant de WebView2) : les 17 modules se chargent sans erreur, chaque card s'affiche avec ses styles, et un module désactivé puis réactivé depuis l'administration disparaît puis revient."
+        }
+      ]
+    },
+    {
+      "version": "4.65.0",
+      "date": "2026-10-22",
+      "title": "Modules Notes et Réunions ; registre des cards",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Les cards Notes (104) et Réunion (105) deviennent des modules : modules/notes/ et modules/reunions/ (fiche, script, styles). Désactivées, leurs cards ne s'affichent plus (la prise de notes et l'enregistrement restent possibles à la voix)."
+        },
+        {
+          "theme": "outils",
+          "text": "Registre des cards pour les modules (J.widgetKit) : un module déclare l'affichage de ses cards (register), les événements qu'il écoute (on) et la fermeture (onClose, vanish). Les cards arrivées avant le chargement des modules attendent, celles d'un module désactivé sont ignorées (fiche › widgets). Le numéro par défaut d'une card ouverte par le noyau vient de la fiche du module (card.emplacement)."
+        }
+      ]
+    },
+    {
+      "version": "4.64.1",
+      "date": "2026-10-22",
+      "title": "Card musique : volume et niveaux de la musique seulement",
+      "changes": [
+        {
+          "theme": "son",
+          "text": "Card musique (102) : les barres de niveau et le curseur de volume ne reflètent plus que l'application qui joue la musique de la card (Spotify, lecteur de Jarvis…), et plus le son de tout Windows (YouTube dans Chrome, notifications, voix de Jarvis). Le curseur règle le volume propre de cette application dans le mélangeur de volume de Windows ; pour le lecteur interne, son volume à lui. Module Audio : nouvelles méthodes audioApp et audioAppVolume (sessions audio de Windows par application)."
+        }
+      ]
+    },
+    {
+      "version": "4.64.0",
+      "date": "2026-10-22",
+      "title": "Module Matériel (card 3)",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "La card Matériel devient un module : modules/materiel/ (fiche, materiel.js, materiel.css). C'est un module d'interface seule : il écoute lui-même l'événement « telemetry » du cœur, dont les mesures (processeur, mémoire, sondes GPU et disques) restent partagées avec le mode éco automatique et le diagnostic. Désactivé dans Administration › Modules, la card disparaît sans recompiler."
+        },
+        {
+          "theme": "outils",
+          "text": "Fiche de module : champ facultatif card.cle, la clé de la card dans le HUD quand elle diffère de l'id (« hw » pour Matériel). Les styles communs aux cards à en-tête (.hw-card, .hw-head, .hw-body) restent dans ui/style.css."
+        }
+      ]
+    },
+    {
+      "version": "4.63.0",
+      "date": "2026-10-22",
+      "title": "Jarvis modulaire : chaque card devient un module (Audio en premier)",
+      "changes": [
+        {
+          "theme": "noyau",
+          "text": "Jarvis devient un système principal avec des modules : chaque card est un module indépendant rangé dans modules/<id>/ (fiche module.json, interface ui/, partie noyau facultative core/). Le noyau est maintenant une bibliothèque (crates/jarvis-core) ; l'exécutable jarvis-core.exe est construit par crates/jarvis-app avec les modules liés (crates/jarvis-modules). Les modules reçoivent une API (méthodes appelables par les fenêtres, événements, journal, dossier de données data/modules/<id>/)."
+        },
+        {
+          "theme": "son",
+          "text": "Premier module : Audio (card 2). Son interface (volumes, sourdines, choix du périphérique, niveaux) et son mélangeur (processus « audio-mixer ») ont quitté le cœur pour modules/audio/. Rien ne change à l'usage ; désactivé, la card disparaît et la card musique cache ses barres de niveau et de volume."
+        },
+        {
+          "theme": "interface",
+          "text": "Administration › Modules : liste des modules installés (version, card, partie noyau) avec un interrupteur ; l'interface suit aussitôt (le HUD se recharge), la partie noyau au prochain démarrage. Les modules sont chargés par ui/modules-loader.js ; les fiches peuvent ajouter des lignes à la card Actions."
+        },
+        {
+          "theme": "outils",
+          "text": "Créer un module : copier modules/_modele (card exemple sans partie noyau) et suivre modules/README.md. Tests : fiches valides, numéros de card uniques, chaque partie noyau déclarée bien liée. La page d'aide a une section « Modules » avec la liste en direct des modules installés."
+        }
+      ]
+    },
+    {
+      "version": "4.62.2",
+      "date": "2026-10-22",
+      "title": "Card musique : réduite en bouton après une minute sans lecture",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Card musique : après une minute sans lecture (pause, arrêt ou rien en cours), elle se réduit en bouton violet au lieu de rester en fantôme ; elle se rouvre dès que la musique reprend. Les barres de niveau et le curseur de volume ne restent plus visibles sur la card estompée, et le relevé des niveaux s'arrête quand la card est réduite."
+        }
+      ]
+    },
+    {
+      "version": "4.62.1",
+      "date": "2026-10-22",
+      "title": "Bouton de capture : sélection de la zone",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Card Bureau : le bouton 📷 ouvre l'outil de capture de Windows avec le curseur de sélection de la zone à capturer (image copiée dans le presse-papier), au lieu de capturer tout l'écran."
+        }
+      ]
+    },
+    {
+      "version": "4.62.0",
+      "date": "2026-10-22",
+      "title": "Card musique : niveaux gauche/droite et volume ; Bureau : capture d'écran",
+      "changes": [
+        {
+          "theme": "interface",
+          "text": "Card musique : deux barres montrent le niveau de sortie gauche et droite en direct, et un curseur vertical règle le volume de Windows (molette : ±2 %)."
+        },
+        {
+          "theme": "interface",
+          "text": "Card Bureau : bouton 📷 tout en bas pour faire une capture d'écran (PNG dans le dossier captures, comme la commande vocale)."
+        }
+      ]
+    },
+    {
+      "version": "4.61.0",
+      "date": "2026-10-21",
+      "title": "Mot d'éveil openWakeWord : un modèle entraîné pour « Jarvis »",
+      "changes": [
+        {
+          "theme": "son",
+          "text": "Nouveau détecteur de mot d'éveil openWakeWord dans le moteur vocal (idée reprise du projet Cornelius) : il charge un modèle entraîné pour « Jarvis » avec wakeword-generator (voix françaises de synthèse), déposé dans data/models/oww/. Même calcul que la bibliothèque Python (tranches de 80 ms, mel-spectrogramme, empreintes de 96 valeurs, 16 dernières empreintes), 2 s de pause après chaque détection ; les deux modèles de prétraitement sont téléchargés au premier usage et vérifiés par empreinte. Vérifié avec le modèle anglais « hey jarvis » : score 0,999 sur la phrase, rien sur le silence."
+        },
+        {
+          "theme": "interface",
+          "text": "Administration › Voix : panneau « Mot d'éveil » pour choisir le détecteur (phonétique seul par défaut, openWakeWord seul, l'un ou l'autre, ou les deux d'accord à 1,5 s près), le fichier du modèle et son seuil. Le journal du moteur vocal indique quel détecteur a entendu le mot."
+        }
+      ]
+    },
+    {
+      "version": "4.60.0",
+      "date": "2026-10-21",
+      "title": "Présence par webcam : arrivée, départ et vie privée",
+      "changes": [
+        {
+          "theme": "coeur",
+          "text": "Nouveau : présence par webcam (idée reprise du projet Cornelius), désactivée au départ. Une image 320×240 par seconde est analysée sur le PC par YuNet (ONNX, téléchargé une fois depuis OpenCV et vérifié par empreinte) ; seul le nombre de visages est gardé. À ton retour après une absence, Jarvis fait le briefing du matin s'il est attendu, sinon il dit les annonces gardées. Absent, les heures calmes s'appliquent ; la musique peut être mise en pause au départ. Avec d'autres personnes devant l'écran, mode vie privée : cards floutées sur le HUD, mails et messages Telegram non annoncés."
+        },
+        {
+          "theme": "interface",
+          "text": "Administration › Général : panneau « Présence par webcam » (activation, délai d'absence, vie privée, pause de la musique, état en direct). Arrivées, départs et vie privée sont inscrits au journal."
+        }
+      ]
+    },
+    {
+      "version": "4.59.0",
+      "date": "2026-10-21",
+      "title": "Annonces spontanées encadrées : heures calmes, sourdine, rafales",
+      "changes": [
+        {
+          "theme": "coeur",
+          "text": "Nouveau : une seule politique pour tout ce que Jarvis annonce de lui-même (mails, colis, fins de tâche Claude Code et AGY, recherches, rappels, programmations), inspirée de l'« interpellation » du projet Cornelius. Pendant la sourdine contextuelle, une annonce n'est plus perdue : affichée tout de suite, elle est dite à la fin de la visio ou de la musique. Pendant les heures calmes (22 h 30 – 7 h 30), elle attend ton retour si tu es absent depuis 15 minutes ; rappels et programmations passent toujours. Les annonces rapprochées (écart minimal de 30 s) sont regroupées en une seule ; une réponse à ce que tu viens de demander n'est jamais retardée."
+        },
+        {
+          "theme": "connecteurs",
+          "text": "Colis : un changement de statut trouvé par le contrôle de fond passe par cette politique ; « où en est mon colis » répond toujours tout de suite."
+        },
+        {
+          "theme": "interface",
+          "text": "Administration › Général : panneau « Annonces spontanées » (heures calmes, début, fin, écart minimal, nombre d'annonces en attente). Chaque report est inscrit au journal (annonce_reportee)."
+        }
+      ]
+    },
+    {
+      "version": "4.58.0",
+      "date": "2026-10-21",
+      "title": "Mémoire automatique : Jarvis retient ce que tu dis de toi",
+      "changes": [
+        {
+          "theme": "memoire",
+          "text": "Nouveau : mémoire automatique (idée reprise du projet Cornelius). Les phrases où tu parles de toi restent en mémoire vive ; après quelques minutes de silence, Claude Haiku (sans outil) propose des ajouts et des corrections en citant les phrases qui les prouvent. Jarvis vérifie chaque proposition (preuves réelles et en rapport, aucun secret, souvenir existant et non épinglé, échéance valide, rien de déjà connu, 5 au plus), l'applique au journal scellé avec l'origine « automatique », puis efface les phrases. Aucun oubli automatique. Désactivée au départ."
+        },
+        {
+          "theme": "interface",
+          "text": "Administration › Mémoire : panneau « Mémoire automatique » (activation, délai de silence, « Analyser maintenant », journal des 20 dernières analyses avec ce qui a été retenu et ce qui a été écarté). La page d'aide indique son état."
+        },
+        {
+          "theme": "noyau",
+          "text": "Appel Claude Haiku sans outil mis en commun (quick_haiku) : la traduction à la voix et la mémoire automatique l'utilisent."
+        }
+      ]
+    },
+    {
+      "version": "4.57.0",
+      "date": "2026-10-21",
+      "title": "Mémoire à la demande : un prompt plus court et plus stable",
+      "changes": [
+        {
+          "theme": "memoire",
+          "text": "Le prompt système ne recopie plus toute la mémoire : il garde l'identité, le lieu de vie, les préférences de dialogue et les situations temporaires en cours, puis annonce les autres souvenirs par catégorie (« préférences 5, habitudes 3… ») avec la consigne d'appeler memoire_lire quand la demande en dépend. Moins de jetons à chaque appel et un début de prompt identique d'une session à l'autre (meilleur cache). Idée reprise du projet Cornelius, qui ne précharge aucun souvenir."
+        },
+        {
+          "theme": "interface",
+          "text": "Page d'aide › RAG : la ligne « Injection dans les sessions IA » liste les catégories toujours données au modèle."
+        }
+      ]
+    },
+    {
+      "version": "4.56.0",
+      "date": "2026-10-21",
+      "title": "Données datées : une panne ne vaut plus « aucune donnée »",
+      "changes": [
+        {
+          "theme": "connecteurs",
+          "text": "Météo : le dernier relevé réussi de chaque ville est gardé 24 heures. Si Open-Meteo ne répond pas, Jarvis répond d'après ce relevé en disant de quand il date (« d'après le relevé de 8 h 10 »), au lieu de « le service météo ne répond pas ». Le briefing du matin s'en sert aussi quand le service est trop lent. Idée reprise du projet Cornelius."
+        },
+        {
+          "theme": "connecteurs",
+          "text": "Colis : chaque lecture réussie du suivi est datée (verifieLe). « Mes colis » précise de quand date chaque statut, et un suivi illisible redonne le dernier statut connu avec sa date au lieu de « pas de statut fiable »."
+        }
+      ]
+    },
+    {
+      "version": "4.55.0",
+      "date": "2026-10-21",
+      "title": "Souvenirs temporaires : Jarvis oublie de lui-même ce qui n'est plus vrai",
+      "changes": [
+        { "theme": "memoire", "text": "Un souvenir peut porter une échéance (dernier jour où il reste vrai) : « je suis en congé jusqu'au 3 novembre » est retenu avec sa date, cité « jusqu'au 3 novembre » dans les réponses, puis oublié de lui-même le lendemain (mémoire, recherche et vecteurs). L'IA renseigne expire_le dans memoire_ajouter pour une situation passagère ; redire le même fait avec une autre date remplace l'échéance. Idée reprise du projet Cornelius." },
+        { "theme": "interface", "text": "Administration › Mémoire : champ date à l'ajout et à la modification d'un souvenir (vide : durable), badge ⏳ « jusqu'au … » dans la liste ; la page d'aide compte les souvenirs temporaires." }
+      ]
+    },
+    {
+      "version": "4.54.2",
+      "date": "2026-10-21",
+      "title": "Plus d'auxiliaires orphelins : voix rétablie après un arrêt brutal",
+      "changes": [
+        { "theme": "noyau", "text": "Moteur vocal, veilleurs (fenêtre active, bureau, médias) et mélangeur audio sont liés au noyau par une tâche Windows : s'il est tué ou plante, Windows les arrête avec lui. Un moteur vocal orphelin gardait le port 8798 : le nouveau moteur s'arrêtait aussitôt (« port déjà pris »), Jarvis passait en mode texte (SERVICE VOCAL HORS LIGNE, boutons MICRO et MUET inactifs) et la relance ne pouvait plus remplacer jarvis-voice.exe." }
+      ]
+    },
+    {
+      "version": "4.54.1",
+      "date": "2026-10-21",
+      "title": "Relance : un veilleur orphelin bloquait la recompilation du noyau",
+      "changes": [
+        { "theme": "noyau", "text": "Le veilleur de la fenêtre au premier plan (jarvis-core active-win --watch) s'arrête dès que le noyau qui l'a lancé a disparu. Resté orphelin, il gardait jarvis-core.exe verrouillé : la relance ne recompilait que la coquille et l'ancien noyau continuait de tourner (l'option « Fond d'écran de Windows » de la 4.54.0 ne s'enregistrait donc pas)." }
+      ]
+    },
+    {
+      "version": "4.54.0",
+      "date": "2026-10-21",
+      "title": "Bureau JARVIS sur le fond d'écran de Windows",
+      "changes": [
+        { "theme": "interface", "text": "Bureau JARVIS : nouvelle option « Fond d'écran de Windows » (Administration › Bureau JARVIS › Fond). Le fond noir laisse place à l'image de fond de Windows, avec les effets, le circuit, le cœur et les cards par-dessus ; les icônes du bureau restent cachées. Suit le fond choisi (diaporama et Windows à la une compris) et son ajustement, sur l'écran du HUD comme sur les autres écrans ; un voile réglable de la couleur du thème garde le tout lisible." }
+      ]
+    },
+    {
+      "version": "4.53.0",
+      "date": "2026-10-20",
+      "title": "Traduction à la voix et suivi de colis",
+      "changes": [
+        { "theme": "son", "text": "Traduction : « traduis … en espagnol », « comment dit-on … en japonais », « dis … en italien ». L'IA (Haiku sans outil) traduit, le texte s'affiche et Jarvis le dit avec une voix edge-tts de la langue (14 langues). Le moteur vocal sait dire une phrase avec une voix imposée sans toucher à celle des réglages, et se tait plutôt que de lire une autre langue avec la voix locale française." },
+        { "theme": "coeur", "text": "Suivi de colis : « suis le colis … de La Poste », « où en est mon colis », « mes colis », « arrête de suivre le colis … ». Sans clé de transporteur : l'IA lit la page de suivi en tâche de fond toutes les 3 heures, seuls les changements sont annoncés, un colis livré n'est plus suivi (data/colis.json)." }
+      ]
+    },
+    {
+      "version": "4.52.0",
+      "date": "2026-10-20",
+      "title": "Maison connectée : lampes Philips Hue et prises Shelly / Kasa",
+      "changes": [
+        { "theme": "connecteurs", "text": "Administration › Maison : association du pont Philips Hue (bouton du pont puis adresse), lampes relues, prises Shelly (HTTP) ou TP-Link Kasa (TCP 9999) déclarées par nom et adresse, bouton d'essai. Réseau local seulement : toute adresse d'Internet est refusée ; le jeton du pont reste dans data/maison.json." },
+        { "theme": "son", "text": "Phrases : « allume la cafetière », « éteins la prise du salon », « bascule … », « mets le salon à 40 pour cent » (lampes Hue). Reconnues seulement si le nom dit est celui d'un appareil déclaré ; sinon les lumières Yeelight prennent la suite. Nouvel outil `maison` pour l'IA (niveau « allow », catalogue de sécurité, catégorie Maison)." },
+        { "theme": "outils", "text": ".gitignore : `data/` devient `/data/` : les ressources livrées de crates/jarvis-core/data (catalogue des commandes, modèles de listes, outils MCP, phrases) étaient ignorées par git et ne figuraient pas dans le dépôt ; elles y sont maintenant." }
+      ]
+    },
+    {
+      "version": "4.51.1",
+      "date": "2026-10-20",
+      "title": "Musique : sauter plusieurs titres, recommencer, baisser la musique",
+      "changes": [
+        { "theme": "son", "text": "Nouvelles phrases : « passe trois chansons » (de deux à six titres d'un coup), « recommence la chanson » (retour au début du titre en cours), « baisse la musique » / « monte la musique » (volume). Ajoutées au catalogue de l'aide aux commandes." }
+      ]
+    },
+    {
+      "version": "4.51.0",
+      "date": "2026-10-20",
+      "title": "Listes : statistiques et import CSV",
+      "changes": [
+        { "theme": "interface", "text": "Bouton « 📊 Stats » dans les cards de listes et la page d'aide : totaux, possédés et souhaités, dépenses, et répartitions par champ (artiste, lieu, statut, année des dates) en barres." },
+        { "theme": "interface", "text": "Bouton « ⇪ CSV » : import d'un fichier CSV (séparateur ; , ou tabulation, guillemets) exporté d'Excel ou d'un tableur ; colonnes retrouvées par le nom des champs, colonnes inconnues signalées, doublons ignorés, un seul « annule » défait l'import." },
+        { "theme": "noyau", "text": "Opérations `statistiques` et `importer_csv` du service des listes (ajout en texte et import partagent désormais la même insertion validée). Tests : statistiques d'une liste, lecture CSV et import." }
+      ]
+    },
+    {
+      "version": "4.50.1",
+      "date": "2026-10-20",
+      "title": "Cœur : zone vide hors cards, panneaux et fenêtres",
+      "changes": [
+        { "theme": "interface", "text": "Le cœur rangé sur le Bureau JARVIS évite aussi les panneaux du HUD (conversation, mémoire, journal, aide, audio, matériel, actions, console), en plus des cards et des fenêtres Windows : il glisse vers une zone réellement vide, et reste caché dessous s'il n'y en a pas." }
+      ]
+    },
+    {
+      "version": "4.50.0",
+      "date": "2026-10-20",
+      "title": "Documents locaux : questions sur tes PDF, Word et textes (RAG)",
+      "changes": [
+        { "theme": "memoire", "text": "Nouveau RAG « Documents » : Administration › Documents permet de choisir des dossiers ; Jarvis lit les PDF, fichiers Word (.docx), texte, Markdown et CSV, les découpe en passages, les indexe par le sens (mêmes embeddings que les listes, cache des vecteurs dans data/documents/) et reprend seulement les fichiers nouveaux ou modifiés." },
+        { "theme": "securite", "text": "Outil documents_chercher en lecture seule pour l'IA, autorisé comme les autres recherches de mémoire : il ne lit que les dossiers choisis (zones interdites refusées), le journal garde la recherche et jamais le contenu. Chiffres du RAG dans la page d'aide (documents, fichiers, passages, vecteurs)." }
+      ]
+    },
+    {
+      "version": "4.49.0",
+      "date": "2026-10-20",
+      "title": "Qualité vocale : tableau de bord et voyant du checkup",
+      "changes": [
+        { "theme": "outils", "text": "Administration › Qualité vocale : phrases comprises, voix rejetées, voix proche acceptée, ignorées et parasites sur 24 h et 7 jours (lues dans le journal scellé), réglages actuels de l'empreinte vocale et dernières phrases écartées avec leur similarité." },
+        { "theme": "coeur", "text": "Le voyant « Oreilles » du Checkup indique la part de phrases écartées sur 24 h et passe à l'orange au-delà de 40 % (à partir de 10 phrases). Commentaire périmé corrigé : la tolérance « presque reconnue » est de 12 points." }
+      ]
+    },
+    {
+      "version": "4.48.3",
+      "date": "2026-10-20",
+      "title": "Bureau JARVIS : le cœur reste sous les fenêtres",
+      "changes": [
+        { "theme": "interface", "text": "Quand une fenêtre (Chrome…) recouvre le cœur sur le Bureau JARVIS, le cœur ne passe plus par-dessus : le HUD, qui est sous toutes les fenêtres, le déplace lui-même en glissant vers l'endroit libre le plus proche (jamais sur une card). Si rien n'est libre il reste caché dessous, et il revient au centre quand la fenêtre part. Le petit widget toujours au-dessus ne sert plus que sur les autres bureaux virtuels." }
+      ]
+    },
+    {
+      "version": "4.48.2",
+      "date": "2026-10-20",
+      "title": "Plus de phrases répétées dans un délai de 10 secondes",
+      "changes": [
+        { "theme": "coeur", "text": "Une même phrase de Jarvis n'est pas redite dans les 10 secondes, et un seul accusé de réception (« je m'en occupe en arrière-plan… ») est prononcé par tranche de 10 secondes, même si 18 tâches de fond sont lancées d'un coup (recherche d'images d'une liste). Les réponses et le flux de parole ne sont pas concernés." }
+      ]
+    },
+    {
+      "version": "4.48.1",
+      "date": "2026-10-20",
+      "title": "Bouton « 🖼 Images » : listes de concerts déjà créées reconnues",
+      "changes": [
+        { "theme": "noyau", "text": "Une liste créée avant la recherche d'images (modèle « libre ») retrouve le réglage du modèle livré par son nom ou ses alias, au lieu de répondre « n'a pas d'enrichissement automatique »." }
+      ]
+    },
+    {
+      "version": "4.48.0",
+      "date": "2026-10-20",
+      "title": "Listes : sélection multiple (supprimer, modifier) et images relancées",
+      "changes": [
+        { "theme": "interface", "text": "Bouton « ☑ Sélection » dans les cards de listes et cases à cocher dans la page d'aide : on coche plusieurs fiches pour les supprimer ensemble ou donner la même valeur à un champ (statut, note, lieu…). Un seul « annule » défait toute l'opération." },
+        { "theme": "noyau", "text": "Opérations `supprimer_elements` et `modifier_elements` du service des listes. Quand la recherche web ne ramène aucune image pour une fiche qui n'en a pas, elle est relancée jusqu'à 2 fois." }
+      ]
+    },
+    {
+      "version": "4.47.0",
+      "date": "2026-10-20",
+      "title": "Images des concerts : recherche web par fiche et bouton « 🖼 Images »",
+      "changes": [
+        { "theme": "interface", "text": "Bouton « 🖼 Images » dans les cards de listes : l'IA parcourt la liste et cherche sur le web l'image de chaque fiche qui n'en a pas (par exemple la photo de l'artiste à ce concert, sinon la pochette de l'album de la tournée), en tâche de fond." },
+        { "theme": "noyau", "text": "Les listes de concerts utilisent désormais la recherche web de l'IA à l'ajout (y compris en texte). Opération `enrichir_liste` : une liste créée avant ce changement adopte le fournisseur de son modèle ; `modifier_schema` accepte aussi `enrichissement`." }
+      ]
+    },
+    {
+      "version": "4.46.1",
+      "date": "2026-10-20",
+      "title": "Import en texte : tableaux et setlists de concerts mieux compris",
+      "changes": [
+        { "theme": "noyau", "text": "L'ajout en texte analyse tout le texte (tableaux markdown, setlists, notes) : dates en AAAA-MM-JJ, détails et morceaux regroupés dans les notes de chaque fiche, délai de l'IA porté à 120 s." },
+        { "theme": "noyau", "text": "Détection des doublons affinée : deux fiches de même titre ne sont des doublons que si leurs sous-titres (date, lieu, artiste) concordent, ce qui permet plusieurs concerts d'un même artiste." }
+      ]
+    },
+    {
+      "version": "4.46.0",
+      "date": "2026-10-18",
+      "title": "Ajout en texte de plusieurs éléments dans une liste à fiches (IA)",
+      "changes": [
+        { "theme": "interface", "text": "Bouton « + Ajouter en texte » dans les cards de listes du HUD et dans la section « RAG — Listes à fiches » de la page d'aide : colle ou écris un texte contenant plusieurs éléments (par exemple une liste de numéros de sets Lego séparés par des espaces, des virgules ou des retours à la ligne) avec choix optionnel du statut par défaut." },
+        { "theme": "noyau", "text": "Opération `ajouter_texte` dans le service des listes : le texte est envoyé à l'IA (Claude Haiku sans outil) avec le schéma de la liste pour être découpé et structuré en fiches, complété par l'analyseur local afin qu'aucun numéro de set ne soit oublié. Les numéros seuls reçoivent un titre provisoire (« Set 75436 »), les doublons sont ignorés, l'ensemble s'annule en une fois (« annule ») et l'enrichissement automatique complète ensuite les noms et photos." },
+        { "theme": "outils", "text": "Tests : ajout en texte d'une liste de numéros de sets Lego, gestion des doublons, titre provisoire pour un numéro seul et lecture du JSON renvoyé par l'IA." }
+      ]
+    },
+    {
+      "version": "4.45.0",
+      "date": "2026-10-17",
+      "title": "« Si tu peux me donner mes derniers mails » est compris",
+      "changes": [
+        { "theme": "son", "text": "« Jarvis, si tu peux me donner les derniers mails que j'ai reçus » restait sans réponse pour deux raisons. La formule « si tu peux / si tu veux (bien) / si vous pouvez / tu pourrais / n'hésite pas à » n'était pas retirée de la demande : elle l'est maintenant, et la demande est comprise comme « donne les derniers mails que j'ai reçus » (il en va de même pour toutes les commandes précédées de ces formules)." },
+        { "theme": "son", "text": "La voix n'avait pas été reconnue (similarité 0,40 pour un seuil de 0,50) : la tolérance près du seuil passe de 6 à 12 points par défaut, ce qui accepte les scores de 0,38 à 0,50 quand tu dis « Jarvis » (réglable dans Administration › Voix ; les actions sensibles gardent leur code de validation)." },
+        { "theme": "outils", "text": "Tests : formules de politesse retirées, formules déjà couvertes inchangées, demande de derniers mails reconnue après normalisation." }
+      ]
+    },
+    {
+      "version": "4.44.1",
+      "date": "2026-10-17",
+      "title": "Le fantôme d'une card disparaît quand la vraie card est ouverte",
+      "changes": [
+        { "theme": "interface", "text": "Le fantôme transparent laissé par une tâche (« MES PROJETS » sur le fond du HUD) s'efface en moins d'une seconde dès que la card du même nom (109) est ouverte, et ne revient qu'avec une nouvelle tâche. Même comportement pour toutes les cards de type 2 dont le titre correspond à un fantôme." }
+      ]
+    },
+    {
+      "version": "4.44.0",
+      "date": "2026-10-17",
+      "title": "Les cards de type 2 inactives s'effacent progressivement après une minute",
+      "changes": [
+        { "theme": "interface", "text": "Une card de type 2 (temporaire : musique, mails, notes, listes…) qui reste une minute sans mise à jour, sans clic ni survol s'efface progressivement (même fondu que le ×), puis reste en fantôme. La card Musique s'efface ainsi une minute après l'arrêt ou la pause de la musique ; tant qu'elle joue, elle reste." },
+        { "theme": "interface", "text": "Exceptions : cards figées (📌), réduites en boutons (RANGER), cards d'une application qui tourne encore (Terminal…) et cards de type 1." }
+      ]
+    },
+    {
+      "version": "4.43.0",
+      "date": "2026-10-17",
+      "title": "« Arrête la musique » arrête toutes les sources, et « Ok Google » appelle Jarvis",
+      "changes": [
+        { "theme": "son", "text": "« Arrête la musique » (ou « coupe », « stoppe », « mets en pause ») met maintenant en pause tout ce qui joue sur le PC, quelle que soit la source : Spotify, YouTube ou autre dans un navigateur, lecteur de Windows, et le lecteur interne de Jarvis. Avant, seule une session était pilotée." },
+        { "theme": "son", "text": "« Ok Google, arrête la musique » lançait une recherche web : l'appel « Jarvis » était entendu « Google ». « Ok / hey / okay / dis Google » en début de phrase est maintenant compris comme « Jarvis » ; « Google » seul ou « cherche sur Google » restent de vraies recherches." },
+        { "theme": "outils", "text": "Tests : « Ok Google » est lu comme « Ok Jarvis », une vraie recherche Google reste inchangée." }
+      ]
+    },
+    {
+      "version": "4.42.0",
+      "date": "2026-10-17",
+      "title": "« Mets de la musique sur Spotify » reprend la dernière musique",
+      "changes": [
+        { "theme": "son", "text": "« Mets de la musique sur Spotify » lançait Spotify mais pas la musique : Spotify fraîchement lancé met quelques secondes à exposer sa session média, et la touche Lecture n'était envoyée qu'une seule fois. Elle est maintenant renvoyée toutes les 1,2 s pendant 12 s au plus, jusqu'à ce que la lecture démarre." },
+        { "theme": "son", "text": "Si Spotify n'a vraiment rien à reprendre, Jarvis rejoue la dernière musique qu'il a vue en lecture sur Spotify (lancée par lui ou à la main : titre et artiste sont mémorisés), au lieu de demander quoi écouter. Il ne demande que s'il n'a encore aucune musique en mémoire." }
+      ]
+    },
+    {
+      "version": "4.41.1",
+      "date": "2026-10-17",
+      "title": "La dictée dans le terminal est coupée par défaut",
+      "changes": [
+        { "theme": "son", "text": "Au démarrage de Jarvis, l'option « dicter dans le terminal » (bouton 🎙 de la card Terminal) n'est plus activée : ce que tu dis n'est plus écrit dans un terminal au premier plan tant que tu n'as pas cliqué sur 🎙. Un clic l'active (« Dictée dans le terminal activée »), un autre la coupe." }
+      ]
+    },
+    {
+      "version": "4.41.0",
+      "date": "2026-10-17",
+      "title": "Voix presque reconnue acceptée, et les cards se ferment petit à petit",
+      "changes": [
+        { "theme": "son", "text": "« Ok Jarvis, mets de la musique sur Spotify » était ignoré : le journal montre « VOIX REJETÉE : meilleure similarité 0,38 < seuil 0,50 » (191 voix rejetées contre 62 reconnues aujourd'hui, certaines à 0,49 pour un seuil de 0,50). Désormais, quand tu dis « Jarvis » et que ta voix est à moins de 6 points du seuil, que le profil le plus proche est une vraie personne et qu'aucun autre profil ne s'en approche, la demande est exécutée à ton nom ; elle est inscrite au journal (« voix proche acceptée »). Les actions sensibles gardent leur code de validation." },
+        { "theme": "son", "text": "Quand la voix n'est pas reconnue du tout, Jarvis le dit une fois (toutes les 30 s au plus) : « Je n'ai pas reconnu ta voix. Touche la phrase en rouge pour confirmer, ou répète-la. »" },
+        { "theme": "systeme", "text": "Administration › Voix › Empreinte vocale › « Tolérance près du seuil » : de 0 (désactivée) à 20 points, 6 par défaut." },
+        { "theme": "interface", "text": "Le bouton × d'une card de mails, d'agenda ou de liste en lignes ne laissait que le fond s'estomper : les lignes restaient affichées. La card se ferme maintenant petit à petit (contenu, boutons et fond s'effacent en quelques secondes), puis reste en fantôme ; elle ne clignote plus pendant la fermeture." }
+      ]
+    },
+    {
+      "version": "4.40.0",
+      "date": "2026-10-17",
+      "title": "Jarvis se tait tant qu'une musique est lancée",
+      "changes": [
+        { "theme": "son", "text": "Tant qu'une musique joue (lecteur de Jarvis, Spotify, autre lecteur détecté), Jarvis ne parle plus : la sourdine contextuelle s'active avec le motif « Musique en cours » (bouton SON : MUET AUTO), ses réponses restent écrites à l'écran, et la voix revient dès que la musique s'arrête ou se met en pause. Une visio ou un jeu au premier plan garde la priorité sur ce motif." },
+        { "theme": "systeme", "text": "Administration › Interface › « Musique » : réglage pour garder ou non ce silence (activé par défaut, option audio.musicSilence). Sans effet si la sourdine contextuelle est sur « Jamais »." },
+        { "theme": "outils", "text": "Tests : la musique coupe la voix, le réglage la rétablit, une visio garde la priorité." }
+      ]
+    },
+    {
+      "version": "4.39.0",
+      "date": "2026-10-17",
+      "title": "Les personnages dansent selon le style de la musique",
+      "changes": [
+        { "theme": "coeur", "text": "Quand une musique joue, Bobot, Marvin, Petit Robot et le chat ne font plus tous la même danse à 120 bpm : six danses selon le style — calme (balancement lent), pop (les quatre pas habituels), électro (rebond rapide, poings qui pompent, bras en l'air sur le « drop »), rock (tête qui frappe le temps, guitare imaginaire, cornes), rap (rebond bas, bras « swag ») et latino (déhanché, bras qui ondulent) — au tempo réel de la musique. Les notes de musique suivent aussi le tempo." },
+        { "theme": "coeur", "text": "Le style est deviné d'abord d'après le titre, l'artiste et la playlist (jazz, classique, rock, rap, techno, reggaeton…), puis, à défaut, d'après le son lui-même : tempo (autocorrélation des attaques), énergie et dynamique. Il ne change qu'après quatre analyses concordantes pour éviter les va-et-vient." },
+        { "theme": "systeme", "text": "Administration › Interface › « Danse des personnages » : automatique (par défaut) ou un style imposé. Le moteur vocal mesure maintenant le niveau sonore du PC 50 fois par seconde (au lieu de 20) pour mieux repérer le tempo ; la pulsation du cœur garde la même retombée." }
+      ]
+    },
+    {
+      "version": "4.38.0",
+      "date": "2026-10-17",
+      "title": "Visio Google Meet : l'écoute de Jarvis se met en pause",
+      "changes": [
+        { "theme": "son", "text": "Pendant une réunion Google Meet, Jarvis mettait seulement sa voix en sourdine : il continuait d'écouter et de transcrire en tâche de fond tout ce que capte le micro (voix des interlocuteurs comprises) avec le modèle Whisper « turbo », très gourmand en processeur ; le journal du moteur vocal montre aussi des débordements de mémoire tampon audio. Désormais son écoute est mise en pause tant que la réunion est ouverte, et rétablie à la fin (le micro coupé ou rétabli à la main reprend la main). Les commandes tapées restent possibles." },
+        { "theme": "systeme", "text": "Administration › Interface › « Écoute pendant une visio » : réglage pour garder ou non cette pause (activée par défaut, option visio.pauseListening)." }
+      ]
+    },
+    {
+      "version": "4.37.0",
+      "date": "2026-10-17",
+      "title": "Le bouton 📍 Fixer fonctionne en boucle",
+      "changes": [
+        { "theme": "interface", "text": "Le 📍 de chaque card (Bureau, Audio, Matériel, Conversation, Actions, cards de type 2) tourne en boucle : sans fixage, un clic fixe l'emplacement actuel ; fixage actif, un clic replace la card à son emplacement fixé ; un second clic (elle y est déjà) désactive le fixage ; puis on recommence. Maj + clic oublie le fixage à tout moment." }
+      ]
+    },
+    {
+      "version": "4.36.2",
+      "date": "2026-10-17",
+      "title": "Les boutons réduits de type 2 gardent leur couleur de base",
+      "changes": [
+        { "theme": "interface", "text": "Les cards de type 2 rangées (réduites en boutons violets) gardent la couleur de base du type 2 : leur bouton n'est plus estompé à 50 % comme ceux du type 1 (90 %, plein au survol), donc il ne paraît plus violet foncé." }
+      ]
+    },
+    {
+      "version": "4.36.1",
+      "date": "2026-10-17",
+      "title": "RANGER range aussi les cards de type 2 ouvertes",
+      "changes": [
+        { "theme": "interface", "text": "Le bouton RANGER réduit maintenant aussi les cards de type 2 ouvertes (Terminal, mails, notes, listes…) en boutons violets et les aligne en colonne, collés à gauche, juste sous les boutons des cards de type 1. Les cards inactives (en fantôme) ne bougent pas." }
+      ]
+    },
+    {
+      "version": "4.36.0",
+      "date": "2026-10-17",
+      "title": "Bouton OUTILS : ouvrir ou fermer la liste des boutons",
+      "changes": [
+        { "theme": "interface", "text": "Un bouton « OUTILS », à droite de RESTAURER, ouvre ou ferme la liste des boutons du HUD (RANGER, PLACER, ACTIONS, FIGER, RESTAURER). Fermée, seul OUTILS reste visible ; l'état est mémorisé." }
+      ]
+    },
+    {
+      "version": "4.35.2",
+      "date": "2026-10-17",
+      "title": "Correctif : la Conversation ne reste plus collée à la souris",
+      "changes": [
+        { "theme": "interface", "text": "Après un clic sur la Conversation passée devant une autre card, elle restait « saisie » et suivait le curseur : le relâchement de la souris n'arrivait jamais. Le déplacement et le relâchement lui sont maintenant bien transmis ; elle se glisse puis reste en place." }
+      ]
+    },
+    {
+      "version": "4.35.1",
+      "date": "2026-10-17",
+      "title": "La card Conversation passe aussi au-dessus des autres cards",
+      "changes": [
+        { "theme": "interface", "text": "Un clic sur la card Conversation (dessinée dans le fond du HUD) la passe devant le Bureau, les mails et les autres cards qui la recouvrent : elle est alors dessinée sur un second canevas, au premier plan. Ses boutons, son glisser et ses lignes fonctionnent même sous une autre card ; un clic sur une autre card la remet devant à son tour." }
+      ]
+    },
+    {
+      "version": "4.35.0",
+      "date": "2026-10-17",
+      "title": "Un clic dans une card la passe au-dessus des autres",
+      "changes": [
+        { "theme": "interface", "text": "Quand on clique dans une card (Bureau, Terminal, mails, listes, Actions, Audio, Matériel…), elle passe devant les autres cards qui la recouvrent, comme une fenêtre. La card cliquée reste devant tant qu'on n'en clique pas une autre ; elle garde son rang quand elle se met à jour." }
+      ]
+    },
+    {
+      "version": "4.34.0",
+      "date": "2026-10-17",
+      "title": "Son pas encore activé : un cœur à l'envers et des personnages de dos",
+      "changes": [
+        { "theme": "coeur", "text": "Tant que le moteur vocal n'est pas activé, le cœur n'est plus barré d'une croix rouge : un cœur rouge à l'envers (pointe en haut) pulse à sa place." },
+        { "theme": "coeur", "text": "Dans le même état, les personnages du cœur (Bobot, Marvin, Petit Robot, le chat) se mettent de dos, par un demi-tour progressif, et se retournent quand la voix est prête." }
+      ]
+    },
+    {
+      "version": "4.33.2",
+      "date": "2026-10-17",
+      "title": "Une demande de card répétée n'est pas redite",
+      "changes": [
+        { "theme": "son", "text": "Quand on clique plusieurs fois, dans les 20 secondes, sur la même action d'une card (Listes, Agenda, Notes… dans la card Actions, lignes de cards), la card s'ouvre à chaque fois mais Jarvis ne dit sa réponse que la première fois ; les suivantes s'affichent sans être prononcées." }
+      ]
+    },
+    {
+      "version": "4.33.1",
+      "date": "2026-10-17",
+      "title": "Une card ouverte ou fermée plusieurs fois n'est annoncée qu'une fois",
+      "changes": [
+        { "theme": "son", "text": "Quand une card est ouverte ou fermée plusieurs fois dans les 20 secondes (« ferme la card 102 », bouton ×, « ouvre la card 102 »), Jarvis ne l'annonce à voix haute que la première fois ; la card s'ouvre ou se ferme quand même, seule la phrase est retirée." }
+      ]
+    },
+    {
+      "version": "4.33.0",
+      "date": "2026-10-17",
+      "title": "Card Actions : le numéro de chaque card après son titre",
+      "changes": [
+        { "theme": "interface", "text": "Dans la card Actions, chaque action affiche après son titre le numéro de la card qu'elle ouvre (Listes 106, Agenda 103, Notes 107, Réunions 108, Projets 109) ; il suit les numéros choisis dans l'administration." },
+        { "theme": "systeme", "text": "Les cards temporaires connues ont maintenant un numéro par défaut stable : Terminal 101, Mails 102, Agenda 103, Note 104, Réunion 105, Mes listes 106, liste de notes 107, liste de réunions 108, liste de projets 109 ; les autres cards prennent le premier numéro libre à partir de 120. Ces numéros se changent dans Administration › Interface › Numéros des cards." }
+      ]
+    },
+    {
+      "version": "4.32.0",
+      "date": "2026-10-17",
+      "title": "Administration : liste des cards et numéros modifiables",
+      "changes": [
+        { "theme": "systeme", "text": "Administration › Interface › « Numéros des cards » : toutes les cards du HUD sont listées, type 1 (toujours actives, 1 à 99) et type 2 (temporaires, 100 à 199), avec leur numéro actuel et celui par défaut. Chaque numéro se change (un numéro ne sert qu'à une card) ; il est enregistré par le noyau, pris tout de suite par les cards ouvertes et utilisé par la voix (« ferme la card 102 »). Remettre le numéro par défaut le réinitialise." },
+        { "theme": "interface", "text": "Correctif : un clic sur le titre (ou le numéro) de la card Conversation la réduit en bouton, comme toutes les autres cards." }
+      ]
+    },
+    {
+      "version": "4.31.0",
+      "date": "2026-10-17",
+      "title": "Numéros des cards : 1 à 99 pour le type 1, 100 à 199 pour le type 2",
+      "changes": [
+        { "theme": "interface", "text": "Les cards de type 1 (toujours actives) ont des numéros fixes de 1 à 99 : Bureau 1, Audio 2, Matériel 3, Conversation 4, Actions 5. Les cards de type 2 (temporaires) sont numérotées de 100 à 199 : la musique a le 100, les autres cards que Jarvis ouvre prennent 101, 102…" },
+        { "theme": "son", "text": "À la voix, « ferme la card 2 », « ouvre la card 2 » ou « cache la card 2 » désignent la 2e card de type 2, c'est-à-dire la 102 ; le numéro complet (« ferme la card 102 ») marche aussi." }
+      ]
+    },
+    {
+      "version": "4.30.0",
+      "date": "2026-10-17",
+      "title": "Card Agenda : trois prochains rendez-vous et bouton Google Agenda",
+      "changes": [
+        { "theme": "interface", "text": "La card Agenda affiche tes trois prochains rendez-vous au plus (date, heure, lieu, 🔔 pour être prévenu 15 minutes avant) et un bouton « Ouvrir Google Agenda » qui ouvre ton agenda dans le navigateur. Le bouton Agenda de la card Actions l'ouvre directement ; « qu'est-ce que j'ai demain ? » et l'agenda de la semaine utilisent le même dessin." }
+      ]
+    },
+    {
+      "version": "4.29.1",
+      "date": "2026-10-17",
+      "title": "Card Actions : un clic ouvre, un second clic referme",
+      "changes": [
+        { "theme": "interface", "text": "Dans la card Actions, un clic sur une action (Notes, Listes, Agenda…) ouvre sa card ; un second clic la referme. La ligne reste allumée tant que la card est ouverte, et la card Actions ne se réduit plus après un choix." }
+      ]
+    },
+    {
+      "version": "4.29.0",
+      "date": "2026-10-17",
+      "title": "Une card de type 2 qui s'ouvre clignote 5 secondes",
+      "changes": [
+        { "theme": "interface", "text": "Quand une card temporaire (type 2 : Terminal, mails, notes, listes, musique…) s'ouvre ou se réveille, son cadre et son titre clignotent pendant 5 secondes pour qu'on la repère ; si elle s'ouvre réduite, c'est son bouton violet qui clignote." }
+      ]
+    },
+    {
+      "version": "4.28.4",
+      "date": "2026-10-17",
+      "title": "La card Actions ne liste que les cards de type 2",
+      "changes": [
+        { "theme": "interface", "text": "La card Actions ne propose plus Bureau, Audio ni Matériel : ce sont des cards de type 1, toujours présentes (réduites en bouton). Elle ne liste que les cards temporaires : Listes, Agenda, Notes, Réunions, Projets." }
+      ]
+    },
+    {
+      "version": "4.28.3",
+      "date": "2026-10-17",
+      "title": "Mes listes : de l'air sous les pastilles de modèles",
+      "changes": [
+        { "theme": "interface", "text": "Dans « Mes listes », un espace sépare les pastilles de modèles (Vinyles, Lego, Films…) de la zone de saisie dessous." }
+      ]
+    },
+    {
+      "version": "4.28.2",
+      "date": "2026-10-17",
+      "title": "Mes listes : aide collée à la zone de saisie, en-tête commun",
+      "changes": [
+        { "theme": "interface", "text": "Dans « Mes listes », la phrase d'aide (« affiche ma liste de disques »…) se place juste sous la zone de saisie : la ligne de message vide ne réserve plus de place. Les cards de listes (Mes listes, liste, fiche, nouvelle liste) ont le même en-tête que les autres : poignée, numéro, puis titre." }
+      ]
+    },
+    {
+      "version": "4.28.1",
+      "date": "2026-10-17",
+      "title": "Plus de card « Claude sur … » : tout est dans la card Terminal",
+      "changes": [
+        { "theme": "interface", "text": "Quand Claude Code ou AGY termine un prompt ou attend une réponse, Jarvis ne crée plus de card supplémentaire (« Claude sur ui »). L'état, le projet et le dernier message sont dans la ligne de l'agent de la card Terminal (TERMINÉ, réponse attendue…). L'annonce vocale et les notifications Telegram sont inchangées." }
+      ]
+    },
+    {
+      "version": "4.28.0",
+      "date": "2026-10-17",
+      "title": "Figer et restaurer la vue des cards",
+      "changes": [
+        { "theme": "interface", "text": "Deux boutons à droite de ACTIONS : « ❄ FIGER » enregistre la vue (emplacement et état ouverte / réduite de toutes les cards : Bureau, Audio, Matériel, Conversation, Actions, Terminal, mails, musique…) ; « ⟲ RESTAURER » replace toutes les cards comme au dernier FIGER. Une card fermée au moment de RESTAURER s'ouvrira à sa place enregistrée." }
+      ]
+    },
+    {
+      "version": "4.27.2",
+      "date": "2026-10-17",
+      "title": "Une card de type 2 fermée mais toujours active reste visible",
+      "changes": [
+        { "theme": "interface", "text": "Une card temporaire (type 2) fermée alors que ce qu'elle représente tourne encore reste pleinement visible : la musique en lecture ne s'estompe plus en fantôme au bout de 6 secondes, et le × d'une card d'application qui tourne encore (sans la fermer) la réduit en bouton violet au lieu de la faire disparaître. Seules les cards réellement inactives passent en mode fantôme." }
+      ]
+    },
+    {
+      "version": "4.27.1",
+      "date": "2026-10-17",
+      "title": "Toutes les cards sont reliées au cœur",
+      "changes": [
+        { "theme": "interface", "text": "Les cards Audio, Matériel et Actions ont maintenant leur piste vers le cœur, comme le Bureau et la Conversation, ouvertes comme réduites en bouton ; la piste suit la card quand on la déplace." }
+      ]
+    },
+    {
+      "version": "4.27.0",
+      "date": "2026-10-17",
+      "title": "Couleurs des cards réglables dans l'administration",
+      "changes": [
+        { "theme": "interface", "text": "Les cards de type 2 (temporaires : Terminal, mails, musique, listes…) sont violettes aussi ouvertes, comme leur bouton réduit. Les cards de type 1 (toujours actives : Bureau, Audio, Matériel, Conversation, Actions) gardent la couleur du thème ouvertes et le jaune réduites." },
+        { "theme": "systeme", "text": "Administration › Interface › « Couleurs des cards » : quatre couleurs au choix (type 1 ouverte, type 1 réduite, type 2 ouverte, type 2 réduite), avec « Par défaut ». Réglage enregistré par le noyau (status.json) et appliqué à toutes les fenêtres sans redémarrage." }
+      ]
+    },
+    {
+      "version": "4.26.0",
+      "date": "2026-10-17",
+      "title": "La card Actions est de type 1",
+      "changes": [
+        { "theme": "interface", "text": "La card Actions (numéro 14) est maintenant une card de type 1, toujours présente : réduite en bouton jaune, elle s'ouvre avec le bouton ACTIONS ou un clic sur son bouton, et se réduit après le choix d'une action. Elle a les icônes de type 1 : 📍 fixer, 📌 figer, – réduire. RANGER la range avec les autres, PLACER la replace puis l'ouvre." },
+        { "theme": "interface", "text": "Rappel : les cards temporaires (Terminal, « Claude sur ui », mails, musique…) sont de type 2 : 📍 fixer, 📌 figer, – réduire en bouton violet et × fermer ; RANGER ne les touche pas." }
+      ]
+    },
+    {
+      "version": "4.25.0",
+      "date": "2026-10-17",
+      "title": "PLACER : un second clic ouvre les cards placées",
+      "changes": [
+        { "theme": "interface", "text": "Le bouton PLACER remet les cards à leur emplacement par défaut ; un second clic, quand elles y sont déjà, ouvre toutes celles qui étaient réduites. Le bouton indique ce qu'il vient de faire (« 2 PLACÉES », « 2 OUVERTES »)." }
+      ]
+    },
+    {
+      "version": "4.24.1",
+      "date": "2026-10-17",
+      "title": "RANGER ne range que les cards de type 1",
+      "changes": [
+        { "theme": "interface", "text": "Le bouton RANGER ne réduit plus que les cards toujours actives (type 1 : Bureau, Audio, Matériel, Conversation). Les cards temporaires (type 2 : Terminal, mails, musique…) restent où elles sont." }
+      ]
+    },
+    {
+      "version": "4.24.0",
+      "date": "2026-10-17",
+      "title": "Toutes les cards fonctionnent de la même façon",
+      "changes": [
+        { "theme": "interface", "text": "En-tête par défaut identique pour toutes les cards : à gauche la poignée, le numéro et le titre ; à droite 📍 fixer, 📌 figer, – réduire (et × quand elle se ferme). Les boutons propres à une card (⇔ du Bureau, 🎙 et ☰ du Terminal…) s'ajoutent après le titre." },
+        { "theme": "interface", "text": "Toutes les cards (mails, notes, musique, listes, fiches…) se réduisent maintenant en bouton violet, y compris celles qui n'avaient pas de « – » ; RANGER les range avec les autres." },
+        { "theme": "interface", "text": "Correctif : un clic sur le titre d'une card ouverte (Bureau, Terminal…) la refermait puis la rouvrait aussitôt ; il la réduit maintenant. Le bouton réduit Matériel est centré verticalement, et le numéro de la card Musique s'affiche au démarrage." }
+      ]
+    },
+    {
+      "version": "4.23.3",
+      "date": "2026-10-17",
+      "title": "La card Conversation a son numéro et le même en-tête",
+      "changes": [
+        { "theme": "interface", "text": "La card Conversation (numéro 15) a le même en-tête que les autres : poignée, numéro, titre, puis 📍 (emplacement par défaut), 📌 (figer) et –. RANGER la range avec les autres boutons, à gauche, et PLACER la remet à son emplacement par défaut. Son bouton réduit a la même largeur que les autres." }
+      ]
+    },
+    {
+      "version": "4.23.2",
+      "date": "2026-10-17",
+      "title": "Correctif : le bouton RANGER fonctionne de nouveau",
+      "changes": [
+        { "theme": "interface", "text": "Le script des cards (widgets.js) s'arrêtait au démarrage depuis la 4.23.0 (variable lue avant sa déclaration) : RANGER, PLACER et les en-têtes communs n'avaient plus d'effet. Corrigé ; une ancienne règle de style masquait aussi la card Matériel une fois réduite." }
+      ]
+    },
+    {
+      "version": "4.23.1",
+      "date": "2026-10-17",
+      "title": "La card Matériel devient une seule card",
+      "changes": [
+        { "theme": "interface", "text": "La card Matériel n'est plus quatre cards : un seul en-tête (numéro 12, 📍 📌 –) et un seul bouton réduit « ▤ MATÉRIEL », avec les sections processeur, GPU, mémoire et stockage empilées dedans. Numéros fixes des cards du HUD : Audio 11, Matériel 12, Musique 13, Actions 14." }
+      ]
+    },
+    {
+      "version": "4.23.0",
+      "date": "2026-10-17",
+      "title": "Un numéro et le même en-tête pour toutes les cards",
+      "changes": [
+        { "theme": "interface", "text": "Toutes les cards affichent un numéro : celui du noyau pour les cards qu'il ouvre (1, 2, 3… « ferme la card 2 »), et un numéro fixe pour les cards propres au HUD : Audio 11, Matériel 12, Musique 13, Actions 14." },
+        { "theme": "interface", "text": "En-tête identique partout : poignée, numéro, titre, puis 📍 (emplacement par défaut), 📌 (figer) et – (réduire), × quand la card se ferme. Les cards Audio et Matériel ont maintenant le même en-tête que Bureau et Terminal, et peuvent aussi être figées (📌 : elles ne se déplacent plus)." }
+      ]
+    },
+    {
+      "version": "4.22.0",
+      "date": "2026-10-17",
+      "title": "Emplacement par défaut des cards et bouton PLACER",
+      "changes": [
+        { "theme": "interface", "text": "Chaque card a un bouton 📍 « fixer » : il garde son emplacement actuel comme emplacement par défaut (Maj + clic : l'oublier). Une card sans emplacement enregistré s'ouvre à cet endroit par défaut." },
+        { "theme": "interface", "text": "Nouveau bouton « ↺ PLACER » à côté de RANGER : il remet d'un coup toutes les cards qui ont un emplacement par défaut (Bureau, Audio, Matériel, Terminal…) à leur place ; les autres ne bougent pas." }
+      ]
+    },
+    {
+      "version": "4.21.2",
+      "date": "2026-10-17",
+      "title": "Toutes les cards se déplacent, ouvertes ou réduites",
+      "changes": [
+        { "theme": "interface", "text": "Les cards Matériel ouvertes se déplacent par leur en-tête, et leurs boutons réduits par glisser, comme le bouton général ; Audio, Bureau, Terminal et les autres se déplaçaient déjà (sauf figées par le 📌). Un simple clic sur le titre ou sur un bouton réduit l'ouvre ou le referme toujours, un glisser ne fait que déplacer." }
+      ]
+    },
+    {
+      "version": "4.21.1",
+      "date": "2026-10-17",
+      "title": "Les boutons des cards réduites passent sous les cards ouvertes",
+      "changes": [
+        { "theme": "interface", "text": "Quand une card ouverte passe au-dessus d'un bouton de card réduite (Matériel, Audio, Bureau, boutons violets…), le bouton reste dessous et n'est plus visible à travers elle." }
+      ]
+    },
+    {
+      "version": "4.21.0",
+      "date": "2026-10-17",
+      "title": "Deux types de cards : permanentes (jaune) et temporaires (violet)",
+      "changes": [
+        { "theme": "interface", "text": "Cards de type 1, toujours actives (Bureau, Audio, Matériel) : agrandir, réduire en bouton jaune, figer. Cards de type 2, temporaires (Terminal, mails, notes, listes en lignes…) : figer, fermer, ou réduire en bouton violet avec le « – » de leur en-tête (un clic sur le titre fait de même). « RANGER » range aussi les boutons violets." },
+        { "theme": "interface", "text": "La card Terminal reste toujours affichée : fermée ou inutilisée, elle reste à sa place en mode inactif (fantôme) et reprend vie à la prochaine utilisation, comme la musique, les mails et l'agenda." }
+      ]
+    },
+    {
+      "version": "4.20.1",
+      "date": "2026-10-17",
+      "title": "Mini-cards de même taille, titre cliquable",
+      "changes": [
+        { "theme": "interface", "text": "Les boutons des cards réduites (Bureau, Audio, Matériel, Terminal) ont tous la même taille, et la pastille Matériel se colle à gauche comme les autres avec « RANGER »." },
+        { "theme": "interface", "text": "Un clic sur le titre d'une card ouverte la referme : elle se réduit en bouton (Bureau, Audio, Matériel, Terminal) ou se ferme (autres cards)." }
+      ]
+    },
+    {
+      "version": "4.20.0",
+      "date": "2026-10-17",
+      "title": "Ranger les cards et card des actions",
+      "changes": [
+        { "theme": "interface", "text": "Nouveau bouton « RANGER » en haut à droite, sous AIDE : il réduit d'un coup toutes les cards repliables (Bureau, Audio, Matériel, Terminal…) en boutons et les aligne en colonne, collés à gauche. Leurs positions sont mémorisées, un clic sur un bouton rouvre sa card." },
+        { "theme": "interface", "text": "Nouveau bouton « ACTIONS » à côté : une card liste les cards qu'on peut ouvrir (Listes, Bureau, Audio, Matériel, Agenda, Notes, Réunions, Projets) ; un clic sur une action ouvre la card correspondante. La card se déplace à la souris." },
+        { "theme": "outils", "text": "Page d'aide : les deux boutons figurent dans la section « Raccourcis et commandes »." }
+      ]
+    },
+    {
+      "version": "4.19.0",
+      "date": "2026-10-17",
+      "title": "Listes de films, de séries et de concerts",
+      "changes": [
+        { "theme": "interface", "text": "Trois nouveaux modèles de listes : films (réalisateur, année, vu le, ma note, genre, durée, où le voir, synopsis, affiche, mon avis), séries (saisons, épisodes, chaîne, diffusion, où j'en suis, note…) et concerts (artiste, date, salle, ville, prix du billet, avec qui, souvenirs). « Crée-moi une liste de films » ou de séries ou de concerts." },
+        { "theme": "interface", "text": "Le statut a ses propres mots par liste : « Vu / À voir » (« Vue » pour une série) au lieu de « Possédé / Souhaité » dans les mini-cards, les filtres, la fiche, les réponses vocales et la page d'aide. Un film ou une série ajouté sans précision est à voir ; un concert passé est marqué vu, un concert à venir est à voir." },
+        { "theme": "interface", "text": "À la voix : « ajoute à ma liste films Inception de Christopher Nolan 2010 », « … que j'ai vu hier », « j'ai vu Dune », « est-ce que j'ai vu Inception ? », « affiche mes films à voir », « combien de films j'ai vu », « ajoute à ma liste concerts U2 au Stade de France à Paris le 12 juin 2024 ». Boutons de fiche : bande-annonce, où le voir et Allociné ; Spotify, setlists et billets pour les concerts." },
+        { "theme": "connecteurs", "text": "Les séries se complètent toutes seules avec TVmaze (gratuit, sans compte) : année, genre, chaîne, saisons, épisodes, état de la diffusion, synopsis et affiche, avec « Autre résultat ». Les films passent par la recherche web de l'IA en tâche de fond, faute de catalogue gratuit fiable sans clé (iTunes ne renvoie plus de films ; une clé TMDB pourrait s'ajouter)." },
+        { "theme": "outils", "text": "Tests : vocabulaires de statut, phrases de films, séries et concerts, routage des nouvelles formulations, réponse TVmaze ; un essai réel sur Breaking Bad (2008, 5 saisons, 62 épisodes, affiche copiée) est disponible en test ignoré." }
+      ]
+    },
+    {
+      "version": "4.18.0",
+      "date": "2026-10-16",
+      "title": "Interroger ses listes et agir sur les fiches",
+      "changes": [
+        { "theme": "interface", "text": "Questions à la voix, sans IA ni jeton : « est-ce que j'ai le Lego 75436 ? » (oui ou non, fiche ouverte, prix, lieu et date d'achat ; sinon Jarvis propose de l'ajouter à tes souhaits), « affiche-moi Thriller », « combien j'ai de vinyles », « combien j'ai dépensé en Lego », « quels disques de U2 j'ai », « affiche mes souhaits Lego »." },
+        { "theme": "interface", "text": "« J'ai acheté Thriller 25 euros à la Fnac » passe la fiche en possédé avec le prix, le lieu et la date. « Ajoute un champ pays à ma liste vinyle », « retire le champ … », « renomme ma liste … en … » modifient une liste à la voix (« annule » rétablit)." },
+        { "theme": "interface", "text": "Boutons spéciaux dans la fiche : ▶ Écouter sur Spotify et Discogs pour les disques ; Fiche LEGO et Prix actuel pour les sets (recherche web en tâche de fond, historique des prix sur la fiche, variation annoncée). Aussi à la voix : « écoute le vinyle Thriller », « donne-moi le prix du Lego 75436 », « ouvre la fiche Lego du 75436 »." },
+        { "theme": "memoire", "text": "Deux outils en lecture seule pour l'IA, listes_chercher et listes_lire : elle répond aux questions libres sur tes listes (prix, dates, lieux) mais ne peut jamais les modifier. Le journal garde la trace des recherches, jamais le contenu des fiches." },
+        { "theme": "securite", "text": "Les deux outils sont au catalogue des capacités (accord direct, risque moyen : ils lisent des prix et des lieux d'achat) et resserrables dans l'administration. Les adresses des boutons sont construites par le noyau d'après un gabarit validé ; les valeurs sont encodées et l'ouverture passe par la politique d'accord." },
+        { "theme": "outils", "text": "Onze nouvelles commandes au catalogue et à la page d'aide ; tests de routage de toutes les phrases (dont celles qui ne doivent pas être captées : « j'ai faim », « ouvre Chrome », « mets de la musique »)." }
+      ]
+    },
+    {
+      "version": "4.17.0",
+      "date": "2026-10-16",
+      "title": "Jarvis retrouve les infos et la pochette de tes fiches",
+      "changes": [
+        { "theme": "interface", "text": "À l'ajout d'un disque (« ajoute à ma liste vinyle … »), Jarvis cherche l'artiste, l'année, le genre et la pochette sur MusicBrainz et Cover Art Archive (gratuits, sans compte) ; la fiche reste un brouillon le temps de la recherche, puis s'affiche avec sa pochette. Pour les autres sujets (Lego…), une tâche IA de fond cherche sur le web." },
+        { "theme": "interface", "text": "Fiche : source des infos, mention « à vérifier » quand le résultat est peu sûr, bouton « Autre résultat » (le candidat suivant) et « ↻ Réenrichir ». Un numéro de set seul (« le lego 75436 ») crée un nom provisoire que la recherche remplace par le nom officiel." },
+        { "theme": "securite", "text": "Ce que le web renvoie reste une donnée : champs validés un à un, jamais de statut, prix payé, lieu, date ni notes remplis automatiquement, ce que tu as saisi n'est jamais écrasé. Les images sont contrôlées (https, domaine public, jamais une adresse IP ni locale, 3 Mo, vraie image d'après ses octets) puis copiées dans data/collections/images (500 Mo au plus) et servies par l'API locale à jeton." },
+        { "theme": "noyau", "text": "MusicBrainz limite le débit : une requête par seconde, trois essais espacés en cas de refus. Les images sans fiche sont nettoyées au démarrage." },
+        { "theme": "outils", "text": "Tests : réponse MusicBrainz, vraies images, adresses publiques, gabarits, validation de la réponse web, fusion sans écraser ta saisie ; un essai réel (réseau) est disponible en test ignoré." }
+      ]
+    },
+    {
+      "version": "4.16.0",
+      "date": "2026-10-16",
+      "title": "Tes listes dans la page d'aide : « RAG — Listes à fiches »",
+      "changes": [
+        { "theme": "interface", "text": "Nouvelle section de la page d'aide : toutes tes listes à fiches et leur contenu, en tableaux (recherche, filtre possédés / souhaités, tri), avec des formulaires pour ajouter, modifier et supprimer une fiche, gérer les champs, créer une liste depuis un modèle, supprimer une liste (en retapant son nom) et exporter en CSV." },
+        { "theme": "memoire", "text": "« Tester le RAG » : pose une question (« est-ce que j'ai le Lego 75436 ? ») et vois les fiches que Jarvis retrouverait, leur score et comment (identifiant exact, sens, mots). Bouton Réindexer et chiffres de l'index (passages, vecteurs, modèle)." },
+        { "theme": "securite", "text": "La passerelle locale gagne une API protégée pour la page d'aide : jeton propre à chaque lancement transmis dans le fragment de l'adresse (jamais envoyé au serveur), contrôle de l'hôte et de l'origine contre le rebond DNS et les autres sites, POST JSON uniquement, seules les opérations sur les listes exposées. La route /aide/donnees.json contrôle aussi l'hôte." },
+        { "theme": "securite", "text": "Ouvrir une adresse contenant & | < > ^ ne passe plus par cmd.exe (qui l'aurait coupée en deux commandes) : elle est confiée à l'explorateur, sans shell." },
+        { "theme": "outils", "text": "Sans jeton (page ouverte à la main), la section n'affiche rien de tes listes. Tests de la passerelle : refus sans jeton, mauvais jeton, mauvais hôte, mauvaise origine, mauvaise méthode ou type de contenu." }
+      ]
+    },
+    {
+      "version": "4.15.0",
+      "date": "2026-10-16",
+      "title": "Listes à fiches : vinyles, Lego et toutes tes collections",
+      "changes": [
+        { "theme": "interface", "text": "Nouvelles listes à fiches : « crée-moi une liste de disques vinyle » (ou de Lego, de livres…). Jarvis propose un nom et des champs (titre, artiste, possédé ou souhaité, prix payé, date et lieu d'achat…), tu gardes ce qui te suffit (« c'est bon », « enlève le prix », « ajoute un champ pays ») ; pour un sujet inconnu, l'IA propose les champs." },
+        { "theme": "interface", "text": "« Ajoute à ma liste vinyle le disque Under a Blood Red Sky du groupe U2 » : Jarvis comprend le titre, l'artiste, le prix, le lieu et la date d'achat (« acheté 18 euros à la Fnac le 12 mars »), ou un souhait (« que je voudrais »). Un doublon est signalé, et un souhait déjà noté passe en possédé." },
+        { "theme": "interface", "text": "Card de liste en mini-cards (rang horizontal, grille ou liste) avec recherche, filtres possédés / souhaités et tri ; un clic ouvre la fiche complète, dont chaque valeur se modifie au clic. Formulaires pour ajouter une fiche, modifier les champs, supprimer la liste. Card « Mes listes » (« affiche mes listes ») pour toutes les listes, à fiches et à cocher." },
+        { "theme": "memoire", "text": "Chaque fiche est indexée dans un RAG dédié (numéro de set ou code retrouvé à l'identique, puis sens et mots) ; la mémoire générale sait que chaque liste existe. Les listes sont sauvegardées avec le reste de data/ et chaque ajout, retrait ou changement est annulable (« annule »)." },
+        { "theme": "noyau", "text": "Un service unique valide et enregistre tout ce qui entre dans une liste, quelle que soit l'entrée (voix, card, et bientôt la page d'aide). Les listes à cocher ne retombent plus sur « la dernière liste » quand le nom demandé n'existe pas." },
+        { "theme": "outils", "text": "Page d'aide mise à jour (listes à fiches, card, RAG, fichiers de données) et cinq nouvelles commandes au catalogue." }
+      ]
+    },
+    {
+      "version": "4.14.0",
+      "date": "2026-10-16",
+      "title": "Page d'aide complète",
+      "changes": [
+        { "theme": "interface", "text": "Le bouton « ? AIDE » (et F1) ouvre une page d'aide HTML dans le navigateur : présentation, fonctionnement pas à pas, voix, fonctions par domaine, interface, raccourcis (HUD, globaux, zone de notification, souris, commandes écrites), sécurité, administration, sauvegarde et dépannage, avec sommaire et recherche. Maj+F1 garde l'aide-mémoire des touches dans le HUD." },
+        { "theme": "interface", "text": "Sections lues en direct dans le noyau : les 111 commandes vocales du catalogue (compétences apprises comprises), toutes les capacités et leur niveau d'accord, l'état de Jarvis et les dernières nouveautés." },
+        { "theme": "memoire", "text": "Toutes les informations des RAG sur la page d'aide, en chiffres et réglages (jamais le contenu) : mémoire long terme (souvenirs, vecteurs, modèle, pondération 75/25, seuils), routeur sémantique, aide aux commandes, recherche dans les réunions, cache des réponses." },
+        { "theme": "outils", "text": "La page doit suivre chaque nouvelle fonction : un test du noyau échoue si la version mineure change sans révision de ui/aide-contenu.json, et les consignes du projet (CLAUDE.md, README) le rappellent." }
+      ]
+    },
+    {
+      "version": "4.13.0",
+      "date": "2026-10-16",
+      "title": "Le personnage regarde les cards",
+      "changes": [
+        { "theme": "coeur", "text": "Le personnage du cœur tourne la tête, les yeux et un peu le buste vers la card qui retient l'attention : celle que tu survoles (2,5 s) ou sur laquelle tu cliques ou que tu déplaces (7 s), une card qui vient de s'activer ou de s'ouvrir (6 s), et en permanence, de façon plus discrète, la card musique tant qu'une musique joue." },
+        { "theme": "coeur", "text": "Le regard s'efface quand il écoute (il fait face à celui qui parle), diminue quand il parle et disparaît quand il dort. Valable pour Bobot, Marvin, le petit robot et le chat." }
+      ]
+    },
+    {
+      "version": "4.12.1",
+      "date": "2026-10-16",
+      "title": "Card Terminal : un clic affiche, le suivant réduit",
+      "changes": [
+        { "theme": "interface", "text": "Card Terminal : un clic sur la ligne d'un terminal le met au premier plan ; un second clic sur la même ligne le réduit. Si tu as changé de fenêtre entre-temps ou réduit le terminal toi-même, le clic l'affiche de nouveau." }
+      ]
+    },
+    {
+      "version": "4.12.0",
+      "date": "2026-10-16",
+      "title": "Agents sous contrôle, musique reprise, premier mot mesuré",
+      "changes": [
+        { "theme": "securite", "text": "Claude Code lancé dans un terminal : la commande par défaut est maintenant « claude » (il demande avant d'agir) ; ton réglage actuel (--dangerously-skip-permissions) est conservé tel quel. Chaque lancement sans validation est inscrit au journal (agent_sans_validation)." },
+        { "theme": "securite", "text": "AGY : nouveau réglage agy › mode (bypass par défaut, accept-edits = modifications de fichiers seulement, plan = lecture seule), car AGY n'a pas d'outil d'approbation comme Claude Code." },
+        { "theme": "connecteurs", "text": "« Mets de la musique » sans précision : si Spotify n'a rien à reprendre, Jarvis rejoue ta dernière demande réussie (data/spotify-derniere.json) ; sinon il te demande ce que tu veux écouter." },
+        { "theme": "coeur", "text": "Checkup : le délai médian avant le premier mot de l'IA (30 dernières demandes) s'affiche dans le détail du Cerveau, et chaque fin de tâche l'inscrit au journal (premier_mot_ms)." }
+      ]
+    },
+    {
+      "version": "4.11.0",
+      "date": "2026-10-16",
+      "title": "Sauvegarde de data/, tests avant relance, journal allégé",
+      "changes": [
+        { "theme": "noyau", "text": "Sauvegarde automatique de data/ (réglages, mémoire, empreinte vocale, journal scellé, listes, corpus) dans dossier Documents, sous-dossier Jarvis-sauvegardes, un dossier par jour (AAAA-MM-JJ), refaite toutes les 6 h ; on garde 7 jours puis une copie par semaine sur 4 semaines. Dossier modifiable (config › backup › dir), désactivable (enabled: false). Restauration Jarvis fermé : jarvis-core restaurer --oui (ou --depuis <dossier>). Les modèles et les journaux de diagnostic ne sont pas copiés." },
+        { "theme": "maj", "text": "Relance : quand la politique d'accord, les zones d'accès, la sécurité ou la sauvegarde ont changé, les tests du noyau passent avant la recompilation ; en cas d'échec, la version précédente est conservée et rouverte." },
+        { "theme": "securite", "text": "Tests du noyau sur la politique d'accord et les zones : chemin relatif dans le dossier de travail, sortie du dossier par « .. », écriture hors de toute zone refusée, zone workspace qui suit le vrai dossier." },
+        { "theme": "noyau", "text": "Journal scellé : une session de dictée au terminal n'est inscrite que si une phrase y a été écrite (250 sessions sur 253 étaient vides)." },
+        { "theme": "son", "text": "Moteur vocal : le préchauffage du cache de voix passe par le runtime explicite, comme le reste du synthétiseur, pour qu'un appel depuis le fil audio ne puisse plus faire paniquer le moteur." }
+      ]
+    },
+    {
+      "version": "4.10.1",
+      "date": "2026-10-16",
+      "title": "Empreinte vocale refaite, dictée au terminal fiabilisée",
+      "changes": [
+        { "theme": "son", "text": "Empreinte vocale : celle de la v3 ne correspondait pas à l'extracteur du moteur Rust (même modèle, bancs de filtres différents) et rejetait 26 de tes 32 phrases d'essai. Elle est refaite au prochain démarrage à partir du corpus (41 phrases) ; l'ancienne est gardée dans voiceprint.avant-reembed.json. L'empreinte d'Abigael, issue de l'ancien extracteur, est à réenregistrer." },
+        { "theme": "son", "text": "Banc d'essai du locuteur : option --refaire, qui simule l'empreinte refaite (phrase évaluée mise de côté) sans toucher au profil enregistré." },
+        { "theme": "systeme", "text": "Dictée au terminal : si une fenêtre de Jarvis, un focus perdu ou une fenêtre du terminal lui-même a pris le premier plan, le terminal est ramené devant et le texte est tapé ; si une autre application est devant, rien n'est tapé et le message nomme le programme." },
+        { "theme": "systeme", "text": "Journal : « terminal_refocalise » et « terminal_dictee_refusee » (programme devant) pour savoir qui prend le premier plan." }
+      ]
+    },
+    {
+      "version": "4.10.0",
+      "date": "2026-10-16",
+      "title": "Interface rechargée à chaud, compilation plus rapide",
+      "changes": [
+        { "theme": "outils", "text": "L'interface (dossier ui/) est lue sur le disque par la coquille et non plus figée dans l'exécutable : une modification de ui/ recharge les fenêtres en une seconde, sans recompiler ni relancer Jarvis (JARVIS_UI_EMBARQUEE=1 impose l'ancienne version intégrée)." },
+        { "theme": "maj", "text": "Le bandeau « Jarvis a été modifié » ne signale plus que les changements du noyau, du moteur vocal et de la coquille, seuls à demander une recompilation." },
+        { "theme": "maj", "text": "Recompilation de relance accélérée : compilation incrémentale, sans LTO, 16 unités en parallèle (même niveau d'optimisation). La première relance après cette version recompile tout ; les suivantes ne recompilent que les crates touchées." }
+      ]
+    },
+    {
+      "version": "4.9.5",
+      "date": "2026-10-16",
+      "title": "Agents : consignes pour les fichiers",
+      "changes": [
+        { "theme": "noyau", "text": "Nouveau prompt système propre aux agents (Claude Code et AGY) pour créer, écrire et modifier des fichiers : fichier rangé dans le dossier du projet concerné (chemin pris dans l’outil projets, précision demandée si le projet est flou), chemins absolus, Write pour créer, Read puis Edit pour modifier, jamais d’écriture par commande, contenu au format normal (le « sans markdown » ne vaut que pour la réponse orale), accord attendu, résultat vérifié." },
+        { "theme": "securite", "text": "Zone « Workspace Jarvis » restée sur l’ancien dossier de la v2 : elle suit désormais le vrai dossier de travail, où les agents écrivent sans demander d’accord." },
+        { "theme": "securite", "text": "Chemin relatif donné par un agent : évalué depuis son dossier de travail, et non plus depuis celui du noyau." }
+      ]
+    },
+    {
+      "version": "4.9.4",
+      "date": "2026-10-16",
+      "title": "Cœur barré sans moteur vocal",
+      "changes": [
+        { "theme": "coeur", "text": "Tant que le moteur vocal n'est pas lancé (hors ligne, modèle en chargement, écoute orale désactivée), le cœur s'estompe et une croix rouge le barre." },
+        { "theme": "son", "text": "Boutons MICRO et SON grisés et inactifs tant que le moteur vocal n'est pas lancé ; ils reviennent d'eux-mêmes dès qu'il est prêt." }
+      ]
+    },
+    {
+      "version": "4.9.3",
+      "date": "2026-10-16",
+      "title": "Checkup réduite plus discrète",
+      "changes": [
+        { "theme": "interface", "text": "Card Checkup réduite : après 30 s, son fond passe de 40 % à 25 % d'opacité (retour à 40 % au survol)." }
+      ]
+    },
+    {
+      "version": "4.9.2",
+      "date": "2026-10-16",
+      "title": "Checkup réduite près du matériel",
+      "changes": [
+        { "theme": "interface", "text": "Card Checkup réduite : elle se range d'elle-même à gauche des cards matériel, à hauteur de la première ouverte, et les suit quand elles bougent ; rouverte, elle reprend sa place d'avant." }
+      ]
+    },
+    {
+      "version": "4.9.1",
+      "date": "2026-10-16",
+      "title": "Card Checkup réduite",
+      "changes": [
+        { "theme": "interface", "text": "Card Checkup : bouton minimaliste qui la réduit au seul personnage, sur le fond de Jarvis (card à 40 % d'opacité), toujours reliée au cœur ; un second clic rouvre le bilan complet (choix mémorisé)." }
+      ]
+    },
+    {
+      "version": "4.9.0",
+      "date": "2026-10-16",
+      "title": "Card Checkup : le cœur passé au scanner",
+      "changes": [
+        { "theme": "interface", "text": "Nouvelle card Checkup (« Jarvis, checkup », ou le diagnostic système) : le cœur (Bobot, Marvin, Petit Robot, Chat ou le cœur holographique) apparaît en hologramme avec son squelette et ses anneaux ; il fait un tour complet pendant qu'un faisceau le révèle de haut en bas, puis s'immobilise et le faisceau balaie en boucle en allumant chaque organe à la couleur de son état." },
+        { "theme": "coeur", "text": "Chaque partie du corps est une fonction de Jarvis : cerveau = moteur IA, mémoire, oreilles = écoute, bouche = voix, yeux = vision du bureau, cœur = noyau, colonne = journal scellé, bras = connecteurs et outils du PC, jambes = ressources de la machine, nerfs = erreurs récentes ; bilan rafraîchi toutes les 15 s." },
+        { "theme": "coeur", "text": "Signature de scan propre à chaque cœur : visière de Bobot qui balaie, gros cerveau de Marvin qui s'allume en premier, sauts du Petit Robot, Chat qui tourne à contre-sens en soupirant, vue éclatée du cœur holographique." }
+      ]
+    },
+    {
+      "version": "4.8.7",
+      "date": "2026-10-16",
+      "title": "Card Bureau : agrandie au clic",
+      "changes": [
+        { "theme": "interface", "text": "Card Bureau : elle ne s'agrandit plus au survol mais au clic sur le bouton ⇔ (état mémorisé) ; en miniature, elle garde la même hauteur qu'agrandie, et un clic sur un numéro met l'application au premier plan." }
+      ]
+    },
+    {
+      "version": "4.8.6",
+      "date": "2026-10-16",
+      "title": "Dictée terminal : voix mal reconnue acceptée",
+      "changes": [
+        { "theme": "securite", "text": "Dictée dans le terminal (bouton 🎙 actif, terminal devant) : une voix que l'empreinte vocale ne reconnaît pas écrit quand même le texte, mais n'envoie jamais rien (ni Entrée, ni touche, ni action) ; il faut alors valider au clavier." }
+      ]
+    },
+    {
+      "version": "4.8.5",
+      "date": "2026-10-16",
+      "title": "Dictée dans le terminal réparée",
+      "changes": [
+        { "theme": "systeme", "text": "Dictée dans le terminal : la fenêtre au premier plan est maintenant identifiée par son numéro de fenêtre ; avant, Jarvis la jugeait toujours « plus au premier plan » et ne tapait rien." }
+      ]
+    },
+    {
+      "version": "4.8.4",
+      "date": "2026-10-16",
+      "title": "Card Terminal : clic limité aux agents",
+      "changes": [
+        { "theme": "interface", "text": "Card Terminal : un clic sur l'en-tête, le titre ou le pied de la card ne sélectionne plus de terminal ; seules les cards d'agents le font." }
+      ]
+    },
+    {
+      "version": "4.8.3",
+      "date": "2026-10-16",
+      "title": "Card Terminal : clic sur un agent",
+      "changes": [
+        { "theme": "interface", "text": "Card Terminal : un clic sur la card d'un agent (Claude Code · projet) met au premier plan la fenêtre de Windows Terminal qui l'héberge." }
+      ]
+    },
+    {
+      "version": "4.8.2",
+      "date": "2026-10-16",
+      "title": "Card Terminal : interrupteur de dictée",
+      "changes": [
+        { "theme": "interface", "text": "Card Terminal : la ligne « Dictée · Terminal » disparaît ; le bouton 🎙 de l'en-tête devient un interrupteur (vert = actif, rouge = coupé) qui ne sélectionne aucun terminal : quand un terminal est au premier plan, ce que tu dis y est écrit." }
+      ]
+    },
+    {
+      "version": "4.8.1",
+      "date": "2026-10-16",
+      "title": "Card Terminal : dictée et actions",
+      "changes": [
+        { "theme": "interface", "text": "Card Terminal : bouton 🎙 dans l'en-tête qui active la dictée (tout ce qui est dit s'écrit dans le terminal choisi) et, d'un second clic, rend la main à Jarvis ; bouton ☰ pour cacher ou afficher la liste des actions (choix mémorisé)." }
+      ]
+    },
+    {
+      "version": "4.8.0",
+      "date": "2026-10-16",
+      "title": "Applis en arrière-plan masquables",
+      "changes": [
+        { "theme": "interface", "text": "Card Bureau : chaque appli « en arrière-plan » a un bouton 🙈 pour masquer sa ligne ; la ligne « N masquées » (👁) les réaffiche et ↺ les remet dans la liste. Le choix est mémorisé (data/bureau-masques.json)." }
+      ]
+    },
+    {
+      "version": "4.7.2",
+      "date": "2026-10-15",
+      "title": "Card Bureau allégée",
+      "changes": [
+        { "theme": "interface", "text": "Card Bureau : bouton ◎ « mettre au premier plan » retiré de chaque fenêtre ; un clic sur le nom de l'application la met toujours au premier plan." }
+      ]
+    },
+    {
+      "version": "4.7.1",
+      "date": "2026-10-15",
+      "title": "La card d'un terminal a la couleur réelle de son onglet",
+      "changes": [
+        { "theme": "interface", "text": "La couleur d'un terminal dans la card Bureau et la card Terminal est celle que son onglet affiche vraiment, y compris une couleur choisie à la main dans Windows Terminal (prioritaire sur celle de Jarvis). Un changement de couleur d'onglet arrive dans les cards en quelques secondes." },
+        { "theme": "systeme", "text": "Lecture de la couleur sur l'image de la fenêtre (PrintWindow, même cachée), onglet repéré par UI Automation et par le titre de sa console. Onglet inactif (peint atténué) : dernière couleur exacte connue, sinon couleur estimée et recalée sur la palette." }
+      ]
+    },
+    {
+      "version": "4.7.0",
+      "date": "2026-10-15",
+      "title": "Une couleur par terminal, de l'onglet à la card",
+      "changes": [
+        { "theme": "systeme", "text": "Chaque onglet de Windows Terminal reçoit automatiquement une couleur distincte (palette Campbell), y compris les onglets ouverts avant Jarvis, colorés à son démarrage. La couleur est retenue (data/couleurs-terminaux.json) et reposée à l'identique après une relance de Jarvis." },
+        { "theme": "interface", "text": "Card Bureau : la ligne d'un terminal porte la couleur de son onglet (bande et bordure) ; une fenêtre à plusieurs onglets montre une pastille par onglet. Les fenêtres PowerShell / cmd classiques (sans onglet) ont aussi chacune leur couleur." },
+        { "theme": "interface", "text": "Card Terminal : chaque mini-card Claude Code prend la couleur de l'onglet où il tourne." },
+        { "theme": "outils", "text": "Sous-commande jarvis-core console-tabs : se rattache à la console d'un onglet pour trouver sa fenêtre Windows Terminal et poser sa couleur (séquence DECAC). Une couleur choisie à la main dans Windows Terminal reste prioritaire." }
+      ]
+    },
+    {
+      "version": "4.6.0",
+      "date": "2026-10-15",
+      "title": "Card Bureau : emplacements et dispositions de fenêtres",
+      "changes": [
+        { "theme": "interface", "text": "Chaque fenêtre de la card Bureau a quatre pastilles 1-4. Clic sur une pastille vide : la place actuelle de la fenêtre y est enregistrée ; clic sur une pastille allumée : la fenêtre y retourne (position, taille, agrandie ou non). Clic droit : réenregistrer ; Maj+clic : effacer." },
+        { "theme": "interface", "text": "Barre « Dispositions » en tête de la card Bureau : un clic sur 1-4 replace d'un coup toutes les fenêtres de la disposition (deux terminaux, VS Code et Chrome…). Pastille vide : enregistre toutes les fenêtres visibles telles qu'elles sont." },
+        { "theme": "systeme", "text": "Les places sont mémorisées dans data/emplacements.json et retrouvées après une relance : même fenêtre, sinon même application au même titre, sinon même application (deux terminaux se répartissent leurs places)." }
+      ]
+    },
+    {
+      "version": "4.5.2",
+      "date": "2026-10-15",
+      "title": "Card Terminal : une mini-card par Claude Code",
+      "changes": [
+        { "theme": "interface", "text": "Correction : le bouton – de la card Terminal (et de la card Bureau) la repliait puis la redépliait aussitôt (le clic remontait jusqu'à la card)." },
+        { "theme": "interface", "text": "Card Terminal : une mini-card horizontale par Claude Code lancé (un par terminal ou onglet), avec le projet, l'état en badge (en cours, réponse attendue, terminé, lancé), le dernier message et l'heure." },
+        { "theme": "noyau", "text": "Chaque processus Claude Code est relié à sa session (~/.claude/sessions/<pid>.json) : projet pris dans le dossier de lancement, état lu dans les hooks ai-state ou, à défaut, dans le statut de la session." }
+      ]
+    },
+    {
+      "version": "4.5.1",
+      "date": "2026-10-15",
+      "title": "Claude Code n'est plus bloqué par Jarvis",
+      "changes": [
+        { "theme": "noyau", "text": "Correction : avec Jarvis lancé, Claude Code se figeait jusqu'à 10 min à chaque outil. Le serveur local 8799 gardait la connexion du hook ai-state ouverte (keep-alive) et le hook attendait sa fermeture jusqu'au délai maximal de Claude Code. Le serveur ferme désormais la connexion après chaque réponse." },
+        { "theme": "outils", "text": "Hook ~/.claude/ai-state-hook.js rendu non bloquant : pas de keep-alive, abandon de la requête après 400 ms et sortie forcée au bout de 3 s." }
+      ]
+    },
+    {
+      "version": "4.5.0",
+      "date": "2026-10-14",
+      "title": "Card Terminal unique et fiable",
+      "changes": [
+        { "theme": "noyau", "text": "La card Terminal n'existe plus que si Claude Code ou AGY tourne réellement dans un terminal : détection des processus claude / agy lancés depuis un terminal ou un shell (les agents lancés par Jarvis lui-même sont ignorés)." },
+        { "theme": "noyau", "text": "Correction : AGY apparaissait « Exécution achevée » alors qu'il n'était pas lancé (dernier état lu dans un ancien transcript). Seuls les agents lancés ont une ligne ; un état terminé depuis plus de 10 min devient « lancé · en attente d'un prompt »." },
+        { "theme": "interface", "text": "Une seule card « Terminal » au lieu d'une par fenêtre de terminal ; plus de card « Surveillance IA » vide. Le ✕ retire la card sans fermer le terminal et elle ne revient qu'au prochain lancement d'un agent." },
+        { "theme": "interface", "text": "Card Terminal réductible en pastille (bouton –), comme la card Audio ; la pastille affiche ⏳ quand un agent travaille et « ? » (rouge, clignotante) quand il attend une réponse. État mémorisé." },
+        { "theme": "interface", "text": "Plusieurs sessions d'un même agent regroupées (« Claude Code ×2 ») ; les lignes d'état passent avant la dictée et les actions." }
+      ]
+    },
+    {
+      "version": "4.4.5",
+      "date": "2026-10-14",
+      "title": "Clic sur le nom dans les cards",
+      "changes": [
+        { "theme": "interface", "text": "Correction : dans la card Bureau, un clic sur le nom d'une application la met au premier plan (seul le petit bouton ◎ fonctionnait). La card capturait le pointeur dès l'appui, ce qui envoyait le clic à la card et non à la ligne ; la capture ne démarre plus qu'une fois la souris déplacée de plus de 5 px (glisser-déposer inchangé)." },
+        { "theme": "interface", "text": "Même correction pour toutes les autres lignes cliquables des cards (applications, notes, mails…)." }
+      ]
+    },
+    {
+      "version": "4.4.4",
+      "date": "2026-10-14",
+      "title": "Card Bureau stable sous la souris",
+      "changes": [
+        { "theme": "interface", "text": "Correction : la card Bureau dépliée repassait en version mini pendant que la souris était dessus. Elle est reconstruite à chaque changement du bureau (titre d'un onglet, fenêtre ouverte…) et le nouvel élément perdait le survol ; l'état survolé est maintenant conservé tant que la souris reste sur la card." },
+        { "theme": "interface", "text": "La position de défilement de la liste est conservée quand la card se rafraîchit (elle repartait en haut)." }
+      ]
+    },
+    {
+      "version": "4.4.3",
+      "date": "2026-10-14",
+      "title": "Card Bureau : le clic déplie à nouveau",
+      "changes": [
+        { "theme": "interface", "text": "Correction : un clic sur la pastille « BUREAU » (card réduite) ne dépliait plus la liste des applications. La card capture le pointeur pour le glisser-déposer, ce qui envoyait le clic à la card et non à la pastille ; le dépliage est maintenant géré au niveau de la card." }
+      ]
+    },
+    {
+      "version": "4.4.2",
+      "date": "2026-10-14",
+      "title": "Card Bureau rejouée",
+      "changes": [
+        { "theme": "interface", "text": "Correction : la card « Bureau » n'était émise qu'une seule fois au démarrage du noyau. Une fenêtre HUD qui se connectait après (chargement lent, Bureau JARVIS, noyau relancé seul) ne l'affichait jamais ; elle est maintenant renvoyée à chaque connexion (sauf si vous l'avez fermée)." }
+      ]
+    },
+    {
+      "version": "4.4.1",
+      "date": "2026-10-14",
+      "title": "Jarvis ne parlait plus",
+      "changes": [
+        { "theme": "son", "text": "Correction : la fin de la parole faisait paniquer le thread audio (tokio::spawn hors runtime), ce qui coupait la sortie sonore ; ensuite chaque phrase restait « bloquée depuis 12 s » et Jarvis semblait ne plus répondre." },
+        { "theme": "outils", "text": "Dépôt git privé worganic/jarvis-v4 ; les données personnelles (data/), les exécutables et target/ ne sont pas versionnés." }
+      ]
+    },
+    {
+      "version": "4.4.0",
+      "date": "2026-10-14",
+      "title": "Historique des versions",
+      "changes": [
+        { "theme": "maj", "text": "Le numéro de version s'affiche dans la fenêtre de mise à jour, à côté du titre." },
+        { "theme": "interface", "text": "Le numéro de version est affiché en bas du HUD ; un clic ouvre l'historique des modifications dans le navigateur." },
+        { "theme": "outils", "text": "Nouvelle page d'historique (du plus récent au plus ancien), avec filtres par thème et recherche." },
+        { "theme": "outils", "text": "Source unique : ui/changelog.json. La version courante est la première entrée de ce fichier." }
+      ]
+    },
+    {
+      "version": "4.3.0",
+      "date": "2026-10-14",
+      "title": "Lanceur et migration",
+      "changes": [
+        { "theme": "outils", "text": "Lanceur « Jarvis v4.exe » à la racine : démarre la coquille, ramène le HUD au premier plan s'il tourne déjà, demande de fermer la v3 si elle occupe les ports." },
+        { "theme": "noyau", "text": "Migration des données de la v3 (jarvis-core migrate) : lecture seule de la v3, mémoire, réglages, empreintes vocales, corpus et notes repris, journal scellé continué." },
+        { "theme": "maj", "text": "Aperçu de l'écran de mise à jour sans rien fermer ni compiler (jarvis-core relaunch --apercu)." },
+        { "theme": "outils", "text": "README du projet ; PORTAGE.md tient le suivi module par module." }
+      ]
+    },
+    {
+      "version": "4.2.0",
+      "date": "2026-10-14",
+      "title": "Moteur vocal et coquille Tauri",
+      "changes": [
+        { "theme": "son", "text": "jarvis-voice.exe : micro et sortie WASAPI, anti-écho WebRTC (AEC3), anti-bruit, gain, niveau du son du PC." },
+        { "theme": "son", "text": "Détection de voix Silero v6, mot d'éveil (sherpa-onnx), fin de phrase adaptative, voix baissée, « Jarvis » seul en attente de la suite." },
+        { "theme": "son", "text": "Reconnaissance Whisper large-v3-turbo (ONNX, DirectML) avec décodeur dédié : amorce, mots prioritaires, faisceau, filtres anti-hallucination." },
+        { "theme": "son", "text": "Reconnaissance du locuteur CAM++ : mêmes empreintes et mêmes verdicts que la v3, apprentissage et enrôlement." },
+        { "theme": "son", "text": "Synthèse vocale : client edge-tts réécrit, voix Piper de secours, file de parole, pré-synthèse et cache des phrases fréquentes." },
+        { "theme": "interface", "text": "Coquille jarvis.exe (Tauri 2) : HUD, widget flottant, zone de notification, raccourcis globaux, démarrage automatique." },
+        { "theme": "interface", "text": "Bureau JARVIS : le HUD devient le fond d'un bureau virtuel dédié (Ctrl+Maj+B)." },
+        { "theme": "coeur", "text": "Cœur unique : le grand cœur du HUD rétrécit et glisse jusqu'au widget, et revient." }
+      ]
+    },
+    {
+      "version": "4.1.0",
+      "date": "2026-10-14",
+      "title": "Noyau complet",
+      "changes": [
+        { "theme": "noyau", "text": "Le noyau jarvis-core est entièrement porté en Rust : orchestrateur, application, passerelle, liaison voix, superviseur du moteur vocal." },
+        { "theme": "noyau", "text": "Administration portée avec la même liste blanche de méthodes que la v3." },
+        { "theme": "noyau", "text": "Sous-commandes : mcp, mcp-proxy, desktop-watch, audio-mixer, media-control, active-win, relaunch." },
+        { "theme": "securite", "text": "Passerelle WebSocket avec jeton, contrôle d'origine et rôle par fenêtre ; méthode inconnue refusée ; journal scellé intact après l'essai réel." },
+        { "theme": "maj", "text": "Relance complète : jarvis-core relaunch attend la fermeture de Jarvis, recompile avec cargo (barre de progression), puis rouvre Jarvis — l'ancienne version si la compilation échoue." },
+        { "theme": "maj", "text": "Surveillance du code (code_watch) : bandeau « Jarvis a été modifié » dans le HUD, relance au clic ou à la voix." },
+        { "theme": "systeme", "text": "Métriques système via l'API Windows (au lieu de PowerShell / CIM) ; verrou d'instance unique par session Windows." }
+      ]
+    },
+    {
+      "version": "4.0.0",
+      "date": "2026-10-13",
+      "title": "Portage Rust : premières briques",
+      "changes": [
+        { "theme": "noyau", "text": "Portage de la v3 (Node, Python, C#) vers Rust : orchestrateur et modules d'orchestration (routeur, politique, cartes, macros, historique, contexte…)." },
+        { "theme": "noyau", "text": "Moteur de compétences : les skills/*.js de la v3 tournent tels quels (moteur JavaScript embarqué)." },
+        { "theme": "memoire", "text": "Mémoire, recherche sémantique (embeddings), cache de réponses, vocabulaire, prononciation et échecs repris." },
+        { "theme": "connecteurs", "text": "Rappels, planifications, briefing, automations, missions, notes, listes, courses, réunions, Google Docs et pont navigateur portés." },
+        { "theme": "systeme", "text": "Outils natifs C# / PowerShell remplacés par la bibliothèque jarvis-native : fenêtres, UI Automation, audio, médias, OCR, capture d'écran, presse-papier, saisie." },
+        { "theme": "interface", "text": "Interface (ui/) reprise telle quelle de la v3 : même protocole avec le noyau." }
+      ]
+    }
+  ]
+}

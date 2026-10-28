@@ -1,0 +1,8 @@
+[env]
+# Liaisons sherpa-onnx pré-générées (crates/vendor/sherpa-rs-sys/src/bindings.rs) : pas de libclang requis.
+SHERPA_SKIP_GENERATE_BINDINGS = "1"
+
+# Bibliothèque C statique : exigée par WebRTC (module anti-écho de LiveKit, prébuild en /MT).
+# onnxruntime est chargé dynamiquement (ort « load-dynamic »), sans conflit.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

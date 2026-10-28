@@ -1,0 +1,9 @@
+{
+  "id": "modele",
+  "nom": "Modèle",
+  "version": "1.0.0",
+  "description": "Module exemple à copier : une card de type 2 sans partie noyau.",
+  "card": { "type": 2, "numero": 199, "titre": "MODÈLE" },
+  "ui": { "scripts": ["ui/modele.js"], "styles": ["ui/modele.css"] },
+  "parDefaut": true
+}

@@ -1,0 +1,10 @@
+{
+  "id": "agenda",
+  "nom": "Agenda",
+  "version": "1.0.0",
+  "description": "Rendez-vous de Google Agenda : prochains rendez-vous et agenda du jour (card de liste du système).",
+  "card": { "type": 2, "numero": 103, "titre": "AGENDA", "emplacement": "agenda" },
+  "widgets": ["agenda"],
+  "actions": [{ "ico": "▣", "titre": "Agenda", "sous": "Mes 3 prochains rendez-vous", "appel": ["listAction", "agenda", "", "prochains"] }],
+  "parDefaut": true
+}

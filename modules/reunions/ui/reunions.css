@@ -1,0 +1,52 @@
+/* Module Réunions : personnes présentes, voix à nommer, texte en direct, résumé. */
+.widget.w-meeting { width: calc(520px * var(--ui)); }
+.w-mt-people { display: flex; flex-wrap: wrap; gap: calc(4px * var(--ui)); margin: 0 0 calc(6px * var(--ui)); }
+.w-mt-person {
+  font: 600 calc(9.5px * var(--ui))/1 'Segoe UI', sans-serif;
+  padding: calc(3px * var(--ui)) calc(7px * var(--ui));
+  border-radius: calc(9px * var(--ui));
+  border: 1px solid rgba(200, 235, 245, 0.3);
+  color: #dff6ff; background: rgba(0, 10, 18, 0.5);
+}
+.w-mt-person.self { border-color: rgba(var(--w-rgb), 0.7); color: rgba(var(--w-rgb), 1); }
+.w-mt-person.meet { border-style: dashed; color: rgba(200, 235, 245, 0.7); }
+.w-mt-person.unknown { border-color: rgba(255, 179, 92, 0.75); color: #ffcf96; background: rgba(255, 150, 40, 0.1); }
+.w-mt-voices { display: flex; flex-direction: column; gap: calc(6px * var(--ui)); margin: 0 0 calc(8px * var(--ui)); }
+.w-mt-voice {
+  border: 1px solid rgba(255, 179, 92, 0.5); border-radius: calc(6px * var(--ui));
+  background: rgba(255, 150, 40, 0.07); padding: calc(6px * var(--ui)) calc(8px * var(--ui));
+}
+.w-mt-voice-head { display: flex; align-items: baseline; gap: calc(8px * var(--ui)); }
+.w-mt-voice-label { font: 700 calc(10.5px * var(--ui))/1.2 'Segoe UI', sans-serif; color: #ffcf96; }
+.w-mt-voice-count { font-size: calc(9.5px * var(--ui)); color: rgba(255, 220, 180, 0.7); }
+.w-mt-voice-form { display: flex; gap: calc(6px * var(--ui)); margin-top: calc(5px * var(--ui)); }
+.w-mt-name {
+  flex: 1; min-width: 0; background: rgba(0, 8, 14, 0.7); color: #e4f8ff;
+  border: 1px solid rgba(255, 179, 92, 0.45); border-radius: calc(4px * var(--ui));
+  font: calc(11px * var(--ui))/1.3 'Segoe UI', sans-serif; padding: calc(3px * var(--ui)) calc(6px * var(--ui));
+}
+.w-mt-name:focus { outline: none; border-color: rgba(255, 190, 110, 0.9); }
+.w-mt-suggest { display: flex; flex-wrap: wrap; gap: calc(4px * var(--ui)); margin-top: calc(5px * var(--ui)); }
+.w-mt-chip {
+  font: 600 calc(9.5px * var(--ui))/1 'Segoe UI', sans-serif; cursor: pointer;
+  padding: calc(3px * var(--ui)) calc(8px * var(--ui)); border-radius: calc(9px * var(--ui));
+  border: 1px solid rgba(var(--w-rgb), 0.45); background: rgba(var(--w-rgb), 0.08); color: #dff6ff;
+}
+.w-mt-chip:hover { background: rgba(var(--w-rgb), 0.25); }
+.w-mt-lines {
+  flex: 1 1 auto; min-height: calc(80px * var(--ui)); height: calc(280px * var(--ui)); max-height: 60vh; overflow-y: auto;
+  background: rgba(0, 8, 14, 0.7); border: 1px solid rgba(var(--w-rgb), 0.28); border-radius: calc(6px * var(--ui));
+  padding: calc(6px * var(--ui)) calc(8px * var(--ui)); user-select: text; resize: vertical;
+}
+.w-mt-line { font: calc(11.5px * var(--ui))/1.45 'Segoe UI', sans-serif; color: #e4f8ff; margin-bottom: calc(3px * var(--ui)); }
+.w-mt-time { color: rgba(200, 235, 245, 0.4); font-size: calc(9.5px * var(--ui)); margin-right: calc(6px * var(--ui)); }
+.w-mt-who { font-weight: 700; margin-right: calc(6px * var(--ui)); }
+.w-mt-who::after { content: ' :'; color: rgba(200, 235, 245, 0.4); font-weight: 400; }
+.w-mt-empty { color: rgba(200, 235, 245, 0.4); font-style: italic; font-size: calc(10.5px * var(--ui)); }
+.w-mt-summary {
+  margin-top: calc(8px * var(--ui)); max-height: calc(180px * var(--ui)); overflow-y: auto;
+  border: 1px solid rgba(var(--w-rgb), 0.35); border-radius: calc(6px * var(--ui)); background: rgba(var(--w-rgb), 0.06);
+  padding: calc(6px * var(--ui)) calc(8px * var(--ui)); user-select: text;
+}
+.w-mt-summary-head { font: 700 calc(10px * var(--ui))/1.2 'Segoe UI', sans-serif; letter-spacing: 1px; color: rgba(var(--w-rgb), 1); margin-bottom: calc(4px * var(--ui)); }
+.w-mt-summary-text { white-space: pre-wrap; font: calc(11px * var(--ui))/1.45 'Segoe UI', sans-serif; color: #e4f8ff; }

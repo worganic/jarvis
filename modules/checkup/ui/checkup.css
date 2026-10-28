@@ -1,0 +1,86 @@
+/* Module Checkup : scanner holographique du cœur (checkup-3d.js) et liste des fonctions vitales (checkup.js). */
+.widget.w-card-list.w-checkup { width: calc(730px * var(--ui)); }
+.w-ck-body { position: relative; display: grid; grid-template-columns: calc(300px * var(--ui)) 1fr; gap: calc(26px * var(--ui)); margin-top: calc(6px * var(--ui)); }
+.w-ck-stage {
+  position: relative; height: calc(450px * var(--ui)); border: 1px solid rgba(var(--w-rgb), 0.28); border-radius: 6px; overflow: hidden;
+  background: radial-gradient(ellipse at 50% 55%, rgba(var(--w-rgb), 0.16), rgba(2, 12, 20, 0.85) 70%);
+}
+.w-ck-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.w-ck-grid {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
+  background-image: linear-gradient(rgba(var(--w-rgb), 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--w-rgb), 0.12) 1px, transparent 1px);
+  background-size: calc(22px * var(--ui)) calc(22px * var(--ui));
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+}
+.w-ck-phase {
+  position: absolute; left: 0; right: 0; bottom: calc(8px * var(--ui)); text-align: center; pointer-events: none;
+  font: 700 calc(8.5px * var(--ui)) / 1.2 'Consolas', monospace; letter-spacing: 2px; color: rgba(var(--w-rgb), 0.95);
+  text-shadow: 0 0 6px rgba(var(--w-rgb), 0.8); animation: w-ck-blink 1.6s ease-in-out infinite;
+}
+@keyframes w-ck-blink { 50% { opacity: 0.45; } }
+.w-ck-corner { position: absolute; width: calc(14px * var(--ui)); height: calc(14px * var(--ui)); border: 0 solid rgba(var(--w-rgb), 0.9); pointer-events: none; }
+.w-ck-corner.tl { top: 5px; left: 5px; border-top-width: 2px; border-left-width: 2px; }
+.w-ck-corner.tr { top: 5px; right: 5px; border-top-width: 2px; border-right-width: 2px; }
+.w-ck-corner.bl { bottom: 5px; left: 5px; border-bottom-width: 2px; border-left-width: 2px; }
+.w-ck-corner.br { bottom: 5px; right: 5px; border-bottom-width: 2px; border-right-width: 2px; }
+.w-ck-list { display: flex; flex-direction: column; justify-content: center; gap: calc(4px * var(--ui)); min-width: 0; }
+.w-ck-vital {
+  --ck: 53, 255, 158;
+  display: flex; align-items: center; gap: calc(8px * var(--ui)); padding: calc(4px * var(--ui)) calc(8px * var(--ui));
+  border: 1px solid rgba(var(--ck), 0.35); border-left: 3px solid rgb(var(--ck)); border-radius: 5px;
+  background: linear-gradient(90deg, rgba(var(--ck), 0.12), rgba(var(--ck), 0.02)); transition: opacity 0.4s ease, filter 0.4s ease;
+}
+.w-ck-vital.state-warn { --ck: 255, 196, 64; }
+.w-ck-vital.state-error { --ck: 255, 77, 94; }
+.w-ck-vital.pending { opacity: 0.16; filter: grayscale(1); }
+.w-ck-vital.w-ck-in { animation: w-ck-in 0.55s ease-out; }
+@keyframes w-ck-in { 0% { transform: translateX(-14px); opacity: 0; box-shadow: 0 0 0 rgba(var(--ck), 0); } 60% { box-shadow: 0 0 14px rgba(var(--ck), 0.55); } 100% { transform: none; opacity: 1; } }
+.w-ck-vital.state-error:not(.pending) { animation: w-ck-alarm 1.2s ease-in-out infinite; }
+@keyframes w-ck-alarm { 50% { box-shadow: 0 0 12px rgba(255, 77, 94, 0.6); } }
+.w-ck-ico { flex: none; width: calc(20px * var(--ui)); text-align: center; font-size: calc(12px * var(--ui)); }
+.w-ck-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.w-ck-name { font-size: calc(10.5px * var(--ui)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgba(var(--w-rgb), 0.75); }
+.w-ck-name strong { color: rgb(var(--ck)); letter-spacing: 0.5px; }
+.w-ck-detail { font-size: calc(9px * var(--ui)); opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.w-ck-side { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; max-width: 42%; }
+.w-ck-badge { font: 700 calc(7.5px * var(--ui)) / 1 'Consolas', monospace; letter-spacing: 1px; padding: 2px 5px; border-radius: 8px; border: 1px solid rgba(var(--ck), 0.8); color: rgb(var(--ck)); }
+.w-ck-value { font-size: calc(9px * var(--ui)); opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.w-ck-links { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.w-ck-links polyline { fill: none; stroke-width: 1; stroke-dasharray: 3 2; opacity: 0.8; animation: w-ck-dash 1.2s linear infinite; }
+.w-ck-links circle { stroke: none; }
+.w-ck-links .state-ok { stroke: #35ff9e; fill: #35ff9e; }
+.w-ck-links polyline.state-ok, .w-ck-links polyline.state-warn, .w-ck-links polyline.state-error { fill: none; }
+.w-ck-links .state-warn { stroke: #ffc440; fill: #ffc440; }
+.w-ck-links .state-error { stroke: #ff4d5e; fill: #ff4d5e; }
+@keyframes w-ck-dash { to { stroke-dashoffset: -10; } }
+.w-ck-score { margin-left: auto; margin-right: calc(6px * var(--ui)); font: 700 calc(11px * var(--ui)) / 1 'Consolas', monospace; padding: 3px 8px; border-radius: 10px; border: 1px solid rgba(var(--w-rgb), 0.6); }
+.w-ck-score.state-ok { color: #35ff9e; border-color: #35ff9e; }
+.w-ck-score.state-warn { color: #ffc440; border-color: #ffc440; }
+.w-ck-score.state-error { color: #ff4d5e; border-color: #ff4d5e; }
+.w-ck-score.state-scan { animation: w-ck-blink 0.9s ease-in-out infinite; }
+/* Bouton de réduction : deux traits fins (bilan complet) / un carré (réduite au personnage). */
+.w-ck-minibtn {
+  position: relative; flex: none; width: calc(18px * var(--ui)); height: calc(18px * var(--ui)); padding: 0; margin-right: calc(4px * var(--ui));
+  background: none; border: 1px solid rgba(var(--w-rgb), 0.45); border-radius: 4px; cursor: pointer; opacity: 0.6; transition: opacity 0.2s, border-color 0.2s;
+}
+.w-ck-minibtn::before { content: ''; position: absolute; left: 22%; top: 22%; width: 26%; height: 56%; border: 1px solid rgba(var(--w-rgb), 0.95); border-radius: 1px; }
+.w-ck-minibtn::after { content: ''; position: absolute; right: 18%; top: 34%; width: 24%; height: 32%; border-top: 1px solid rgba(var(--w-rgb), 0.95); border-bottom: 1px solid rgba(var(--w-rgb), 0.95); }
+.w-ck-minibtn:hover { opacity: 1; border-color: rgba(var(--w-rgb), 0.95); }
+.w-ck-mini .w-ck-minibtn::after { display: none; }
+.w-ck-mini .w-ck-minibtn::before { left: 26%; top: 26%; width: 48%; height: 48%; }
+
+/* Card Checkup réduite : le personnage seul, sur le fond de Jarvis (card à 40 %), reliée au cœur. */
+.widget.w-card-list.w-checkup.w-ck-mini {
+  width: calc(260px * var(--ui)); padding: calc(6px * var(--ui));
+  background: rgba(2, 12, 20, 0.4); border-color: rgba(var(--w-rgb), 0.3); box-shadow: 0 0 18px rgba(var(--w-rgb), 0.1);
+}
+.w-ck-mini .w-head { margin-bottom: calc(2px * var(--ui)); }
+.w-ck-mini .w-head .w-title, .w-ck-mini .w-head .w-num, .w-ck-mini .w-head .w-pin, .w-ck-mini .w-head .w-head-btn { display: none; }
+.w-ck-mini .w-ck-score { font-size: calc(9px * var(--ui)); padding: 2px 6px; }
+.w-ck-mini .w-ck-body { display: block; margin-top: 0; }
+.w-ck-mini .w-ck-list, .w-ck-mini .w-ck-links, .w-ck-mini > .w-rows-foot { display: none; }
+.w-ck-mini .w-ck-stage { height: calc(360px * var(--ui)); border-color: rgba(var(--w-rgb), 0.12); background: radial-gradient(ellipse at 50% 60%, rgba(var(--w-rgb), 0.1), transparent 70%); }
+.w-ck-mini .w-ck-grid { opacity: 0.2; }
+.w-ck-mini .w-ck-phase { font-size: calc(7.5px * var(--ui)); letter-spacing: 1.5px; }
+.widget.w-card-list.w-checkup.w-ck-mini { transition: background 1.2s ease, border-color 1.2s ease, box-shadow 1.2s ease; }
+.widget.w-card-list.w-checkup.w-ck-mini.w-ck-dim:not(:hover) { background: rgba(2, 12, 20, 0.25); border-color: rgba(var(--w-rgb), 0.18); box-shadow: none; }

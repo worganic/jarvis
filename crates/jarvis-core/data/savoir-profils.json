@@ -1,0 +1,90 @@
+{
+  "_doc": "Profils des dossiers Data (orch/savoir/profils.rs) : ce que la recherche collecte en plus du tronc commun (champs), sa consigne, les scènes conseillées de la présentation, sa fin (3d : explorateur 3D ; media : écoute et vidéos ; liens) et les liens utiles du dossier ({sujet} est remplacé par le sujet). Les profils créés par l'IA pour un sujet sans profil vont dans data/savoir/profils.json.",
+  "profils": [
+    {
+      "id": "general",
+      "nom": "Sujet général",
+      "icone": "◈",
+      "description": "Tout sujet qui n'est ni un produit, ni de la musique, ni un film ou une série, ni un lieu : concept, science, histoire, technique, phénomène, organisation.",
+      "mots": [],
+      "champs": [],
+      "consigne": "",
+      "troisD": false,
+      "finale": "liens",
+      "scenes": ["titre", "image", "chiffres", "chronologie", "fiche", "comparaison", "video", "liens", "conclusion"],
+      "boutons": [
+        { "libelle": "Wikipédia", "icone": "↗", "type": "url", "gabarit": "https://fr.wikipedia.org/w/index.php?search={sujet}" },
+        { "libelle": "Vidéos", "icone": "▶", "type": "url", "gabarit": "https://www.youtube.com/results?search_query={sujet}" }
+      ]
+    },
+    {
+      "id": "produit",
+      "nom": "Produit / appareil",
+      "icone": "◆",
+      "description": "Objet que l'on peut acheter ou utiliser : appareil ménager, électronique, véhicule, aéronef, outil, machine, jouet, vêtement technique.",
+      "mots": ["aspirateur", "robot", "telephone", "smartphone", "iphone", "tablette", "ordinateur", "portable", "televiseur", "tv", "ecran", "casque", "ecouteurs", "enceinte", "montre", "camera", "appareil", "photo", "drone", "console", "imprimante", "refrigerateur", "frigo", "lave", "seche", "four", "micro", "cafetiere", "blender", "voiture", "moto", "scooter", "velo", "trottinette", "helicoptere", "avion", "bateau", "camion", "tracteur", "perceuse", "tondeuse", "machine", "modele", "souris", "clavier", "routeur", "barbecue", "climatiseur", "radiateur", "chaudiere", "pompe"],
+      "champs": ["points_forts", "points_faibles", "prix", "avis", "pieces", "modeles3d", "maquette"],
+      "consigne": "C'est un produit : relève son prix actuel chez plusieurs vendeurs (prix), ses points forts et ses points faibles d'après les tests et les avis d'utilisateurs, les notes des tests (avis), ses principaux concurrents (comparaisons), ses caractéristiques chiffrées (fiche) et ses pièces visibles pour une vue 3D (pieces). Cherche aussi des vidéos de test ou de démonstration.",
+      "troisD": true,
+      "finale": "3d",
+      "scenes": ["titre", "image", "chiffres", "atouts", "prix", "avis", "piece", "comparaison", "video", "conclusion"],
+      "boutons": [
+        { "libelle": "Comparer les prix", "icone": "€", "type": "url", "gabarit": "https://www.idealo.fr/prechcat.html?q={sujet}" },
+        { "libelle": "Tests et avis", "icone": "★", "type": "url", "gabarit": "https://www.google.com/search?q={sujet}+test+avis" },
+        { "libelle": "Vidéos de test", "icone": "▶", "type": "url", "gabarit": "https://www.youtube.com/results?search_query={sujet}+test" }
+      ]
+    },
+    {
+      "id": "musique",
+      "nom": "Musique",
+      "icone": "♪",
+      "description": "Artiste, groupe, album, chanson, concert, tournée, festival, œuvre musicale.",
+      "mots": ["concert", "album", "chanteur", "chanteuse", "groupe", "rappeur", "musique", "musicien", "tournee", "festival", "orchestre", "symphonie", "opera", "single", "chanson", "dj", "live", "discographie", "rock", "rap", "jazz", "electro"],
+      "champs": ["ecoute", "avis"],
+      "consigne": "C'est de la musique (artiste, album ou concert) : relève les albums et les titres importants, les dates clés (chronologie), les concerts et les tournées (sections, chronologie), les critiques (avis), et dans « ecoute » de quoi l'écouter — titre, type (album, titre, concert ou playlist), artiste, année, et les liens directs Spotify (https://open.spotify.com/…) et YouTube (vidéo, clip ou captation de concert) que tu trouves.",
+      "troisD": false,
+      "finale": "media",
+      "scenes": ["titre", "image", "chronologie", "ecoute", "chiffres", "avis", "video", "conclusion"],
+      "boutons": [
+        { "libelle": "Écouter sur Spotify", "icone": "▶", "type": "spotify", "gabarit": "{sujet}" },
+        { "libelle": "YouTube", "icone": "▶", "type": "url", "gabarit": "https://www.youtube.com/results?search_query={sujet}" },
+        { "libelle": "Setlists", "icone": "↗", "type": "url", "gabarit": "https://www.setlist.fm/search?query={sujet}" },
+        { "libelle": "Dates et billets", "icone": "🎟", "type": "url", "gabarit": "https://www.songkick.com/search?query={sujet}" }
+      ]
+    },
+    {
+      "id": "film",
+      "nom": "Film / série",
+      "icone": "🎬",
+      "description": "Film, série, saison, documentaire, dessin animé, réalisateur ou acteur à travers ses œuvres.",
+      "mots": ["film", "films", "serie", "series", "saison", "realisateur", "acteur", "actrice", "documentaire", "anime", "dessin", "cinema", "episode", "saga", "trilogie"],
+      "champs": ["points_forts", "points_faibles", "avis", "ecoute"],
+      "consigne": "C'est un film ou une série : réalisateur, casting principal, année, durée ou nombre de saisons, genre (fiche), synopsis sans dévoiler la fin (sections), notes des critiques et du public (avis), points forts et points faibles selon la critique, bande-annonce et extraits (videos, liens YouTube directs), où le regarder (sources), et la bande originale dans « ecoute ».",
+      "troisD": false,
+      "finale": "media",
+      "scenes": ["titre", "image", "chiffres", "atouts", "avis", "video", "ecoute", "conclusion"],
+      "boutons": [
+        { "libelle": "Bande-annonce", "icone": "▶", "type": "url", "gabarit": "https://www.youtube.com/results?search_query={sujet}+bande+annonce" },
+        { "libelle": "Où le regarder", "icone": "↗", "type": "url", "gabarit": "https://www.justwatch.com/fr/recherche?q={sujet}" },
+        { "libelle": "Allociné", "icone": "↗", "type": "url", "gabarit": "https://www.allocine.fr/rechercher/?q={sujet}" }
+      ]
+    },
+    {
+      "id": "lieu",
+      "nom": "Lieu / voyage",
+      "icone": "⌖",
+      "description": "Ville, pays, région, île, monument, château, musée, parc, site naturel, destination de voyage.",
+      "mots": ["ville", "pays", "region", "ile", "monument", "chateau", "musee", "plage", "parc", "montagne", "cathedrale", "basilique", "tour", "pont", "quartier", "voyage", "randonnee", "lac", "volcan", "desert", "vallee", "village", "capitale", "temple", "palais", "abbaye"],
+      "champs": ["points_forts", "points_faibles", "prix", "avis", "pieces", "modeles3d", "maquette"],
+      "consigne": "C'est un lieu : situation, comment y aller, meilleure période, ce qu'il faut voir et faire (sections), budget dans « prix » (le poste — hébergement, entrée, transport, repas — à la place du vendeur, le prix et un lien), points forts et points faibles d'après les voyageurs, avis des voyageurs. Pour un monument ou un bâtiment, relève aussi ses parties visibles (pieces) pour une vue 3D.",
+      "troisD": true,
+      "finale": "3d",
+      "scenes": ["titre", "image", "chiffres", "chronologie", "atouts", "prix", "avis", "piece", "video", "conclusion"],
+      "boutons": [
+        { "libelle": "Carte", "icone": "⌖", "type": "url", "gabarit": "https://www.google.com/maps/search/{sujet}" },
+        { "libelle": "Wikivoyage", "icone": "↗", "type": "url", "gabarit": "https://fr.wikivoyage.org/w/index.php?search={sujet}" },
+        { "libelle": "Visites en vidéo", "icone": "▶", "type": "url", "gabarit": "https://www.youtube.com/results?search_query={sujet}+visite" }
+      ]
+    }
+  ]
+}

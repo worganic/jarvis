@@ -1,0 +1,19 @@
+[package]
+name = "jarvis-app"
+version.workspace = true
+edition.workspace = true
+description = "Jarvis v4 - exécutable du noyau (jarvis-core.exe) : le noyau et ses modules"
+
+[[bin]]
+name = "jarvis-core"
+path = "src/main.rs"
+
+# Modules à partie noyau liés (même nom que la feature de crates/jarvis-modules) : tous par défaut ; une installation
+# (installer.ps1) compile avec --no-default-features --features <modules choisis>.
+[features]
+default = ["audio"]
+audio = ["jarvis-modules/audio"]
+
+[dependencies]
+jarvis-core = { path = "../jarvis-core" }
+jarvis-modules = { path = "../jarvis-modules", default-features = false }

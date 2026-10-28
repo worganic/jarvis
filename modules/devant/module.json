@@ -1,0 +1,9 @@
+{
+  "id": "devant",
+  "nom": "Devant",
+  "version": "1.0.0",
+  "description": "Applications ouvertes en liste verticale (mini-cards, premier plan, réduites) et applications retirées.",
+  "widgets": ["devant"],
+  "ui": { "scripts": ["ui/devant.js"], "styles": ["ui/devant.css"] },
+  "parDefaut": true
+}

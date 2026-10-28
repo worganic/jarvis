@@ -1,0 +1,961 @@
+[
+ {
+  "cat": "Conversation",
+  "say": "Aide pour {texte}",
+  "what": "retrouver une commande en décrivant ce que tu veux faire (« aide » seul : tout)",
+  "keys": "aide commandes liste que sais tu faire oublie retrouver",
+  "context": "aide"
+ },
+ {
+  "cat": "Conversation",
+  "say": "Merci, c’est tout",
+  "what": "fermer la conversation (il faudra redire « Jarvis »)",
+  "keys": "fin terminer fermer conversation quitter au revoir"
+ },
+ {
+  "cat": "Conversation",
+  "say": "Stop",
+  "what": "tout arrêter : tâches, validations, parole (aussi : Échap, bouton STOP)",
+  "keys": "arreter stopper couper annuler silence tais toi interrompre stop tout"
+ },
+ {
+  "cat": "Conversation",
+  "say": "Non, j’ai dit {texte}",
+  "what": "corriger une phrase mal comprise",
+  "keys": "corriger erreur mal compris compris correction"
+ },
+ {
+  "cat": "Conversation",
+  "say": "Défais",
+  "what": "annuler la dernière action (volume, lumière, rappel, rendez-vous…)",
+  "keys": "annuler defaire revenir arriere dernier derniere action erreur retour"
+ },
+ {
+  "cat": "Conversation",
+  "say": "Reprends la mission",
+  "what": "reprendre une demande en plusieurs étapes arrêtée sur un échec (« où en est la mission », « abandonne la mission »)",
+  "keys": "reprendre mission etapes continuer relancer abandonner plusieurs",
+  "context": "mission"
+ },
+ {
+  "cat": "Conversation",
+  "say": "Écoute-moi",
+  "what": "écoute libre : plus besoin de dire « Jarvis »",
+  "keys": "ecoute libre sans dire jarvis mot eveil permanent continu"
+ },
+ {
+  "cat": "Projets",
+  "say": "Quels sont mes projets ?",
+  "what": "la liste numérotée de tes projets (favoris en tête, sans ceux mis de côté)",
+  "keys": "projets liste mes projets combien dossiers numero"
+ },
+ {
+  "cat": "Projets",
+  "say": "Mets le projet {projet} en favori",
+  "what": "le mettre en avant en tête de liste (« retire le projet 2 des favoris ») — aussi le bouton ☆ de la card",
+  "keys": "favori favoris mettre en avant epingler etoile projet"
+ },
+ {
+  "cat": "Projets",
+  "say": "Mets de côté le projet {projet}",
+  "what": "qu’il n’apparaisse plus dans la liste (« remets le projet 2 dans la liste ») — aussi le bouton 🗄",
+  "keys": "mettre de cote masquer cacher archiver ignorer retirer projet liste"
+ },
+ {
+  "cat": "Projets",
+  "say": "Liste mes projets mis de côté",
+  "what": "les projets masqués de la liste (« tous mes projets », « mes projets favoris »)",
+  "keys": "projets mis de cote masques caches archives tous favoris"
+ },
+ {
+  "cat": "Projets",
+  "say": "Sur quoi j’ai travaillé récemment ?",
+  "what": "tes projets les plus récents",
+  "keys": "recent dernier projet travaille recemment derniers"
+ },
+ {
+  "cat": "Projets",
+  "say": "Où en est le projet {projet} ?",
+  "what": "l’état d’un projet : description, git, dernier commit",
+  "keys": "etat point infos avancement git commit ou en est projet parle"
+ },
+ {
+  "cat": "Projets",
+  "say": "Lance Claude Code dans le projet {projet}",
+  "what": "psmux avec Claude Code dans le dossier du projet — son nom ou son numéro dans la card (« projet 2 ») ; aussi le bouton ▶",
+  "keys": "lancer demarrer ouvrir claude code psmux projet numero session travailler coder"
+ },
+ {
+  "cat": "Projets",
+  "say": "Lance Claude Code ici",
+  "what": "Claude Code dans le projet ouvert à l’écran (VS Code, explorateur…)",
+  "keys": "ici ce projet courant actuel lancer claude code dossier ouvert"
+ },
+ {
+  "cat": "Projets",
+  "say": "Où en est ce projet ?",
+  "what": "l’état du projet ouvert à l’écran",
+  "keys": "ce projet ici courant actuel etat ou en est"
+ },
+ {
+  "cat": "Projets",
+  "say": "Ouvre le projet {projet}",
+  "what": "ouvrir le dossier d’un projet (ajoute « dans VS Code »)",
+  "keys": "ouvrir dossier projet explorateur vs code visual studio"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Lance Claude Code dans tmux dans le projet {projet}",
+  "what": "nouvelle fenêtre tmux avec Claude Code dans ce projet",
+  "keys": "lancer demarrer claude code tmux psmux projet session sous"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Ouvre tmux",
+  "what": "ouvrir (ou afficher) la session tmux",
+  "keys": "ouvrir afficher tmux psmux session terminal"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Quels Claude sont ouverts ?",
+  "what": "les Claude Code qui tournent dans psmux (toutes sessions)",
+  "keys": "quels claude ouverts sessions instances psmux tmux lances detectes tournent"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Parle à Claude",
+  "what": "tout ce que tu dis est écrit dans Claude Code (s’il n’y en a qu’un) ; « je valide le prompt » l’envoie",
+  "keys": "parler relais transmettre dicter ecrire claude code tmux directement"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Parle à Claude {projet}",
+  "what": "relais vers le Claude Code ouvert dans ce projet (psmux)",
+  "keys": "parler relais transmettre dicter ecrire claude code psmux session instance projet"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Dis à Claude {projet} de {texte}",
+  "what": "une seule phrase au Claude Code de ce projet",
+  "keys": "dire envoyer message phrase claude code instance session projet"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Jarvis, reprends la main",
+  "what": "fin du relais vers Claude, ou du mode terminal : Jarvis t’écoute de nouveau",
+  "keys": "reprendre main fin relais arreter parler claude quitter terminal",
+  "context": "relais"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Je valide le prompt",
+  "what": "dictée dans un terminal (devant, ou « 🎙 Dicter ici ») : tes phrases s’écrivent à la suite, sans Entrée ; « je valide le prompt » envoie. Aussi « échap », « contrôle C », « efface la ligne »",
+  "keys": "terminal dicter ecrire tmux cmd powershell invite commande entree valider envoyer prompt sans jarvis",
+  "context": "terminal"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Dis à Claude de {texte}",
+  "what": "envoyer une seule phrase à Claude Code",
+  "keys": "dire envoyer message phrase claude code demander ecrire"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Lis l’écran de Claude dans tmux",
+  "what": "ce qu’affiche Claude Code en ce moment",
+  "keys": "lire ecran claude affiche sortie ou en est repond terminal"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Interromps Claude dans tmux",
+  "what": "interrompre Claude Code (Échap)",
+  "keys": "interrompre arreter stopper claude echap"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Fenêtres tmux",
+  "what": "la liste des fenêtres tmux",
+  "keys": "fenetres liste tmux onglets"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Nouvelle fenêtre tmux",
+  "what": "ouvrir une fenêtre tmux (shell)",
+  "keys": "nouvelle fenetre onglet tmux creer"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Divise tmux à droite",
+  "what": "couper l’écran tmux en deux volets",
+  "keys": "diviser couper partager volet ecran tmux split"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Lance {commande} dans tmux",
+  "what": "lancer une commande dans une nouvelle fenêtre (code à 4 chiffres)",
+  "keys": "lancer executer commande npm script tmux terminal"
+ },
+ {
+  "cat": "tmux & Claude Code",
+  "say": "Ferme tmux",
+  "what": "fermer toute la session tmux (confirmation orale)",
+  "keys": "fermer tuer quitter tmux session"
+ },
+ {
+  "cat": "Musique",
+  "say": "Mets de la musique",
+  "what": "lecteur interne de Jarvis",
+  "keys": "musique jouer lancer mettre radio chanson"
+ },
+ {
+  "cat": "Musique",
+  "say": "Mets {texte} sur Spotify",
+  "what": "un artiste, un titre ou une playlist sur Spotify",
+  "keys": "spotify musique jouer mettre lancer artiste titre playlist chanson album"
+ },
+ {
+  "cat": "Musique",
+  "say": "Pause",
+  "what": "mettre la musique en pause (« reprends » pour relancer)",
+  "keys": "pause arreter musique reprendre lecture"
+ },
+ {
+  "cat": "Musique",
+  "say": "Passe trois chansons",
+  "what": "sauter plusieurs titres d'un coup (de deux à six)",
+  "keys": "passe saute zappe chansons titres morceaux plusieurs suivant"
+ },
+ {
+  "cat": "Musique",
+  "say": "Recommence la chanson",
+  "what": "revenir au début du titre en cours (ou au précédent s'il vient de commencer)",
+  "keys": "recommence rejoue relance remets chanson titre debut precedent"
+ },
+ {
+  "cat": "Musique",
+  "say": "Baisse la musique",
+  "what": "baisser ou monter le volume (« monte la musique »)",
+  "keys": "baisse monte musique volume son fort doucement"
+ },
+ {
+  "cat": "Musique",
+  "say": "Suivant",
+  "what": "titre suivant (« précédent » pour revenir)",
+  "keys": "suivant precedent passer titre chanson morceau"
+ },
+ {
+  "cat": "Mails & agenda",
+  "say": "Lis mes mails",
+  "what": "tes derniers mails (Gmail)",
+  "keys": "mails emails courriels lire derniers boite reception gmail messages"
+ },
+ {
+  "cat": "Mails & agenda",
+  "say": "Cherche les mails de {qui}",
+  "what": "chercher dans tes mails",
+  "keys": "chercher trouver mails emails de expediteur recherche"
+ },
+ {
+  "cat": "Mails & agenda",
+  "say": "Ouvre le mail 2",
+  "what": "le mail n° 2 de la dernière liste dans une card de lecture (aussi un clic sur le mail) ; « lis le mail 2 » le lit à voix haute",
+  "keys": "ouvrir lire afficher mail numero contenu message card lecture"
+ },
+ {
+  "cat": "Mails & agenda",
+  "say": "Résume le mail 2",
+  "what": "résumé du mail par l’IA (« réponds au mail 2 » : réponse proposée, jamais envoyée sans ton code)",
+  "keys": "resume resumer repondre reponse mail numero ia"
+ },
+ {
+  "cat": "Mails & agenda",
+  "say": "N’annonce plus les mails de {qui}",
+  "what": "ne plus être prévenu des nouveaux mails d’un expéditeur, d’un domaine ou d’un sujet (aussi le bouton 🚫 de la card « Nouveau mail ») — gardé dans la mémoire",
+  "keys": "annoncer annonce plus exclure ignorer bloquer masquer filtrer nouveau mail expediteur notification prevenir newsletter pub"
+ },
+ {
+  "cat": "Mails & agenda",
+  "say": "Liste mes exclusions de mails",
+  "what": "les expéditeurs dont les nouveaux mails ne sont pas annoncés (« annonce de nouveau les mails de… » pour en retirer)",
+  "keys": "exclusions exclus ignores bloques filtres mails expediteurs liste reactiver annoncer de nouveau"
+ },
+ {
+  "cat": "Mails & agenda",
+  "say": "Qu’est-ce que j’ai demain ?",
+  "what": "ton agenda d’un jour (ou « cette semaine »)",
+  "keys": "agenda programme rendez vous planning demain aujourd hui semaine prevu"
+ },
+ {
+  "cat": "Mails & agenda",
+  "say": "Ajoute un rendez-vous {jour} à 14 h {texte}",
+  "what": "ajouter un rendez-vous",
+  "keys": "ajouter creer rendez vous rdv reunion evenement agenda noter planifier"
+ },
+ {
+  "cat": "Rappels",
+  "say": "Rappelle-moi {jour} à 9 h de {texte}",
+  "what": "un rappel à une date et une heure (gardé même si Jarvis redémarre)",
+  "keys": "rappel rappeler rappelle noter penser memo alarme heure date demain"
+ },
+ {
+  "cat": "Rappels",
+  "say": "Rappelle-moi dans 20 minutes de {texte}",
+  "what": "un rappel dans un moment (« tous les jours à 8 h » pour le répéter)",
+  "keys": "rappel rappeler dans minutes heure bientot tous les jours chaque"
+ },
+ {
+  "cat": "Rappels",
+  "say": "Quels sont mes rappels ?",
+  "what": "tes rappels à venir",
+  "keys": "rappels liste quels mes prevus a venir"
+ },
+ {
+  "cat": "Rappels",
+  "say": "Annule le rappel 1",
+  "what": "supprimer un rappel (« annule tous mes rappels »)",
+  "keys": "annuler supprimer effacer rappel rappels"
+ },
+ {
+  "cat": "Rappels",
+  "say": "Fais-moi le briefing",
+  "what": "météo, agenda, rappels, mails et projets du jour (aussi au premier bonjour du matin)",
+  "keys": "briefing resume journee programme du jour matin point bonjour"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Quelles applications sont ouvertes ?",
+  "what": "card « Bureau » : fenêtres numérotées par écran, applis en arrière-plan (« quelles applis tournent en fond ? »)",
+  "keys": "applications applis fenetres ouvertes lancees logiciels programmes bureau fond arriere plan ecran"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Qu’est-ce qu’il y a sur l’écran 2 ?",
+  "what": "les fenêtres d’un écran (« l’écran principal », « celui de gauche »)",
+  "keys": "ecran moniteur affiche ouvert principal gauche droite deux"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Quelles pages sont ouvertes sur Chrome ?",
+  "what": "card des instances de Chrome numérotées (« Chrome 2 ») et de leurs pages (« 2.1 »)",
+  "keys": "chrome navigateur pages onglets sites instances ouvertes edge firefox"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Va sur la page 2.3",
+  "what": "onglet n° 3 de Chrome 2 (card « Chrome ») ; « ferme la page 1.2 », « recharge la page 2.1 », « résume la page 1.1 »",
+  "keys": "page onglet ferme recharge lire resume chrome numero"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Ferme les onglets YouTube",
+  "what": "fermer tous les onglets qui correspondent (« va sur l’onglet Gmail »)",
+  "keys": "fermer onglets chrome youtube tous les"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Ouvre youtube.com dans un nouvel onglet",
+  "what": "nouvel onglet sur une adresse ou une recherche (« nouvel onglet sur la météo de Lyon »)",
+  "keys": "ouvrir nouvel onglet chrome adresse site recherche"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Relie Chrome à Jarvis",
+  "what": "installer l’extension Chrome (tous les onglets en direct) : étapes à l’écran, appairage automatique",
+  "keys": "extension chrome installer relier connecter onglets appairer"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Mets Spotify sur l’écran 1",
+  "what": "déplacer une fenêtre (« la fenêtre 3 », « Chrome 2 ») ; « mets VS Code à gauche »",
+  "keys": "deplacer mettre bouger envoyer fenetre ecran moniteur gauche droite"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Réduis tout sur l’écran 2",
+  "what": "réduire les fenêtres d’un écran (« réduis Chrome », « agrandis la fenêtre 2 », « affiche Spotify »)",
+  "keys": "reduire minimiser cacher agrandir maximiser afficher premier plan tout"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Liste mes applications installées",
+  "what": "toutes tes applis numérotées, celles ouvertes en tête d’état (« lance l’application 12 ») ; ▶ lancer, ▣ afficher, ✕ fermer",
+  "keys": "applications installees logiciels programmes liste menu demarrer lancer numero"
+ },
+ {
+  "cat": "Bureau",
+  "say": "Ferme l’application {app}",
+  "what": "ferme ses fenêtres (nom ou titre, ex. « tmux ») et vérifie qu’elle est bien fermée ; « ferme la fenêtre 3 »",
+  "keys": "fermer quitter application appli logiciel fenetre"
+ },
+ {
+  "cat": "Notes",
+  "say": "Prends des notes sur {texte}",
+  "what": "une card de note : ce que tu dis y est écrit, modifiable au clavier (« fin de la note » pour arrêter)",
+  "keys": "prendre notes note noter dicter ecrire prise memo bloc carnet"
+ },
+ {
+  "cat": "Notes",
+  "say": "Enregistre la réunion",
+  "what": "transcrire une visio (Google Meet, Teams…) dans une card : ta voix, celles des participants et qui parle ; une page Meet ouverte propose de l’enregistrer (« arrête l’enregistrement » à la fin)",
+  "keys": "enregistrer reunion visio appel conversation transcrire meeting teams zoom meet google discord compte rendu participants"
+ },
+ {
+  "cat": "Notes",
+  "say": "La voix inconnue 1, c’est {qui}",
+  "what": "nommer une voix de la réunion : Jarvis apprend sa voix et réécrit ses passages (aussi dans la card)",
+  "keys": "voix inconnue qui parle nommer personne participant reconnaitre"
+ },
+ {
+  "cat": "Notes",
+  "say": "Liste mes réunions",
+  "what": "tes réunions enregistrées (« ouvre la réunion 2 », « ressors la réunion avec Marie »)",
+  "keys": "liste reunions mes reunions archive ouvrir ressortir retrouver"
+ },
+ {
+  "cat": "Notes",
+  "say": "Résume la dernière réunion",
+  "what": "résumé par l’IA : points clés, décisions, actions (« résume la réunion 2 »)",
+  "keys": "resume resumer synthese compte rendu reunion visio derniere ia"
+ },
+ {
+  "cat": "Notes",
+  "say": "Mets la réunion dans Google Docs",
+  "what": "compte rendu (résumé et transcription) dans un Google Doc, dossier « Réunions Jarvis »",
+  "keys": "google docs doc document drive exporter compte rendu reunion transcription"
+ },
+ {
+  "cat": "Notes",
+  "say": "Enregistre la note",
+  "what": "la sauvegarder en fichier texte dans le dossier notes (aussi le bouton Enregistrer)",
+  "keys": "enregistrer sauvegarder sauver garder note fichier texte"
+ },
+ {
+  "cat": "Notes",
+  "say": "Liste mes notes",
+  "what": "tes notes enregistrées (« ouvre la note 2 »)",
+  "keys": "liste notes mes notes ouvrir afficher enregistrees"
+ },
+ {
+  "cat": "Notes",
+  "say": "Fais un résumé de la note",
+  "what": "résumé par l’IA ajouté à la note (« résume la note 2 »)",
+  "keys": "resume resumer synthese note ia"
+ },
+ {
+  "cat": "Listes",
+  "say": "Crée-moi une liste de courses",
+  "what": "créer une liste intelligente (courses, voyage, bricolage, to-do...) affinée par dialogue et mémorisée dans le RAG",
+  "keys": "cree creer fais preparer liste courses valise voyage bricolage taches affaires"
+ },
+ {
+  "cat": "Listes",
+  "say": "Affiche ma liste de courses",
+  "what": "afficher la card interactive de la liste avec cases à cocher",
+  "keys": "affiche ouvre montre voir consulte liste courses valise voyage bricolage"
+ },
+ {
+  "cat": "Listes",
+  "say": "Ajoute du lait à ma liste de courses",
+  "what": "ajouter un élément à une liste existante",
+  "keys": "ajoute rajoute mettre element item liste"
+ },
+ {
+  "cat": "Listes",
+  "say": "Coche le lait sur ma liste de courses",
+  "what": "cocher un élément terminé dans la liste",
+  "keys": "coche cocher barrer fait termine valide element liste"
+ },
+ {
+  "cat": "Listes",
+  "say": "Copie ma liste de courses",
+  "what": "copier la liste complète dans le presse-papier pour l’envoyer ou la coller",
+  "keys": "copie copier presse papier envoyer coller liste"
+ },
+ {
+  "cat": "Listes",
+  "say": "Quelles sont mes listes ?",
+  "what": "la card « Mes listes » : toutes tes listes (à fiches et à cocher), avec leurs compteurs ; un clic ouvre une liste",
+  "keys": "quelles sont mes listes liste mes listes toutes mes listes card liste"
+ },
+ {
+  "cat": "Listes",
+  "say": "Crée-moi une liste de disques vinyle",
+  "what": "créer une liste à fiches (vinyles, Lego, films, séries, concerts, livres, jeux…) : Jarvis propose un nom et des champs, tu gardes ce qui te suffit (« c’est bon », « enlève le prix », « ajoute un champ pays »)",
+  "keys": "cree creer liste collection vinyle vinyles disques lego films series concerts livres jeux champs fiche"
+ },
+ {
+  "cat": "Listes",
+  "say": "Ajoute à ma liste films Inception de Christopher Nolan",
+  "what": "ajouter un film, une série ou un concert (« que j’ai vu hier », « à voir », « U2 au Stade de France à Paris le 12 juin 2024 ») ; les infos et l’affiche sont retrouvées toutes seules",
+  "keys": "ajoute film serie concert vu voir realisateur salle ville date liste affiche"
+ },
+ {
+  "cat": "Listes",
+  "say": "J’ai vu Dune",
+  "what": "passer un film ou une série de « à voir » à « vu » (« est-ce que j’ai vu Inception ? » pour savoir ; « affiche mes films à voir » pour la liste)",
+  "keys": "j ai vu vue regarde film serie a voir est ce que affiche mes films"
+ },
+ {
+  "cat": "Listes",
+  "say": "Ajoute à ma liste vinyle le disque {titre} du groupe {nom}",
+  "what": "ajouter une fiche à une liste à fiches ; tu peux dire le prix, le lieu et la date (« acheté 18 euros à la Fnac le 12 mars ») ou « que je voudrais » pour les souhaits",
+  "keys": "ajoute rajoute mets enregistre liste vinyle disque lego set fiche prix achete voudrais souhait"
+ },
+ {
+  "cat": "Listes",
+  "say": "Affiche ma liste de disques",
+  "what": "ouvrir la liste à fiches en mini-cards (pochette, titre, prix) ; un clic sur une mini-card ouvre la fiche complète, modifiable",
+  "keys": "affiche montre ouvre liste disques vinyles lego collection mini cards fiche"
+ },
+ {
+  "cat": "Listes",
+  "say": "Retire {titre} de ma liste vinyle",
+  "what": "retirer une fiche d’une liste à fiches (« annule » la remet)",
+  "keys": "retire supprime efface enleve fiche liste vinyle lego"
+ },
+ {
+  "cat": "Listes",
+  "say": "Supprime ma liste de disques",
+  "what": "supprimer une liste à fiches et toutes ses fiches, après ton « oui » (« annule » la rétablit)",
+  "keys": "supprime efface detruis liste collection vinyle lego"
+ },
+ {
+  "cat": "Listes",
+  "say": "Est-ce que j’ai le Lego 75436 ?",
+  "what": "retrouver une fiche de tes listes par son numéro ou son titre : réponse oui ou non, fiche ouverte, prix, lieu et date d’achat rappelés ; sinon Jarvis propose de l’ajouter à tes souhaits",
+  "keys": "est ce que j ai possede lego vinyle disque numero fiche liste avoir"
+ },
+ {
+  "cat": "Listes",
+  "say": "Affiche-moi Thriller",
+  "what": "ouvrir directement la fiche d’un disque, d’un set… par son titre ou son numéro, dans toutes tes listes",
+  "keys": "affiche montre ouvre fiche titre numero disque lego vinyle cherche retrouve"
+ },
+ {
+  "cat": "Listes",
+  "say": "Combien j’ai de vinyles ?",
+  "what": "le nombre de fiches possédées et souhaitées d’une liste",
+  "keys": "combien j ai vinyles disques lego liste nombre compter"
+ },
+ {
+  "cat": "Listes",
+  "say": "Combien j’ai dépensé en Lego ?",
+  "what": "le total des prix payés des fiches possédées d’une liste",
+  "keys": "combien depense depensé paye investi lego vinyles prix total liste"
+ },
+ {
+  "cat": "Listes",
+  "say": "Quels disques de U2 j’ai ?",
+  "what": "les fiches d’une liste qui contiennent un mot (artiste, thème…) ; « je n’ai pas » pour les souhaits",
+  "keys": "quels quelles lesquels disques artiste groupe lego theme liste filtre"
+ },
+ {
+  "cat": "Listes",
+  "say": "Affiche mes souhaits Lego",
+  "what": "la liste ouverte sur ce que tu voudrais posséder mais n’as pas encore",
+  "keys": "affiche montre souhaits wishlist envies manque lego vinyles liste"
+ },
+ {
+  "cat": "Listes",
+  "say": "J’ai acheté Thriller 25 euros à la Fnac",
+  "what": "passer une fiche de « souhaité » à « possédé » avec le prix, le lieu et la date (« passe Thriller en possédé » : sans détails)",
+  "keys": "j ai achete acheté passe possede possédé prix fnac fiche statut souhait"
+ },
+ {
+  "cat": "Listes",
+  "say": "Écoute le vinyle Thriller",
+  "what": "lancer sur Spotify le disque de la fiche (bouton ▶ de la fiche des listes de disques)",
+  "keys": "ecoute joue lance vinyle disque album spotify fiche"
+ },
+ {
+  "cat": "Listes",
+  "say": "Donne-moi le prix du Lego 75436",
+  "what": "chercher le prix actuel d’un set sur le web (l’IA en tâche de fond), le noter dans la fiche avec l’historique et annoncer la variation",
+  "keys": "donne prix actuel lego set cherche combien coute historique fiche"
+ },
+ {
+  "cat": "Listes",
+  "say": "Ouvre la fiche Lego du 75436",
+  "what": "ouvrir la page web liée au bouton de la fiche (fiche LEGO, Discogs…)",
+  "keys": "ouvre fiche page lego discogs site officiel web set disque"
+ },
+ {
+  "cat": "Listes",
+  "say": "Ajoute un champ pays à ma liste vinyle",
+  "what": "ajouter un champ à une liste à fiches (« retire le champ … de ma liste … » pour l’enlever, « renomme ma liste … en … »)",
+  "keys": "ajoute champ colonne retire renomme liste vinyle lego schema"
+ },
+ {
+  "cat": "Maison",
+  "say": "Allume la lumière",
+  "what": "allumer les lampes Yeelight (« du salon » pour une seule)",
+  "keys": "allumer lumiere lampe ampoule yeelight eclairage"
+ },
+ {
+  "cat": "Maison",
+  "say": "Éteins la lumière",
+  "what": "éteindre les lampes",
+  "keys": "eteindre lumiere lampe ampoule couper eclairage"
+ },
+ {
+  "cat": "Maison",
+  "say": "Lumière à 40 %",
+  "what": "régler l’intensité (« monte / baisse la lumière »)",
+  "keys": "intensite luminosite lampe lumiere pourcentage monter baisser tamiser"
+ },
+ {
+  "cat": "Maison",
+  "say": "Lumière en bleu",
+  "what": "changer la couleur (« lumière chaude », « lumière froide »)",
+  "keys": "couleur lumiere lampe bleu rouge vert chaud froid"
+ },
+ {
+  "cat": "Maison",
+  "say": "Ambiance détente",
+  "what": "une ambiance : travail, concentration, détente, cinéma, lecture, nuit, soirée",
+  "keys": "ambiance scene mode lumiere cinema detente lecture nuit soiree travail"
+ },
+ {
+  "cat": "Informations",
+  "say": "Fais-moi une recherche sur {texte}",
+  "what": "recherche web approfondie en fond : rapport et sources cliquables",
+  "keys": "recherche renseigne toi enquete sources rapport approfondie synthese documenter"
+ },
+ {
+  "cat": "Informations",
+  "say": "Fais un dossier sur {texte} en 10 minutes",
+  "what": "dossier Data : recherche web en temps limité (5 min sans précision), images, RAG propre au sujet, card Data",
+  "keys": "dossier data sujet produit theme recherche approfondie images fiche technique rag documenter"
+ },
+ {
+  "cat": "Informations",
+  "say": "Ouvre la data",
+  "what": "la card Data : tous les dossiers de recherche, leur état, leurs images et leurs chiffres (« ouvre le dossier {texte} » : sa fiche)",
+  "keys": "data dossiers liste recherche ouvrir afficher"
+ },
+ {
+  "cat": "Informations",
+  "say": "Complète le dossier {texte} avec {axe}",
+  "what": "approfondir un dossier Data sur un axe (versions, coûts, motorisation…) : seules les nouveautés sont ajoutées",
+  "keys": "completer approfondir enrichir ameliorer dossier data axe relancer"
+ },
+ {
+  "cat": "Informations",
+  "say": "Présente-moi {texte}",
+  "what": "présentation animée d'un dossier Data dans le cœur, par le personnage ; pendant la présentation : « suivant », « reviens », « pause », « stop », ou une question",
+  "keys": "presenter presentation animation montrer expliquer dossier data personnage scene diapo"
+ },
+ {
+  "cat": "Informations",
+  "say": "Écoute-le",
+  "what": "pendant une présentation, sur une scène « À écouter » (dossier musique, film…) : lance le titre ou l'album sur Spotify",
+  "keys": "ecouter ecoute lance mets joue album titre spotify presentation dossier data musique"
+ },
+ {
+  "cat": "Informations",
+  "say": "Montre-moi {texte} en 3D",
+  "what": "explorateur 3D d'un dossier Data (maquette de l'IA ou modèle 3D libre) : tourner autour, cliquer une pièce, liens ; ensuite « fais-le fonctionner », « vue éclatée », « rayons X », « montre-moi le rotor », « recentre », « ferme la 3D », ou une question",
+  "keys": "3d maquette modele explorer explorateur tourner piece fonctionner eclatee rayons dossier data"
+ },
+ {
+  "cat": "Informations",
+  "say": "Statistiques du dossier {texte}",
+  "what": "sources, sections, images, passages indexés et questions posées d'un dossier Data",
+  "keys": "statistiques stats chiffres etat dossier data"
+ },
+ {
+  "cat": "Informations",
+  "say": "Supprime le dossier {texte}",
+  "what": "supprimer un dossier Data, ses images et son index (confirmer par « supprime définitivement le dossier … »)",
+  "keys": "supprimer effacer dossier data definitivement"
+ },
+ {
+  "cat": "Achats",
+  "say": "Je voudrais acheter {texte}",
+  "what": "recherche le produit en fond : card des offres, boutiques et prix du moins cher au plus cher",
+  "keys": "acheter achat produit prix boutique magasin moins cher meilleur prix comparer commander"
+ },
+ {
+  "cat": "Achats",
+  "say": "Ouvre le produit 2",
+  "what": "la page du marchand du produit n° 2 de la dernière card d’achat (aussi un clic) ; « ouvre le moins cher » ouvre le n° 1",
+  "keys": "ouvrir produit offre page marchand boutique acheter moins cher"
+ },
+ {
+  "cat": "Achats",
+  "say": "Fiche du produit 2",
+  "what": "la card du produit : image, description, caractéristiques, toutes les boutiques et prix (aussi le bouton ⓘ)",
+  "keys": "fiche produit detail description caracteristiques infos boutiques prix"
+ },
+ {
+  "cat": "Achats",
+  "say": "Garde le produit 2",
+  "what": "le range dans ta bibliothèque de produits (aussi le bouton ☆)",
+  "keys": "garder conserver sauvegarder produit bibliotheque collection favori memoire"
+ },
+ {
+  "cat": "Achats",
+  "say": "Ma bibliothèque de produits",
+  "what": "les produits gardés, avec leur meilleur prix ; « actualise les prix du produit 2 » les relève de nouveau, « supprime le produit 2 de ma bibliothèque » le retire",
+  "keys": "bibliotheque produits gardes collection liste actualiser supprimer retirer prix"
+ },
+ {
+  "cat": "Informations",
+  "say": "Regarde ce que je te montre",
+  "what": "une photo par la webcam, décrite par l’IA (« qu’est-ce que je tiens ? »)",
+  "keys": "webcam camera regarder montrer voir objet photo tiens vision"
+ },
+ {
+  "cat": "Informations",
+  "say": "Quelle heure est-il ?",
+  "what": "l’heure",
+  "keys": "heure quelle heure"
+ },
+ {
+  "cat": "Informations",
+  "say": "Quel temps fait-il à {ville} ?",
+  "what": "la météo (ajoute « demain »)",
+  "keys": "meteo temps pluie soleil temperature fait il"
+ },
+ {
+  "cat": "Applications & fichiers",
+  "say": "Ouvre {app}",
+  "what": "ouvrir une application (Chrome, Discord…)",
+  "keys": "ouvrir lancer demarrer application appli logiciel programme"
+ },
+ {
+  "cat": "Applications & fichiers",
+  "say": "Ferme {app}",
+  "what": "fermer une application",
+  "keys": "fermer quitter application appli logiciel programme"
+ },
+ {
+  "cat": "Applications & fichiers",
+  "say": "Cherche {texte} sur Google",
+  "what": "une recherche web",
+  "keys": "chercher rechercher google internet web recherche"
+ },
+ {
+  "cat": "Applications & fichiers",
+  "say": "Trouve le fichier {fichier}",
+  "what": "chercher un fichier dans tes dossiers (« ouvre le 2 » ensuite)",
+  "keys": "trouver chercher fichier document pdf photo retrouver"
+ },
+ {
+  "cat": "Applications & fichiers",
+  "say": "Ouvre le dossier Téléchargements",
+  "what": "ouvrir un dossier (Bureau, Documents…)",
+  "keys": "ouvrir dossier telechargements documents bureau repertoire"
+ },
+ {
+  "cat": "Applications & fichiers",
+  "say": "Dessine-moi un mouton sur Paint",
+  "what": "un dessin dans Paint",
+  "keys": "dessiner dessin paint mouton chat maison"
+ },
+ {
+  "cat": "Système",
+  "say": "Mets le volume à 30",
+  "what": "régler le volume (« monte le son », « coupe le son »)",
+  "keys": "volume son monter baisser couper muet"
+ },
+ {
+  "cat": "Système",
+  "say": "Verrouille l’ordinateur",
+  "what": "verrouiller la session",
+  "keys": "verrouiller bloquer session ordinateur pc"
+ },
+ {
+  "cat": "Système",
+  "say": "Lis l’erreur à l’écran",
+  "what": "lire ce qui est affiché (« lis l’écran » pour tout le texte)",
+  "keys": "ecran regarder lire erreur capture affiche message"
+ },
+ {
+  "cat": "Raccourcis & mémoire",
+  "say": "Quand je dis {nom}, {texte}",
+  "what": "créer un raccourci vocal (plusieurs actions)",
+  "keys": "raccourci macro quand je dis creer routine automatiser"
+ },
+ {
+  "cat": "Raccourcis & mémoire",
+  "say": "Liste mes raccourcis",
+  "what": "tes raccourcis vocaux",
+  "keys": "liste raccourcis macros routines"
+ },
+ {
+  "cat": "Raccourcis & mémoire",
+  "say": "Quand {app} s’ouvre, {texte}",
+  "what": "une automatisation (aussi « quand je ferme… », « quand je passe sur… », « quand j’ouvre YouTube dans Chrome… »)",
+  "keys": "automatisation automatique declencher quand ouvre ferme regle"
+ },
+ {
+  "cat": "Raccourcis & mémoire",
+  "say": "Liste mes automatisations",
+  "what": "tes automatisations (« supprime l’automatisation 2 », « mets en pause l’automatisation 1 »)",
+  "keys": "liste automatisations regles supprimer pause"
+ },
+ {
+  "cat": "Applications & fichiers",
+  "say": "Clique sur {texte} dans {app}",
+  "what": "cliquer un bouton dans une application (accord oral sauf applis de confiance ; « quels sont les boutons de… », « remplis le champ … avec … »)",
+  "keys": "cliquer clic bouton appuyer remplir champ saisir confiance"
+ },
+ {
+  "cat": "Raccourcis & mémoire",
+  "say": "Retiens que {texte}",
+  "what": "lui apprendre quelque chose sur toi (traité par l’IA)",
+  "keys": "retenir memoire souviens noter apprendre sais de moi",
+  "context": "ia"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Ouvre la configuration",
+  "what": "la page d’administration (aussi F10)",
+  "keys": "configuration administration reglages parametres jarvis admin"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Prononce {nom} comme {texte}",
+  "what": "corriger la prononciation d’un mot (aussi dans Administration › Voix › Prononciation)",
+  "keys": "prononcer prononciation prononce mal mot dire lire accent nom"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Ferme la card 2",
+  "what": "fermer une card par son numéro (cards temporaires : 100 à 199, « card 2 » = card 102), et l’application qu’elle représente (« cache la card 2 » : la card seule ; « ferme toutes les cards »)",
+  "keys": "fermer card carte widget numero cacher masquer enlever application"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Ouvre la card 2",
+  "what": "afficher l’application d’une card (comme un clic sur la card)",
+  "keys": "ouvrir afficher card carte numero application terminal"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Mode widget",
+  "what": "réduire Jarvis en mini-orbe (« plein écran » pour revenir)",
+  "keys": "widget reduire petit orbe plein ecran mode"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Affiche Marvin",
+  "what": "un personnage 3D prend la place du cœur, réagit à ce que fait Jarvis et parle avec sa propre voix : Marvin, Bobot, le petit robot ou le chat grincheux (« affiche le chat grincheux » ; « cœur classique » pour revenir ; aussi Administration › Général › Interface)",
+  "keys": "personnage robot marvin bobot petit robot chat grincheux coeur apparence avatar mascotte 3d animation voix remplacer orbe classique"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Active le compagnon",
+  "what": "compagnon de bureau (tamagotchi) : le cœur choisi naît d'un œuf et évolue selon l'usage du PC (« désactive le compagnon » pour revenir ; aussi Administration › Général › Interface)",
+  "keys": "compagnon tamagotchi tamagoshi oeuf animal virtuel bureau activer desactiver"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Comment va mon compagnon",
+  "what": "état du compagnon : stade, branche, jour du cycle, faim et humeur (« ouvre le compagnon » ouvre sa card)",
+  "keys": "compagnon etat humeur faim tamagotchi comment va"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Mets le compagnon en veille",
+  "what": "le compagnon dort jusqu'à nouvel ordre (« réveille le compagnon » ; aussi double-clic du bouton du milieu sur le widget)",
+  "keys": "compagnon veille dormir ne pas deranger reveiller focus"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Nouvel œuf",
+  "what": "le compagnon part en voyage (souvenir gardé dans sa card) et laisse un nouvel œuf",
+  "keys": "compagnon nouvel oeuf recommencer reinitialiser tamagotchi"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Sauvegarde mes données",
+  "what": "archive .jarvis de toutes tes données dans le dossier des sauvegardes (sans les mots de passe des connecteurs ; avec, depuis Administration › Mes données)",
+  "keys": "exporte sauvegarde archive copie mes donnees transferer autre pc"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Restaure mes données",
+  "what": "ouvre Administration › Mes données pour choisir l’archive à restaurer (aperçu, mot de passe, code)",
+  "keys": "restaure importe recupere remets mes donnees archive sauvegarde"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Montre mes amis",
+  "what": "card Amis (Jarvis Réseau) : demandes, messages non lus, présence de tes amis, partages",
+  "keys": "amis ami messages messagerie reseau demande d ami famille"
+ },
+ {
+  "cat": "Jarvis",
+  "say": "Dis à {prénom} que {texte}",
+  "what": "message chiffré à un ami Jarvis (aussi « envoie un message à {prénom} : … »)",
+  "keys": "dis a envoie message ecris ami fille famille"
+ },
+ {
+  "cat": "Maison",
+  "say": "Allume la cafetière",
+  "what": "allumer une lampe Hue ou une prise connectée déclarée (Administration › Maison) ; « éteins… » pour l'éteindre",
+  "keys": "allume allumer eteins eteindre prise lampe hue cafetiere maison appareil"
+ },
+ {
+  "cat": "Maison",
+  "say": "Mets le salon à 40 pour cent",
+  "what": "régler la luminosité d'une lampe Hue",
+  "keys": "mets regle luminosite pour cent lampe hue salon"
+ },
+ {
+  "cat": "Traduction",
+  "say": "Traduis où est la gare en espagnol",
+  "what": "traduire une phrase (anglais, espagnol, allemand, italien, portugais, néerlandais, polonais, russe, japonais, chinois, arabe, turc, coréen) et la dire avec la voix de la langue",
+  "keys": "traduis traduire traduction dis comment dit on anglais espagnol allemand italien japonais langue"
+ },
+ {
+  "cat": "Colis",
+  "say": "Suis le colis 6A12345678901 de La Poste",
+  "what": "suivre un colis : Jarvis vérifie la page du transporteur toutes les 3 heures et annonce les changements",
+  "keys": "suis suivre colis suivi numero transporteur poste colissimo chronopost ups dhl"
+ },
+ {
+  "cat": "Colis",
+  "say": "Où en est mon colis",
+  "what": "vérifier maintenant l'état des colis suivis (« mes colis » pour la liste, « arrête de suivre le colis … »)",
+  "keys": "ou en est mon colis statut livraison livre mes colis arrete suivre"
+ },
+ {
+  "cat": "Nomade",
+  "say": "Synchronise le site Nomade",
+  "what": "échanger tout de suite avec le site Nomade : envoyer ce qui a changé, reprendre ce qui a été ajouté sur le téléphone",
+  "keys": "synchronise synchroniser mets a jour site nomade telephone appli"
+ },
+ {
+  "cat": "Nomade",
+  "say": "Qu'est-ce que j'ai déposé ?",
+  "what": "afficher la card Nomade : les notes, rappels et demandes déposés depuis le téléphone (« montre Nomade »)",
+  "keys": "depose depots montre nomade dehors telephone boite"
+ },
+ {
+  "cat": "Voix",
+  "say": "Corrige ta prononciation",
+  "what": "ouvrir la card Diction : les 3 dernières phrases de Jarvis, un mot mal dit se touche, s'écoute et se corrige (« tu as mal prononcé… »)",
+  "keys": "corrige prononciation diction mal prononce prononces mot dit voix"
+ },
+ {
+  "cat": "Agents",
+  "say": "Ouvre mes agents",
+  "what": "ouvrir la card Agents (122) : créer un agent à partir d'une demande libre, lister, modifier, mettre en pause, exécuter ou supprimer tes agents de surveillance",
+  "keys": "ouvre affiche liste mes agents surveillance autonomes card"
+ },
+ {
+  "cat": "Agents",
+  "say": "Crée un agent qui {texte}",
+  "what": "créer un agent de surveillance permanente et d'action IA (Gemini 3.8 Flash min. ou Claude Haiku) à partir d'une phrase libre (mails, performances PC CPU/RAM/GPU, programme TV/sport…)",
+  "keys": "cree creer nouvel agent surveille mails pc cpu ram gpu rugby top 14"
+ },
+ {
+  "cat": "Agents",
+  "say": "Lance l'agent {nom}",
+  "what": "exécuter immédiatement un agent par son nom ou par ses mots-clés configurés (« donne-moi les matchs du Top 14 »)",
+  "keys": "lance execute demarre agent rapport maintenant"
+ }
+]

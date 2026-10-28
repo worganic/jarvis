@@ -1,0 +1,168 @@
+[
+ {
+  "name": "mail_derniers",
+  "description": "Récupère la liste des derniers emails NON LUS reçus dans Gmail (expéditeur, objet, date). Par défaut, seuls les mails non lus sont listés ; ne passer tous=true que si l'utilisateur demande explicitement les mails lus aussi. Action en lecture seule.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "limite": {
+     "type": "number",
+     "description": "nombre d'emails à récupérer (5 par défaut)"
+    },
+    "tous": {
+     "type": "boolean",
+     "description": "true = inclure les mails déjà lus (uniquement sur demande explicite de l'utilisateur ; false par défaut)"
+    }
+   }
+  }
+ },
+ {
+  "name": "mail_chercher",
+  "description": "Recherche des emails par mots-clés, expéditeur ou objet dans Gmail. Action en lecture seule.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "requete": {
+     "type": "string",
+     "description": "mots-clés ou nom de l'expéditeur"
+    },
+    "limite": {
+     "type": "number",
+     "description": "nombre maximum de résultats (5 par défaut)"
+    }
+   },
+   "required": [
+    "requete"
+   ]
+  }
+ },
+ {
+  "name": "mail_lire",
+  "description": "Lit le contenu complet d'un email Gmail (expéditeur, destinataires, objet, date, texte, pièces jointes) à partir de son uid, donné par mail_derniers ou mail_chercher. Lecture seule : le mail n'est pas marqué comme lu.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "uid": {
+     "type": "number",
+     "description": "uid du mail (champ uid des résultats de mail_derniers / mail_chercher)"
+    }
+   },
+   "required": [
+    "uid"
+   ]
+  }
+ },
+ {
+  "name": "mail_envoyer",
+  "description": "Envoie un email via Gmail. Action sensible nécessitant impérativement un code de validation de l'utilisateur.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "destinataire": {
+     "type": "string",
+     "description": "adresse email du destinataire"
+    },
+    "objet": {
+     "type": "string",
+     "description": "sujet de l'email"
+    },
+    "corps": {
+     "type": "string",
+     "description": "texte du message"
+    }
+   },
+   "required": [
+    "destinataire",
+    "objet",
+    "corps"
+   ]
+  }
+ },
+ {
+  "name": "agenda_jour",
+  "description": "Consulte les rendez-vous et événements du jour (ou d'une date choisie). Action en lecture seule.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "date": {
+     "type": "string",
+     "description": "date au format AAAA-MM-JJ (aujourd'hui si omis)"
+    }
+   }
+  }
+ },
+ {
+  "name": "agenda_semaine",
+  "description": "Consulte les rendez-vous et événements prévus pour les 7 prochains jours. Action en lecture seule.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "agenda_creer",
+  "description": "Ajoute un rendez-vous ou événement à l'agenda. Action sensible nécessitant un code de validation de l'utilisateur.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "titre": {
+     "type": "string",
+     "description": "titre ou nom du rendez-vous"
+    },
+    "date": {
+     "type": "string",
+     "description": "date au format AAAA-MM-JJ"
+    },
+    "heure": {
+     "type": "string",
+     "description": "heure au format HH:MM (ex: 14:30)"
+    },
+    "duree_minutes": {
+     "type": "number",
+     "description": "durée en minutes (60 par défaut)"
+    },
+    "lieu": {
+     "type": "string",
+     "description": "lieu éventuel"
+    },
+    "description": {
+     "type": "string",
+     "description": "description ou détails"
+    }
+   },
+   "required": [
+    "titre",
+    "date"
+   ]
+  }
+ },
+ {
+  "name": "google_statut",
+  "description": "Vérifie si le compte Google (Gmail / Agenda) est configuré et connecté.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {}
+  }
+ },
+ {
+  "name": "google_configurer",
+  "description": "Configure l'accès au compte Google (adresse email et mot de passe d'application). Action sensible nécessitant un code.",
+  "inputSchema": {
+   "type": "object",
+   "properties": {
+    "email": {
+     "type": "string",
+     "description": "adresse Gmail complète"
+    },
+    "mot_de_passe_application": {
+     "type": "string",
+     "description": "mot de passe d'application Google (16 caractères généré sur myaccount.google.com)"
+    }
+   },
+   "required": [
+    "email",
+    "mot_de_passe_application"
+   ]
+  }
+ }
+]

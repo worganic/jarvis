@@ -1,0 +1,10 @@
+{
+  "id": "checkup",
+  "nom": "Checkup",
+  "version": "1.0.0",
+  "description": "Bilan des fonctions vitales de Jarvis, avec le cœur passé au scanner holographique 3D (« Jarvis, checkup »).",
+  "widgets": ["tool.checkup"],
+  "ui": { "es": ["ui/checkup-3d.js"], "scripts": ["ui/checkup.js"], "styles": ["ui/checkup.css"] },
+  "actions": [{ "ico": "♥", "titre": "Checkup", "sous": "Fonctions vitales de Jarvis", "appel": ["checkup"], "emplacement": "tool:Checkup" }],
+  "parDefaut": true
+}

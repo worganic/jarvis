@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1118">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Jarvis Nomade</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <section id="login" class="login" hidden>
+      <form id="login-form" class="login-box" autocomplete="on">
+        <div class="brand"><span class="dot"></span>JARVIS <small>nomade</small></div>
+        <label>Identifiant<input name="login" autocomplete="username" required></label>
+        <label>Mot de passe<input name="password" type="password" autocomplete="current-password" required></label>
+        <p class="hint">La connexion reste mémorisée 90 jours sur cet appareil.</p>
+        <button type="submit">Se connecter</button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="invite" class="login" hidden>
+      <form id="invite-form" class="login-box" autocomplete="on">
+        <div class="brand"><span class="dot"></span>JARVIS <small>nomade</small></div>
+        <p id="invite-hello" class="hint"></p>
+        <label>Identifiant<input name="login" autocomplete="username" readonly></label>
+        <label>Choisis ton mot de passe<input name="password" type="password" autocomplete="new-password" minlength="10" required></label>
+        <label>Confirme le mot de passe<input name="confirm" type="password" autocomplete="new-password" minlength="10" required></label>
+        <p class="hint">10 caractères au moins. Il est enregistré chiffré ; la connexion reste mémorisée 90 jours sur cet appareil.</p>
+        <button type="submit">Créer mon accès</button>
+        <p id="invite-error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="main" class="main" hidden>
+      <header class="top">
+        <div class="brand"><span class="dot" id="jarvis-dot"></span>JARVIS <small>nomade</small></div>
+        <div id="jarvis-state" class="state"></div>
+        <button id="btn-account" class="icon" title="Compte" aria-label="Compte">⚙</button>
+      </header>
+      <nav id="tabs" class="tabs" aria-label="Données"></nav>
+      <div id="offline" class="offline" hidden>Hors ligne : dernière copie enregistrée.</div>
+      <main id="view" class="view"></main>
+    </section>
+  </div>
+
+  <dialog id="sheet" class="sheet"><div id="sheet-body"></div></dialog>
+  <script src="app.js"></script>
+</body>
+</html>

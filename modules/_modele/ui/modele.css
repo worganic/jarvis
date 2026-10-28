@@ -1,0 +1,4 @@
+/* Module modèle : styles propres à la card (préfixés par l'id du module pour ne rien toucher d'autre). */
+#mod-modele { position: fixed; left: 40%; top: 30%; z-index: 7; width: calc(220px * var(--ui)); }
+#mod-modele .mod-body { padding: calc(8px * var(--ui)) 0; font-size: calc(11px * var(--ui)); color: rgba(200, 235, 245, 0.85); }
+#mod-modele.mod-collapsed .mod-body { display: none; }

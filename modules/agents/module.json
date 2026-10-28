@@ -1,0 +1,10 @@
+{
+  "id": "agents",
+  "nom": "Agents",
+  "version": "1.0.0",
+  "description": "Agents autonomes créés à partir d'une demande texte ou vocale : surveillance continue (mails, matériel CPU/RAM/GPU, horaires, web) et exécution IA (Gemini 3.8 Flash / Claude Haiku).",
+  "card": { "type": 2, "numero": 122, "titre": "AGENTS" },
+  "ui": { "scripts": ["ui/agents.js"], "styles": ["ui/agents.css"] },
+  "actions": [{ "ico": "◈", "titre": "Agents", "sous": "Surveillance continue & actions IA", "appel": ["agents", "ouvrir"], "emplacement": "agents" }],
+  "parDefaut": true
+}

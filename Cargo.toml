@@ -1,0 +1,115 @@
+[workspace]
+resolver = "2"
+exclude = ["crates/vendor"]
+members = [
+  "crates/jarvis-core",
+  "crates/jarvis-voice",
+  "crates/jarvis-native",
+  "crates/jarvis-shell",
+  "crates/jarvis-launcher",
+  "crates/jarvis-app",
+  "crates/jarvis-modules",
+  # Partie noyau des modules (modules/<id>/core)
+  "modules/*/core",
+]
+
+[workspace.package]
+version = "4.103.0"
+edition = "2021"
+authors = ["Johann Loreau"]
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+# preserve_order : l'ordre des clés compte (journal scellé : l'empreinte porte sur le JSON écrit).
+serde_json = { version = "1", features = ["preserve_order"] }
+tokio = { version = "1", features = ["rt", "macros", "process", "net", "time", "io-util", "io-std", "fs", "sync", "signal"] }
+regex = "1"
+fancy-regex = "0.14"
+unicode-normalization = "0.1"
+sha2 = "0.10"
+hex = "0.4"
+rand = "0.8"
+base64 = "0.22"
+chrono = { version = "0.4", features = ["clock"] }
+futures-util = "0.3"
+tokio-tungstenite = "0.27"
+hyper = { version = "1", features = ["server", "http1"] }
+hyper-util = { version = "0.1", features = ["tokio"] }
+http-body-util = "0.1"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "stream"] }
+notify = "8"
+anyhow = "1"
+getrandom = "0.2"
+jarvis-native = { path = "crates/jarvis-native" }
+windows = { version = "0.61", features = [
+  "Win32_Foundation",
+  "Win32_Graphics_Dwm",
+  "Win32_Graphics_Gdi",
+  "Win32_Media_Audio",
+  "Win32_Media_Audio_Endpoints",
+  "Win32_Devices_FunctionDiscovery",
+  "Win32_Security",
+  "Win32_Security_Cryptography",
+  "Win32_Storage_FileSystem",
+  "Win32_Storage_Xps",
+  "Win32_System_Com",
+  "Win32_System_Console",
+  "Win32_System_Com_StructuredStorage",
+  "Win32_System_DataExchange",
+  "Win32_System_Diagnostics_ToolHelp",
+  "Win32_System_JobObjects",
+  "Win32_System_Memory",
+  "Win32_System_ProcessStatus",
+  "Win32_System_Registry",
+  "Win32_System_SystemInformation",
+  "Win32_System_Threading",
+  "Win32_System_Variant",
+  "Win32_System_Ole",
+  "Win32_UI_Accessibility",
+  "Win32_UI_HiDpi",
+  "Win32_UI_Input_KeyboardAndMouse",
+  "Win32_UI_Shell",
+  "Win32_UI_Shell_PropertiesSystem",
+  "Win32_UI_WindowsAndMessaging",
+  "Win32_Devices_Properties",
+  "Win32_System_Power",
+  "Win32_System_Shutdown",
+  "Win32_Graphics_Imaging",
+  "Win32_System_RemoteDesktop",
+  "Win32_System_StationsAndDesktops",
+  "Win32_System_WinRT",
+  "Wdk_System_Threading",
+  "Foundation",
+  "Foundation_Collections",
+  "Globalization",
+  "Graphics_Imaging",
+  "Media_Ocr",
+  "Media_Control",
+  "Storage",
+  "Storage_Streams",
+] }
+
+# Tests et vérifications : seuls les numéros de ligne sont gardés (une bibliothèque jarvis-core passait
+# de ~1,1 Go à une fraction de cette taille), aucune information de débogage pour les dépendances.
+[profile.dev]
+debug = "line-tables-only"
+
+[profile.dev.package."*"]
+debug = false
+
+[profile.release]
+opt-level = 3
+# Relances fréquentes (Jarvis se recompile à chaque modification) : pas de LTO, davantage d'unités de
+# compilation en parallèle et compilation incrémentale. Même niveau d'optimisation du code.
+lto = false
+codegen-units = 16
+incremental = true
+strip = true
+
+# La coquille reste légère : elle ne fait que tenir des fenêtres.
+[profile.release.package.jarvis-shell]
+opt-level = "s"
+
+# sherpa-rs-sys avec liaisons pré-générées (src/bindings.rs) : la compilation n'a pas besoin de libclang.
+[patch.crates-io]
+sherpa-rs-sys = { path = "crates/vendor/sherpa-rs-sys" }

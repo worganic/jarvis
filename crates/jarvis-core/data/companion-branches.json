@@ -1,0 +1,9 @@
+{
+  "_": "Compagnon de bureau : application au premier plan (nom du processus, sans l'extension) → branche d'évolution. Motifs testés dans l'ordre, sans tenir compte de la casse ; le premier qui correspond gagne. Jarvis lui-même ne compte pas.",
+  "branches": [
+    { "branch": "gamer", "pattern": "^(steam|steamwebhelper|epicgameslauncher|battle\\.net|riotclient.*|valorant.*|league.*|minecraft.*|javaw|cs2|overwatch|gta5|cyberpunk2077|fortnite.*|rocketleague|eldenring|bg3.*|ubisoftconnect|eadesktop|gog.*|xboxpcapp|discord|playnite.*)$" },
+    { "branch": "artiste", "pattern": "^(photoshop|illustrator|afterfx|adobe premiere pro|premiere.*|lightroom.*|indesign|blender|figma|krita|gimp.*|inkscape|clipstudiopaint|affinity.*|davinci.*|resolve|audition|ableton.*|flstudio.*|fl64|reaper|cinema 4d|maya|3dsmax|zbrush|substance.*|canva|procreate|paint\\.net|freecad)$" },
+    { "branch": "dev", "pattern": "^(code|code - insiders|cursor|windsurf|devenv|rider.*|idea.*|pycharm.*|webstorm.*|clion.*|goland.*|android studio|studio64|sublime_text|notepad\\+\\+|vim|nvim|windowsterminal|wt|pwsh|powershell|cmd|bash|mintty|wezterm.*|alacritty|claude|git-bash|gitkraken|postman|dbeaver|ssms|winword|excel|powerpnt|onenote|outlook|notion|obsidian|teams|ms-teams|acrord32|acrobat|sumatrapdf|libreoffice.*|soffice.*|zotero)$" },
+    { "branch": "chill", "pattern": "^(spotify|vlc|mpc-hc.*|potplayer.*|netflix|disney.*|primevideo|itunes|applemusic|deezer|plex.*|kodi|stremio|chrome|msedge|firefox|brave|opera|vivaldi|arc)$" }
+  ]
+}

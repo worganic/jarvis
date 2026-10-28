@@ -1,0 +1,10 @@
+{
+  "id": "terminal",
+  "nom": "Terminal",
+  "version": "1.0.0",
+  "description": "Card des terminaux et agents ouverts par Jarvis (Claude Code, tmux…) : une ligne par agent, dictée dans le terminal, actions.",
+  "card": { "type": 2, "numero": 101, "titre": "TERMINAL", "emplacement": "tool:Terminal" },
+  "widgets": ["tool.terminal"],
+  "ui": { "scripts": ["ui/terminal.js"], "styles": ["ui/terminal.css"] },
+  "parDefaut": true
+}

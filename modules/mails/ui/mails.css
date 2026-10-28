@@ -1,0 +1,29 @@
+/* Card de lecture d'un mail (orchestrator/mails.js). */
+.widget.w-mailview { cursor: default; }
+.w-mailview .w-head { cursor: grab; }
+.w-mailview .w-title.w-mail-subject { text-transform: none; letter-spacing: 0.3px; font-size: calc(12px * var(--ui)); }
+.w-mail-meta { margin: calc(-2px * var(--ui)) 0 calc(8px * var(--ui)); display: grid; gap: calc(2px * var(--ui)); }
+.w-mail-line { display: flex; gap: calc(8px * var(--ui)); font-size: calc(10px * var(--ui)); min-width: 0; }
+.w-mail-label { flex: none; width: calc(34px * var(--ui)); color: rgba(var(--w-rgb), 0.7); letter-spacing: 1px; text-transform: uppercase; font-size: calc(8.5px * var(--ui)); padding-top: 1px; }
+.w-mail-value { color: rgba(220, 245, 255, 0.85); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; user-select: text; }
+.w-mail-attach { display: flex; flex-wrap: wrap; gap: calc(6px * var(--ui)); margin-bottom: calc(8px * var(--ui)); }
+.w-mail-file {
+  font-size: calc(9.5px * var(--ui)); color: #d8f6ff;
+  border: 1px solid rgba(var(--w-rgb), 0.3); background: rgba(var(--w-rgb), 0.06);
+  border-radius: calc(5px * var(--ui)); padding: calc(3px * var(--ui)) calc(7px * var(--ui));
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.w-mail-body {
+  max-height: 52vh; min-height: calc(80px * var(--ui));
+  overflow: auto;
+  background: rgba(0, 8, 14, 0.7);
+  border: 1px solid rgba(var(--w-rgb), 0.25);
+  border-radius: calc(6px * var(--ui));
+  padding: calc(9px * var(--ui)) calc(11px * var(--ui));
+  color: #e4f8ff;
+  font: calc(11.5px * var(--ui))/1.55 'Segoe UI', sans-serif;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: text;
+  cursor: text;
+}

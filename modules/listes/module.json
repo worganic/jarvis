@@ -1,0 +1,11 @@
+{
+  "id": "listes",
+  "nom": "Listes à fiches",
+  "version": "1.0.0",
+  "description": "Listes à fiches (vinyles, Lego, livres…) : mini-cards, fiche complète, création guidée et vue « Mes listes ».",
+  "card": { "type": 2, "numero": 106, "titre": "MES LISTES", "emplacement": "tool:Mes listes" },
+  "widgets": ["tool.collection"],
+  "ui": { "scripts": ["ui/listes.js"], "styles": ["ui/listes.css"] },
+  "actions": [{ "ico": "▤", "titre": "Listes", "sous": "Mes listes à fiches et à cocher", "dire": "Quelles sont mes listes ?" }],
+  "parDefaut": true
+}
