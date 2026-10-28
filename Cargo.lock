@@ -3065,7 +3065,7 @@ checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
 
 [[package]]
 name = "jarvis-app"
-version = "4.103.0"
+version = "4.103.1"
 dependencies = [
  "jarvis-core",
  "jarvis-modules",
@@ -3073,7 +3073,7 @@ dependencies = [
 
 [[package]]
 name = "jarvis-core"
-version = "4.103.0"
+version = "4.103.1"
 dependencies = [
  "anyhow",
  "argon2",
@@ -3117,7 +3117,7 @@ dependencies = [
 
 [[package]]
 name = "jarvis-launcher"
-version = "4.103.0"
+version = "4.103.1"
 dependencies = [
  "embed-resource",
  "windows 0.61.3",
@@ -3136,7 +3136,7 @@ dependencies = [
 
 [[package]]
 name = "jarvis-modules"
-version = "4.103.0"
+version = "4.103.1"
 dependencies = [
  "jarvis-core",
  "jarvis-mod-audio",
@@ -3145,7 +3145,7 @@ dependencies = [
 
 [[package]]
 name = "jarvis-native"
-version = "4.103.0"
+version = "4.103.1"
 dependencies = [
  "base64 0.22.1",
  "image",
@@ -3158,7 +3158,7 @@ dependencies = [
 
 [[package]]
 name = "jarvis-shell"
-version = "4.103.0"
+version = "4.103.1"
 dependencies = [
  "getrandom 0.2.17",
  "serde",
@@ -3173,7 +3173,7 @@ dependencies = [
 
 [[package]]
 name = "jarvis-voice"
-version = "4.103.0"
+version = "4.103.1"
 dependencies = [
  "chrono",
  "cpal",

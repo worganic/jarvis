@@ -36,3 +36,5 @@ web-nomade/private/config.php
 
 # Ancien emplacement des données, conservé après leur recopie dans %LOCALAPPDATA%\Jarvis\donnees (4.100)
 /data.migre-*/
+
+*.stackdump

@@ -16,3 +16,6 @@ web-nomade/deploy.ps1
 # Outils du développeur
 tools/publier.ps1
 web-reseau/deploy.ps1
+
+# Traces de plantage d'outils
+*.stackdump

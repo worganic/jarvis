@@ -1,0 +1,18 @@
+{
+  "depot": "worganic/jarvis",
+  "version": "modeles-1",
+  "paquets": [
+    {
+      "fichier": "modeles-1-01.zip",
+      "octets": 1787040025,
+      "sha256": "afed4bce0d52908fd8cff1cb8e420568c706ec1d0d20413609894886877685a4",
+      "module": null
+    },
+    {
+      "fichier": "modeles-1-02.zip",
+      "octets": 1862642850,
+      "sha256": "32a94d04481cf27a7887701074afce4f4ab57cce954c17fe1cfac1181a3bb27c",
+      "module": null
+    }
+  ]
+}

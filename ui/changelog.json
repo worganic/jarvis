@@ -13,6 +13,17 @@
   },
   "versions": [
     {
+      "version": "4.103.1",
+      "date": "2026-10-28",
+      "title": "Installation : modèles vocaux téléchargeables",
+      "changes": [
+        {
+          "theme": "maj",
+          "text": "Les modèles vocaux (Whisper, VAD, mot d'éveil, empreinte vocale, voix locale ; 3,4 Go en deux paquets) sont publiés avec les versions de Jarvis : installer.ps1 les télécharge, vérifie leur empreinte et les installe. Le dépôt de diffusion n'embarque plus de traces de plantage d'outils."
+        }
+      ]
+    },
+    {
       "version": "4.103.0",
       "date": "2026-10-28",
       "title": "Amis entre Jarvis : demandes, messages, présence et partages",
